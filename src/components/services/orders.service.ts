@@ -1,0 +1,91 @@
+import { api } from "../config/axios";
+import type {
+  CreatePedidoResponse,
+  GetOrdersResponse,
+  Order,
+} from "../types/types";
+
+export async function getAllOrders(
+  filter: string,
+  page?: number,
+  limit?: number
+): Promise<GetOrdersResponse> {
+  try {
+    const { data } = await api.get<GetOrdersResponse>(
+      `/orders?filter=${filter}&page=${page}&limit=${limit}`
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+    return {
+      data: [],
+      pagination: { currentPage: 0, totalItems: 0, totalPages: 0 },
+    };
+  }
+}
+
+export async function getOrderDetail(id: number): Promise<Order> {
+  try {
+    const { data } = await api.get<Order>(`/orders/${id}`);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("No se pudo obtener el detalle del pedido");
+  }
+}
+
+export async function updateOrder(
+  id: number,
+  dataUpdated: Partial<Order>
+): Promise<Order> {
+  try {
+    const { data } = await api.put<Order>(`/orders/${id}`, dataUpdated);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("No se pudo actualizar el pedido");
+  }
+}
+
+export async function payOrderDate(id: number, date: string) {
+  try {
+    const { data } = await api.patch(`/orders/pay/date/${id}`, { date });
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error al realizar el pago del pedido");
+  }
+}
+
+export async function createOrder(order: CreatePedidoResponse) {
+  try {
+    const { data } = await api.post<CreatePedidoResponse>("/orders", order);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("No se pudo crear el pedido");
+  }
+}
+
+export async function deleteOrder(orderId: number) {
+  try {
+    const { data } = await api.delete(`/orders/${orderId}`);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function removeProductFromOrder(
+  orderId: number,
+  productId: number
+) {
+  try {
+    const { data } = await api.delete(
+      `/orders/${orderId}/product/${productId}`
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
