@@ -6,6 +6,7 @@ import { modalStore } from "../store/modalStore";
 import { orderStore } from "../store/orderStore";
 import { useDeleteOrder } from "../hooks/useOrder";
 import { renderEstado } from "../utils/utils";
+import { Spinner } from "./widget/Spinner";
 
 const headers = [
   { label: "ID", key: "id" },
@@ -18,8 +19,10 @@ const headers = [
 
 export function OrdersTable({
   filteredTrips,
+  isFetching,
 }: {
   filteredTrips: Order[] | undefined;
+  isFetching: boolean;
 }) {
   const { setOrderSelected } = orderStore();
   const { setIsOpen } = modalStore();
@@ -75,6 +78,7 @@ export function OrdersTable({
           </tr>
         )}
       />
+      {isFetching && <Spinner text="Cargando pedidos..." size={25} />}
     </div>
   );
 }
