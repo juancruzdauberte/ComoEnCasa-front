@@ -16,7 +16,7 @@ export const OrderList = () => {
     if (user?.rol === "user") setFilter("hoy");
   }, [user, setFilter]);
 
-  const { data: orders, isFetching } = useOrders();
+  const { data: orders, isLoading } = useOrders();
   console.log(orders);
   const noOrders = orders?.data.length === 0;
 
@@ -27,7 +27,7 @@ export const OrderList = () => {
       {!isUser && (
         <section>
           <Filter filter={filter} setFilter={setFilter} />
-          <OrdersTable filteredTrips={orders?.data} isFetching={isFetching} />
+          <OrdersTable filteredTrips={orders?.data} isFetching={isLoading} />
           {!noOrders && <Pagination setPage={setPage} page={page} />}
         </section>
       )}

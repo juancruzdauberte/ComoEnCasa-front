@@ -35,12 +35,17 @@ export function OrdersTable({
       order(id);
     }
   };
+
+  const messageNoData =
+    !isFetching && (!filteredTrips || filteredTrips.length === 0)
+      ? "No se encontraron pedidos"
+      : undefined;
   return (
     <div>
       <Table
         headers={headers}
-        data={filteredTrips || []}
-        noDataMessage="No se encontraron pedidos"
+        data={isFetching ? [] : filteredTrips || []}
+        noDataMessage={messageNoData}
         renderRow={(order) => (
           <tr key={order.id} className="capitalize border-b border-gray-200">
             <td className="p-2">{order.id}</td>
@@ -51,14 +56,14 @@ export function OrdersTable({
             <td className="p-2">
               {new Date(order.fecha_pedido).toLocaleDateString("es-AR")}
             </td>
-            <td className={`p-2 font-bold capitalize `}>
+            <td className="p-2 font-bold capitalize">
               <span className="capitalize font-semibold">
                 {renderEstado(order.estado)}
               </span>
             </td>
             <td className="flex items-center p-2">
               <button
-                className="text-blue-600 border-none rounded cursor-pointer hover:text-blue-400"
+                className="text-blue-600 hover:text-blue-400"
                 onClick={() => {
                   setOrderSelected(order.id);
                   setIsOpen(true);
@@ -68,7 +73,7 @@ export function OrdersTable({
                 <IoIosInformationCircleOutline size={30} />
               </button>
               <button
-                className="text-red-600 border-none rounded cursor-pointer hover:text-red-400"
+                className="text-red-600 hover:text-red-400"
                 onClick={() => handleDelete(order.id)}
                 title="Eliminar"
               >
@@ -78,7 +83,11 @@ export function OrdersTable({
           </tr>
         )}
       />
-      {isFetching && <Spinner text="Cargando pedidos..." size={25} />}
+      {isFetching && (
+        <div className="flex justify-center mt-4">
+          <Spinner text="Cargando pedidos..." size={25} />
+        </div>
+      )}
     </div>
   );
 }

@@ -9,7 +9,7 @@ type Props<T> = {
   headers: Header[];
   data: T[];
   renderRow: (item: T) => React.ReactNode;
-  noDataMessage?: string;
+  noDataMessage?: string | boolean;
 };
 
 export function Table<T>({
