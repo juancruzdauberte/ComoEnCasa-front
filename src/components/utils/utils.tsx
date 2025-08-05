@@ -90,7 +90,7 @@ export const renderUserOrders = (orders: GetOrdersResponse) => (
   </section>
 );
 
-const renderProductos = (productos: Producto[]) => {
+export const renderProductos = (productos: Producto[]) => {
   const productosPorCategoria = agruparPorCategoriaProductos(productos);
 
   return Object.entries(productosPorCategoria!).map(
