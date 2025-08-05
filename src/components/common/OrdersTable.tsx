@@ -41,7 +41,9 @@ export function OrdersTable({
         renderRow={(order) => (
           <tr key={order.id} className="capitalize border-b border-gray-200">
             <td className="p-2">{order.id}</td>
-            <td className="p-2">{order.apellido_cliente}</td>
+            <td className="p-2">
+              {order.nombre_cliente} {order.apellido_cliente}
+            </td>
             <td className="p-2">{order.domicilio}</td>
             <td className="p-2">
               {new Date(order.fecha_pedido).toLocaleDateString("es-AR")}

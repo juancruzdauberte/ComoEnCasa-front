@@ -3,12 +3,13 @@ import { CgClose } from "react-icons/cg";
 import { modalStore } from "../store/modalStore";
 import { useCategorys, useProductsByCategory } from "../hooks/useProduct";
 import { useForm } from "@tanstack/react-form";
-import type { CreateOrderResponse } from "../types/types";
+import type { CreateUpdateOrderResponse } from "../types/types";
 import { agruparProductosPorCategoria } from "../utils/utils";
+import { useCreateOrderMutation } from "../hooks/useOrder";
 
 export const CreateOrderModal = () => {
   const { setIsCreateOpen } = modalStore();
-
+  const { createOrderMutate } = useCreateOrderMutation();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   const { data: categories } = useCategorys();
@@ -20,19 +21,36 @@ export const CreateOrderModal = () => {
       observacion: "",
       hora_entrega: "",
       domicilio: "",
+      estado: "preparando",
       productos: [] as { producto_id: number; cantidad: number }[],
       monto: 0,
       nombre_cliente: "",
-      metodo_pago: "efectivo",
+      metodo_pago: "",
       apellido_cliente: "",
       telefono_cliente: "",
-    } as CreateOrderResponse,
+    } as CreateUpdateOrderResponse,
+    onSubmit: ({ value, formApi }) => {
+      const order = {
+        observacion: value.observacion,
+        hora_entrega: value.hora_entrega,
+        metodo_pago: value.metodo_pago,
+        monto: value.monto,
+        estado: value.estado,
+        domicilio: value.domicilio,
+        productos: value.productos,
+        apellido_cliente: value.apellido_cliente,
+        nombre_cliente: value.nombre_cliente,
+        telefono_cliente: value.telefono_cliente,
+      };
+      createOrderMutate(order);
+      formApi.reset();
+    },
   });
 
   // Función para agrupar productos seleccionados por categoría
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg w-full max-w-5xl p-6 relative animate-fadeIn text-black">
+    <div className="bg-white rounded-2xl shadow-lg w-full max-w-6xl p-6 relative animate-fadeIn text-black">
       <button
         onClick={() => setIsCreateOpen(false)}
         className="absolute top-4 right-5 text-black transition hover:text-slate-600"
@@ -47,38 +65,153 @@ export const CreateOrderModal = () => {
             e.preventDefault();
             form.handleSubmit();
           }}
-          noValidate
         >
-          {/* Nombre del cliente */}
-          <form.Field name="nombre_cliente">
-            {(field) => (
-              <div className="mb-4">
-                <label
-                  htmlFor="nombre_cliente"
-                  className="block font-semibold mb-1"
-                >
-                  Nombre del cliente
-                </label>
-                <input
-                  id="nombre_cliente"
-                  type="text"
-                  value={field.state.value}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  className="border p-2 w-full rounded"
-                  required
-                />
-              </div>
-            )}
-          </form.Field>
+          <div className="flex flex-wrap gap-5">
+            <form.Field name="nombre_cliente">
+              {(field) => (
+                <div className="mb-4">
+                  <label
+                    htmlFor="nombre_cliente"
+                    className="block font-semibold mb-1"
+                  >
+                    Nombre:
+                  </label>
+                  <input
+                    id="nombre_cliente"
+                    type="text"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    className="border p-2  rounded"
+                    required
+                  />
+                </div>
+              )}
+            </form.Field>
 
-          {/* Select para elegir categoría */}
+            <form.Field name="apellido_cliente">
+              {(field) => (
+                <div className="mb-4">
+                  <label className="block font-semibold mb-1">Apellido:</label>
+                  <input
+                    type="text"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    className="border p-2  rounded"
+                    required
+                  />
+                </div>
+              )}
+            </form.Field>
+
+            <form.Field name="telefono_cliente">
+              {(field) => (
+                <div className="mb-4">
+                  <label className="block font-semibold mb-1">Teléfono:</label>
+                  <input
+                    type="text"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    className="border p-2  rounded"
+                    required
+                  />
+                </div>
+              )}
+            </form.Field>
+
+            <form.Field name="domicilio">
+              {(field) => (
+                <div className="mb-4">
+                  <label className="block font-semibold mb-1">Domicilio:</label>
+                  <input
+                    type="text"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    className="border p-2  rounded"
+                    required
+                  />
+                </div>
+              )}
+            </form.Field>
+
+            <form.Field name="monto">
+              {(field) => (
+                <div className="mb-4">
+                  <label className="block font-semibold mb-1">Monto:</label>
+                  <input
+                    type="text"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(Number(e.target.value))}
+                    className="border p-2  rounded"
+                    required
+                  />
+                </div>
+              )}
+            </form.Field>
+
+            <form.Field name="metodo_pago">
+              {(field) => (
+                <div className="mb-4">
+                  <label className="block font-semibold mb-1">
+                    Método pago:
+                  </label>
+                  <select
+                    value={field.state.value}
+                    onChange={(e) =>
+                      field.setValue(
+                        e.target.value as "efectivo" | "transferencia" | ""
+                      )
+                    }
+                    className="border p-2  rounded"
+                  >
+                    <option value="">Seleccionar</option>
+                    <option value="transferencia">Transferencia</option>
+                    <option value="efectivo">Efectivo</option>
+                  </select>
+                </div>
+              )}
+            </form.Field>
+
+            <form.Field name="hora_entrega">
+              {(field) => (
+                <div className="mb-4">
+                  <label className="block font-semibold mb-1">
+                    Hora entrega:
+                  </label>
+                  <input
+                    type="time"
+                    value={field.state.value ?? ""}
+                    onChange={(e) => field.handleChange(e.target.value || null)}
+                    className="border p-2  rounded"
+                    required
+                  />
+                </div>
+              )}
+            </form.Field>
+
+            <form.Field name="observacion">
+              {(field) => (
+                <div className="mb-4">
+                  <label className="block font-semibold mb-1">
+                    Observación:
+                  </label>
+                  <textarea
+                    value={field.state.value ?? ""}
+                    onChange={(e) => field.handleChange(e.target.value || null)}
+                    className="border p-2 rounded w-96"
+                    required
+                  />
+                </div>
+              )}
+            </form.Field>
+          </div>
+
           <div className="mb-4">
             <label htmlFor="categoria" className="block font-semibold mb-1">
               Categoría
             </label>
             <select
               id="categoria"
-              className="border p-2 w-full rounded"
+              className="border p-2  rounded"
               value={selectedCategory ?? ""}
               onChange={(e) => {
                 const catId = e.target.value ? Number(e.target.value) : null;
@@ -94,7 +227,6 @@ export const CreateOrderModal = () => {
             </select>
           </div>
 
-          {/* Campo productos: select productos + lista productos seleccionados agrupados */}
           <form.Field name="productos">
             {(field) => {
               const productosSeleccionados = field.state.value || [];
@@ -140,15 +272,14 @@ export const CreateOrderModal = () => {
 
               return (
                 <div className="space-y-4">
-                  {/* Select para productos según categoría */}
                   <div>
                     <label className="font-semibold">Productos</label>
                     <select
-                      className="border p-2 rounded ml-2 w-full"
+                      className="border p-2 rounded ml-2 "
                       onChange={(e) => {
                         const productoId = Number(e.target.value);
                         if (productoId) agregarProducto(productoId);
-                        e.currentTarget.value = ""; // reset select
+                        e.currentTarget.value = "";
                       }}
                       defaultValue=""
                     >
@@ -161,11 +292,8 @@ export const CreateOrderModal = () => {
                     </select>
                   </div>
 
-                  {/* Lista agrupada de productos seleccionados por categoría */}
                   <div className="mt-4">
-                    <h4 className="font-bold mb-2">
-                      Productos seleccionados por categoría:
-                    </h4>
+                    <h4 className="font-bold mb-2">Productos seleccionados:</h4>
 
                     {Object.entries(productosAgrupados).length === 0 && (
                       <p className="text-gray-600">
@@ -212,8 +340,6 @@ export const CreateOrderModal = () => {
               );
             }}
           </form.Field>
-
-          {/* Aquí podés agregar más campos del formulario según necesidad */}
 
           <button
             type="submit"

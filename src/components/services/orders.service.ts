@@ -1,6 +1,6 @@
 import { api } from "../config/axios";
 import type {
-  CreatePedidoResponse,
+  CreateUpdateOrderResponse,
   GetOrdersResponse,
   Order,
 } from "../types/types";
@@ -36,8 +36,8 @@ export async function getOrderDetail(id: number): Promise<Order> {
 
 export async function updateOrder(
   id: number,
-  dataUpdated: Partial<Order>
-): Promise<Order> {
+  dataUpdated: CreateUpdateOrderResponse
+) {
   try {
     const { data } = await api.put<Order>(`/orders/${id}`, dataUpdated);
     return data;
@@ -57,9 +57,12 @@ export async function payOrderDate(id: number, date: string) {
   }
 }
 
-export async function createOrder(order: CreatePedidoResponse) {
+export async function createOrder(order: CreateUpdateOrderResponse) {
   try {
-    const { data } = await api.post<CreatePedidoResponse>("/orders", order);
+    const { data } = await api.post<CreateUpdateOrderResponse>(
+      "/orders",
+      order
+    );
     return data;
   } catch (error) {
     console.error(error);

@@ -5,15 +5,16 @@ import { CgClose } from "react-icons/cg";
 import { useOrder } from "../hooks/useOrder";
 import { Spinner } from "./widget/Spinner";
 import { agruparPorCategoriaProductos, renderEstado } from "../utils/utils";
+import { useNavigate } from "react-router-dom";
 export const OrderModal = () => {
-  const { setIsEditOpen, setIsOpen } = modalStore();
+  const { setIsOpen } = modalStore();
   const { orderSelected, setOrderSelected } = orderStore();
   const { data: order, isLoading } = useOrder(orderSelected!);
-
+  const navigate = useNavigate();
   const productosAgrupados = agruparPorCategoriaProductos(order?.productos);
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg w-full max-w-5xl  p-6 relative animate-fadeIn text-black">
+    <div className="bg-white rounded-md shadow-lg w-full max-w-5xl  p-6 relative animate-fadeIn text-black">
       <button
         onClick={() => {
           setOrderSelected(null);
@@ -28,7 +29,7 @@ export const OrderModal = () => {
         onClick={() => {
           setOrderSelected(orderSelected);
           setIsOpen(false);
-          setIsEditOpen(true);
+          navigate(`/admin/order/${orderSelected}`);
         }}
         className="absolute top-4 right-16 text-black transition hover:text-slate-600"
       >

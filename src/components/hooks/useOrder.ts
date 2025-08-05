@@ -9,7 +9,7 @@ import {
   deleteOrder,
 } from "../services/orders.service";
 import { toast } from "sonner";
-import type { Order } from "../types/types";
+import type { CreateUpdateOrderResponse } from "../types/types";
 import { orderStore } from "../store/orderStore";
 import { useUser } from "./useAuth";
 
@@ -33,9 +33,12 @@ export const useOrder = (id: number) => {
 };
 
 export const useCreateOrderMutation = () => {
+  const queryClient = useQueryClient();
+
   const { mutate: createOrderMutate } = useMutation({
     mutationFn: createOrder,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
       toast.success("Pedido creado exitosamente");
     },
     onError: () => {
@@ -48,8 +51,13 @@ export const useCreateOrderMutation = () => {
 export const useUpdateOrderMutation = () => {
   const queryClient = useQueryClient();
   const { mutate: updateOrderMutate } = useMutation({
-    mutationFn: ({ id, data }: { id: number | null; data: Partial<Order> }) =>
-      updateOrder(id!, data),
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: number;
+      data: CreateUpdateOrderResponse;
+    }) => updateOrder(id, data),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
       queryClient.invalidateQueries({ queryKey: ["order", variables.id] });

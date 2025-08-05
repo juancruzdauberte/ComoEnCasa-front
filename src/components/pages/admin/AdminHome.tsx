@@ -3,10 +3,9 @@ import { Modal } from "../../layouts/Modal";
 import { OrderModal } from "../../common/OrderModal";
 import { modalStore } from "../../store/modalStore";
 import { CreateOrderModal } from "../../common/CreateOrderModal";
-import { EditOrderModal } from "../../common/EditOrderModal";
 
 export const AdminHome = () => {
-  const { isOpen, isEditOpen, isCreateOpen, setIsCreateOpen } = modalStore();
+  const { isOpen, isCreateOpen, setIsCreateOpen } = modalStore();
   return (
     <section className="flex flex-col items-center">
       <section>
@@ -31,12 +30,6 @@ export const AdminHome = () => {
         {isCreateOpen && (
           <Modal>
             <CreateOrderModal />
-          </Modal>
-        )}
-
-        {isEditOpen && (
-          <Modal>
-            <EditOrderModal />
           </Modal>
         )}
       </section>

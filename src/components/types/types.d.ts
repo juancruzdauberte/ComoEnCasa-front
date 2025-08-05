@@ -23,15 +23,16 @@ export type CategorysResponse = {
   nombre: string;
 }[];
 
-export type CreateOrderResponse = {
+export type CreateUpdateOrderResponse = {
   productos: { producto_id: number; cantidad: number }[];
   domicilio: string;
+  estado: "preparando" | "entregado" | "listo" | "cancelado";
   hora_entrega: string | null;
-  apellido_cliente: string;
-  nombre_cliente: string;
-  telefono_cliente: string;
+  apellido_cliente?: string;
+  nombre_cliente?: string;
+  telefono_cliente?: string;
   observacion: string | null;
-  metodo_pago: "efectivo" | "transferencia";
+  metodo_pago: "efectivo" | "transferencia" | "";
   monto: number;
 };
 
@@ -46,11 +47,6 @@ export type Producto = {
   cantidad: number;
 };
 
-export type ProductoFormulario = {
-  pedido_id: number;
-  producto_id: number;
-  cantidad: number;
-};
 export type Order = {
   id: number;
   domicilio: string;
@@ -65,17 +61,6 @@ export type Order = {
   estado: "preparando" | "entregado" | "listo" | "cancelado";
   fecha_pago: Date | null;
   productos: Producto[];
-};
-
-export type PedidoFormFields = {
-  domicilio: string;
-  metodo_pago: "efectivo" | "transferencia";
-  estado: string;
-  monto: number;
-  fecha_pago: Date | null;
-  hora_entrega: string | null;
-  observacion: string | null;
-  productos: { producto_id: number; cantidad: number }[];
 };
 
 export type Customer = {

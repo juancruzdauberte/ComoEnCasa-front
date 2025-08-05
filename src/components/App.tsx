@@ -12,10 +12,10 @@ import { ClientHome } from "./pages/user/ClientHome";
 import { Toaster } from "sonner";
 import { AdminLayout } from "./config/AdminLayout";
 import { Unauthorized } from "./pages/public/Unauthorized";
-import { OrderDetail } from "./pages/admin/OrderDetail";
 import { Failure } from "./pages/public/Failure";
 import { AuthSuccess } from "./pages/public/AuthSuccess";
 import { AuthProvider } from "./provider/AuthProvider";
+import { EditOrder } from "./pages/admin/EditOrder";
 function App() {
   return (
     <AuthProvider>
@@ -31,7 +31,7 @@ function App() {
           <Route path="/admin" element={<ProtectedRoutes role="admin" />}>
             <Route element={<AdminLayout />}>
               <Route index element={<AdminHome />} />
-              <Route path="/admin/order/:oid" element={<OrderDetail />} />
+              <Route path="/admin/order/:id" element={<EditOrder />} />
             </Route>
           </Route>
           <Route path="/user" element={<ProtectedRoutes role="user" />}>
