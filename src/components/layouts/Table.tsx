@@ -16,7 +16,7 @@ export function Table<T>({
   headers,
   data,
   renderRow,
-  noDataMessage = "No hay resultados",
+  noDataMessage,
 }: Props<T>) {
   return (
     <table className="w-full border-collapse">
@@ -36,7 +36,7 @@ export function Table<T>({
               colSpan={headers.length}
               className="text-center text-gray-500 italic p-16"
             >
-              {noDataMessage}
+              {noDataMessage ?? null}
             </td>
           </tr>
         ) : (
