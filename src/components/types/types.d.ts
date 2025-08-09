@@ -23,6 +23,11 @@ export type CategorysResponse = {
   nombre: string;
 }[];
 
+export type GetClientResponse = {
+  nombre: string;
+  apellido: string;
+};
+
 export type CreateUpdateOrderResponse = {
   productos: { producto_id: number; cantidad: number }[];
   domicilio: string;

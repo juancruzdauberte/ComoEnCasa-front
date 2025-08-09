@@ -26,7 +26,10 @@ export const OrderList = () => {
 
       {!isUser && (
         <section>
-          <Filter filter={filter} setFilter={setFilter} />
+          <div className="flex gap-5">
+            <Filter filter={filter} setFilter={setFilter} />
+            <p>Pedidos filtrados: {orders?.pagination.totalItems}</p>
+          </div>
           <OrdersTable filteredTrips={orders?.data} isFetching={isLoading} />
           {!noOrders && <Pagination setPage={setPage} page={page} />}
         </section>

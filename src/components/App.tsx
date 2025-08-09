@@ -16,6 +16,7 @@ import { Failure } from "./pages/public/Failure";
 import { AuthSuccess } from "./pages/public/AuthSuccess";
 import { AuthProvider } from "./provider/AuthProvider";
 import { EditOrder } from "./pages/admin/EditOrder";
+import { CreateOrder } from "./pages/admin/CreateOrder";
 function App() {
   return (
     <AuthProvider>
@@ -31,6 +32,7 @@ function App() {
           <Route path="/admin" element={<ProtectedRoutes role="admin" />}>
             <Route element={<AdminLayout />}>
               <Route index element={<AdminHome />} />
+              <Route path="/admin/order" element={<CreateOrder />} />
               <Route path="/admin/order/:id" element={<EditOrder />} />
             </Route>
           </Route>

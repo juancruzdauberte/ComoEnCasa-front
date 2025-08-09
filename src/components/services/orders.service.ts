@@ -47,9 +47,9 @@ export async function updateOrder(
   }
 }
 
-export async function payOrderDate(id: number, date: string) {
+export async function payOrder(id: number) {
   try {
-    const { data } = await api.patch(`/orders/pay/date/${id}`, { date });
+    const { data } = await api.post(`/orders/pay/${id}`);
     return data;
   } catch (error) {
     console.error(error);

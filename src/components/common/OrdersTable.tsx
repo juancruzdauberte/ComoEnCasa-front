@@ -1,12 +1,12 @@
 import { Table } from "../layouts/Table";
 import { IoIosInformationCircleOutline } from "react-icons/io";
-import { MdDeleteForever } from "react-icons/md";
 import type { Order } from "../types/types";
 import { modalStore } from "../store/modalStore";
 import { orderStore } from "../store/orderStore";
 import { useDeleteOrder } from "../hooks/useOrder";
 import { renderEstado } from "../utils/utils";
 import { Spinner } from "./widget/Spinner";
+import { TrashIcon } from "./widget/TrashIcon";
 
 const headers = [
   { label: "ID", key: "id" },
@@ -77,7 +77,7 @@ export function OrdersTable({
                 onClick={() => handleDelete(order.id)}
                 title="Eliminar"
               >
-                <MdDeleteForever size={30} />
+                <TrashIcon size={30} />
               </button>
             </td>
           </tr>

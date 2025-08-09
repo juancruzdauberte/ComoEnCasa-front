@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   useOrder,
+  usePayOrder,
   useRemoveProductFromOrder,
   useUpdateOrderMutation,
 } from "../../hooks/useOrder";
@@ -10,6 +11,7 @@ import { useForm } from "@tanstack/react-form";
 import { agruparProductosPorCategoria } from "../../utils/utils";
 import { useParams } from "react-router-dom";
 import { Spinner } from "../../common/widget/Spinner";
+import { TrashIcon } from "../../common/widget/TrashIcon";
 
 export const EditOrder = () => {
   const { id } = useParams();
@@ -17,6 +19,7 @@ export const EditOrder = () => {
   const { data: order } = useOrder(orderId);
   const { updateOrderMutate } = useUpdateOrderMutation();
   const { removeProduct } = useRemoveProductFromOrder();
+  const { payOrderMutation } = usePayOrder();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   const { data: categories } = useCategorys();
@@ -64,7 +67,9 @@ export const EditOrder = () => {
     );
   return (
     <section className="p-6 bg-white rounded shadow-md">
-      <h1 className="text-center font-bold text-2xl">Pedido: {order?.id}</h1>
+      <h1 className="text-center font-bold text-2xl">
+        Editar pedido: {order?.id}
+      </h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -72,7 +77,7 @@ export const EditOrder = () => {
         }}
         className="space-y-6 "
       >
-        <div className="flex justify-between px-12">
+        <div className="flex justify-between w-full">
           <div>
             <h3 className="text-lg font-bold mb-4">Datos del Cliente</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -91,7 +96,7 @@ export const EditOrder = () => {
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                       className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
+                      disabled
                     />
                   </div>
                 )}
@@ -108,7 +113,7 @@ export const EditOrder = () => {
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                       className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
+                      disabled
                     />
                   </div>
                 )}
@@ -125,7 +130,7 @@ export const EditOrder = () => {
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                       className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
+                      disabled
                     />
                   </div>
                 )}
@@ -155,11 +160,19 @@ export const EditOrder = () => {
                       Monto
                     </label>
                     <input
-                      type="number"
-                      value={field.state.value}
-                      onChange={(e) =>
-                        field.handleChange(Number(e.target.value))
+                      type="text"
+                      value={
+                        field.state.value
+                          ? new Intl.NumberFormat("es-AR", {
+                              minimumFractionDigits: 0,
+                              maximumFractionDigits: 0,
+                            }).format(field.state.value)
+                          : ""
                       }
+                      onChange={(e) => {
+                        const soloNumeros = e.target.value.replace(/\D/g, "");
+                        field.handleChange(Number(soloNumeros));
+                      }}
                       className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                       required
                     />
@@ -190,6 +203,37 @@ export const EditOrder = () => {
                   </div>
                 )}
               </form.Field>
+
+              <div className="flex items-center gap-2">
+                <label className={`text-sm block  font-semibold mb-1`}>
+                  Fecha pago:{" "}
+                  <span
+                    className={`text-sm font-semibold px-1 border rounded-md capitalize text-center  ${
+                      !order.fecha_pago
+                        ? "text-yellow-500 border-yellow-400 bg-yellow-100"
+                        : "text-green-500 border-green-400 bg-green-100"
+                    }`}
+                  >
+                    {!order.fecha_pago ? "Pendiente" : "Realizado"}
+                  </span>
+                </label>
+                {!order.fecha_pago && (
+                  <button
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          `¿Seguro que quieres realizar el pago del pedido con ID ${id}?`
+                        )
+                      )
+                        payOrderMutation(Number(id));
+                    }}
+                    type="button"
+                    className="border rounded-md border-orange-400 p-1 font-semibold bg-orange-400 text-white"
+                  >
+                    Realizar pago
+                  </button>
+                )}
+              </div>
 
               <form.Field name="estado">
                 {(field) => (
@@ -365,46 +409,48 @@ export const EditOrder = () => {
                             No hay productos seleccionados.
                           </p>
                         ) : (
-                          Object.entries(productosAgrupados).map(
-                            ([categoria, productos]) => (
-                              <div key={categoria} className="mb-4 capitalize">
-                                <h5 className="font-semibold mb-2">
-                                  {categoria}
-                                </h5>
-                                {productos.map(({ producto, cantidad }) => (
-                                  <div
-                                    key={producto.id}
-                                    className="flex items-center gap-4 p-3 border rounded mb-2"
-                                  >
-                                    <span className="flex-1 font-medium">
-                                      {producto.nombre}
-                                    </span>
-                                    <input
-                                      type="number"
-                                      min={1}
-                                      value={cantidad}
-                                      onChange={(e) =>
-                                        cambiarCantidad(
-                                          producto.id,
-                                          Number(e.target.value)
-                                        )
-                                      }
-                                      className="w-20 border px-2 py-1 rounded"
-                                    />
-                                    <button
-                                      type="button"
-                                      onClick={() =>
-                                        quitarProducto(producto.id)
-                                      }
-                                      className="text-red-600 font-semibold"
+                          <div className="flex flex-wrap gap-2">
+                            {Object.entries(productosAgrupados).map(
+                              ([categoria, productos]) => (
+                                <div key={categoria} className="capitalize">
+                                  <h5 className="font-semibold mb-2">
+                                    {categoria}
+                                  </h5>
+                                  {productos.map(({ producto, cantidad }) => (
+                                    <div
+                                      key={producto.id}
+                                      className="flex items-center gap-4 p-3 border rounded mb-2"
                                     >
-                                      Quitar
-                                    </button>
-                                  </div>
-                                ))}
-                              </div>
-                            )
-                          )
+                                      <span className="flex-1 font-medium">
+                                        {producto.nombre}
+                                      </span>
+                                      <input
+                                        type="number"
+                                        min={1}
+                                        value={cantidad}
+                                        onChange={(e) =>
+                                          cambiarCantidad(
+                                            producto.id,
+                                            Number(e.target.value)
+                                          )
+                                        }
+                                        className="w-14 border px-2 py-1 rounded"
+                                      />
+                                      <button
+                                        type="button"
+                                        onClick={() =>
+                                          quitarProducto(producto.id)
+                                        }
+                                        className="text-red-600 font-semibold hover:text-red-400"
+                                      >
+                                        <TrashIcon size={23} />
+                                      </button>
+                                    </div>
+                                  ))}
+                                </div>
+                              )
+                            )}
+                          </div>
                         )}
                       </div>
                     </div>

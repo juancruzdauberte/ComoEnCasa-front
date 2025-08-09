@@ -4,9 +4,9 @@ import {
   createOrder,
   getAllOrders,
   updateOrder,
-  payOrderDate,
   removeProductFromOrder,
   deleteOrder,
+  payOrder,
 } from "../services/orders.service";
 import { toast } from "sonner";
 import type { CreateUpdateOrderResponse } from "../types/types";
@@ -85,19 +85,18 @@ export const useDeleteOrder = () => {
 export const usePayOrder = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: payOrder } = useMutation({
-    mutationFn: ({ id, date }: { id: number; date: string }) =>
-      payOrderDate(id, date),
-    onSuccess: (_, variables) => {
+  const { mutate: payOrderMutation } = useMutation({
+    mutationFn: (id: number) => payOrder(id),
+    onSuccess: (_, id) => {
       toast.success("Pago registrado correctamente");
-      queryClient.invalidateQueries({ queryKey: ["order", variables.id] });
+      queryClient.invalidateQueries({ queryKey: ["order", id] });
     },
     onError: () => {
       toast.error("Error al registrar el pago");
     },
   });
 
-  return { payOrder };
+  return { payOrderMutation };
 };
 
 export const useRemoveProductFromOrder = () => {

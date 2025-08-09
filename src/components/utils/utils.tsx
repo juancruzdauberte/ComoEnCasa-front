@@ -102,7 +102,7 @@ export const renderProductos = (productos: Producto[]) => {
             productos.map((product, index) => (
               <div key={index}>
                 <span className="capitalize">
-                  Cant: {product.cantidad} - {product.nombre}
+                  {product.nombre} - {product.cantidad}
                 </span>
               </div>
             ))

@@ -42,7 +42,7 @@ export const OrderModal = () => {
         </div>
       ) : (
         <section className="flex flex-col items-center gap-10">
-          <h1 className="font-bold text-2xl">ID: {order?.id}</h1>
+          <h1 className="font-bold text-2xl">Pedido ID: {order?.id}</h1>
           <div className="flex flex-wrap gap-10">
             <span className="flex gap-1 font-semibold text-xl">
               Nombre:{" "}
@@ -117,7 +117,7 @@ export const OrderModal = () => {
                       <ul className="">
                         {productos.map((producto) => (
                           <li key={producto.producto_id}>
-                            {producto.nombre} — Cantidad: {producto.cantidad}
+                            {producto.nombre} — {producto.cantidad}
                           </li>
                         ))}
                       </ul>
