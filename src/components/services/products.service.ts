@@ -54,7 +54,7 @@ export async function createCategory(nombre: string) {
 
 export async function createProduct(nombre: string, categoria_id: number) {
   try {
-    const { data } = await api.post(`/products/create`, {
+    const { data } = await api.post(`/products`, {
       nombre,
       categoria_id,
     });
