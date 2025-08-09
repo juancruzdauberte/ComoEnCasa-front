@@ -17,6 +17,7 @@ import { AuthSuccess } from "./pages/public/AuthSuccess";
 import { AuthProvider } from "./provider/AuthProvider";
 import { EditOrder } from "./pages/admin/EditOrder";
 import { CreateOrder } from "./pages/admin/CreateOrder";
+import { ProductPage } from "./pages/admin/ProductPage";
 function App() {
   return (
     <AuthProvider>
@@ -34,6 +35,7 @@ function App() {
               <Route index element={<AdminHome />} />
               <Route path="/admin/order" element={<CreateOrder />} />
               <Route path="/admin/order/:id" element={<EditOrder />} />
+              <Route path="/admin/product" element={<ProductPage />} />
             </Route>
           </Route>
           <Route path="/user" element={<ProtectedRoutes role="user" />}>

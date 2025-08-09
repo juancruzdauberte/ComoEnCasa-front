@@ -29,7 +29,13 @@ export const Navbar = () => {
           </p>
         </Link>
 
-        <ul>
+        <ul className="flex gap-3">
+          <li>
+            <Link to="/admin/product">Productos</Link>
+          </li>
+          <li>
+            <Link to="/admin">Pedidos</Link>
+          </li>
           <li>
             <button
               onClick={handleLogout}

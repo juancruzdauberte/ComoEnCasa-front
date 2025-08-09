@@ -14,6 +14,14 @@ export type GetProductosResponse = {
   categoria: string;
 }[];
 
+export type CreateProductResponse = {
+  nombre: string;
+  categoria_id: number;
+};
+
+export type CreateCategoryResponse = {
+  nombre: string;
+};
 export type OrderDetailResponse = {
   pedido: Order;
 };

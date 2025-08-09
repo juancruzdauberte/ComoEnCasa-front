@@ -41,3 +41,26 @@ export async function getProductById(id: number) {
     console.error(error);
   }
 }
+
+export async function createCategory(nombre: string) {
+  try {
+    const { data } = await api.post(`/products/category`, { nombre });
+    return data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+export async function createProduct(nombre: string, categoria_id: number) {
+  try {
+    const { data } = await api.post(`/products/create`, {
+      nombre,
+      categoria_id,
+    });
+    return data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
