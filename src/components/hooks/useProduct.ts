@@ -57,7 +57,7 @@ export const useCreateCategory = () => {
   const { mutate: createCategoryMutation } = useMutation({
     mutationFn: ({ nombre }: { nombre: string }) => createCategory(nombre),
     onSuccess: () => {
-      toast.success("Producto creado correctamente");
+      toast.success("Categoria creada correctamente");
       queryClient.invalidateQueries({ queryKey: ["categorys"] });
     },
   });

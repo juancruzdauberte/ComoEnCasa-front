@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { logOut } from "../services/auth.service";
 import { useUser } from "../hooks/useAuth";
 import { IoIosLogOut } from "react-icons/io";
@@ -12,7 +12,7 @@ export const Navbar = () => {
   };
 
   return (
-    <header className="w-full backdrop-blur-sm bg-slate-500 shadow-md">
+    <header className="w-full backdrop-blur-sm bg-slate-700 shadow-md">
       <nav className="flex justify-between items-center px-5">
         <Link to="/admin" className="flex items-center gap-2">
           <picture>
@@ -29,17 +29,37 @@ export const Navbar = () => {
           </p>
         </Link>
 
-        <ul className="flex gap-3">
-          <li>
-            <Link to="/admin/product">Productos</Link>
+        <ul className="flex items-center gap-3">
+          <li className=" hover:underline">
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-white text-black px-2 font-semibold rounded-md"
+                  : "text-white"
+              }
+              end
+              to="/admin/product"
+            >
+              Productos
+            </NavLink>
           </li>
-          <li>
-            <Link to="/admin">Pedidos</Link>
+          <li className="hover:underline">
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-white text-black px-2 font-semibold rounded-md"
+                  : "text-white hover:underline"
+              }
+              end
+              to="/admin"
+            >
+              Pedidos
+            </NavLink>
           </li>
           <li>
             <button
               onClick={handleLogout}
-              className="text-white bg-red-600 px-2 text-lg rounded-md flex gap-1 items-center font-semibold"
+              className="text-white bg-red-600 hover:bg-red-700 px-2 text-lg rounded-md flex gap-1 items-center font-semibold"
             >
               <IoIosLogOut size={25} />
               Cerrar sesión

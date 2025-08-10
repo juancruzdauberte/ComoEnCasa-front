@@ -55,39 +55,67 @@ export const ProductPage = () => {
             }}
             className="flex flex-col gap-5"
           >
-            <ProductField name="nombre">
+            <ProductField
+              name="categoria_id"
+              validators={{
+                onSubmit: ({ value }) => {
+                  if (!value) return "Este campo es obligatorio";
+                },
+              }}
+            >
               {(field) => (
-                <div className="flex flex-col gap-2">
-                  <label>Nombre producto:</label>
-                  <input
-                    type="text"
-                    value={field.state.value ?? ""}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
+                <div className="flex flex-col w-full sm:w-1/3">
+                  <label className="mb-1">Categoría</label>
+                  <div className="flex flex-col">
+                    <select
+                      id="categoria"
+                      className="border p-2 rounded capitalize"
+                      value={field.state.value ?? ""}
+                      onChange={(e) => {
+                        field.handleChange(Number(e.target.value));
+                      }}
+                    >
+                      <option value="">Todas las categorías</option>
+                      {categories?.map((cat) => (
+                        <option key={cat.id} value={cat.id}>
+                          {cat.nombre}
+                        </option>
+                      ))}
+                    </select>
+                    {field.state.meta.errors.length > 0 && (
+                      <em className="text-red-600 text-sm">
+                        {field.state.meta.errors.join(", ")}
+                      </em>
+                    )}
+                  </div>
                 </div>
               )}
             </ProductField>
 
-            <ProductField name="categoria_id">
+            <ProductField
+              name="nombre"
+              validators={{
+                onSubmit: ({ value }) => {
+                  if (!value) return "Este campo es obligatorio";
+                },
+              }}
+            >
               {(field) => (
-                <div className="flex flex-col w-full sm:w-1/3">
-                  <label className="mb-1">Categoría</label>
-                  <select
-                    id="categoria"
-                    className="border p-2 rounded capitalize"
-                    value={field.state.value ?? ""}
-                    onChange={(e) => {
-                      field.handleChange(Number(e.target.value));
-                    }}
-                  >
-                    <option value="">Todas las categorías</option>
-                    {categories?.map((cat) => (
-                      <option key={cat.id} value={cat.id}>
-                        {cat.nombre}
-                      </option>
-                    ))}
-                  </select>
+                <div className="flex flex-col gap-2">
+                  <label>Nombre producto:</label>
+                  <div className="flex flex-col">
+                    <input
+                      type="text"
+                      value={field.state.value ?? ""}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    {field.state.meta.errors.length > 0 && (
+                      <em className="text-red-600 text-sm">
+                        {field.state.meta.errors.join(", ")}
+                      </em>
+                    )}
+                  </div>
                 </div>
               )}
             </ProductField>
@@ -110,16 +138,30 @@ export const ProductPage = () => {
               categoryForm.handleSubmit();
             }}
           >
-            <CategoryField name="nombre">
+            <CategoryField
+              name="nombre"
+              validators={{
+                onSubmit: ({ value }) => {
+                  if (!value) return "Este campo es obligatorio";
+                },
+              }}
+            >
               {(field) => (
                 <div className="flex flex-col gap-2">
                   <label>Nombre categoria:</label>
-                  <input
-                    type="text"
-                    value={field.state.value ?? ""}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
+                  <div className="flex flex-col">
+                    <input
+                      type="text"
+                      value={field.state.value ?? ""}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    {field.state.meta.errors.length > 0 && (
+                      <em className="text-red-600 text-sm">
+                        {field.state.meta.errors.join(", ")}
+                      </em>
+                    )}
+                  </div>
                 </div>
               )}
             </CategoryField>
