@@ -39,7 +39,7 @@ export async function updateOrder(
   dataUpdated: CreateUpdateOrderResponse
 ) {
   try {
-    const { data } = await api.put<Order>(`/orders/${id}`, dataUpdated);
+    const { data } = await api.put<Order>(`/orders/${id}`, { dataUpdated });
     return data;
   } catch (error) {
     console.error(error);
