@@ -9,10 +9,9 @@ import { useCategorys, useProductsByCategory } from "../../hooks/useProduct";
 import type { CreateUpdateOrderResponse } from "../../types/types";
 import { useForm } from "@tanstack/react-form";
 import { agruparProductosPorCategoria } from "../../utils/utils";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Spinner } from "../../common/widget/Spinner";
 import { TrashIcon } from "../../common/widget/TrashIcon";
-import { modalStore } from "../../store/modalStore";
 
 export const EditOrder = () => {
   const { id } = useParams();
@@ -25,8 +24,6 @@ export const EditOrder = () => {
   const { data: categories } = useCategorys();
   const { data: products } = useProductsByCategory(selectedCategory);
   const { data: allProducts } = useProductsByCategory(null);
-  const navigate = useNavigate();
-  const { setIsOpen } = modalStore();
 
   const form = useForm({
     defaultValues: {
@@ -56,8 +53,6 @@ export const EditOrder = () => {
         productos: productosFormateados,
       };
       updateOrderMutate({ id: orderId, data: order });
-      navigate("/admin");
-      setIsOpen(true);
     },
   });
 

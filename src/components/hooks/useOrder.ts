@@ -12,6 +12,8 @@ import { toast } from "sonner";
 import type { CreateUpdateOrderResponse, Order } from "../types/types";
 import { orderStore } from "../store/orderStore";
 import { useUser } from "./useAuth";
+import { useNavigate } from "react-router-dom";
+import { modalStore } from "../store/modalStore";
 
 export const useOrders = () => {
   const { filter, page } = orderStore();
@@ -34,12 +36,14 @@ export const useOrder = (id: number) => {
 
 export const useCreateOrderMutation = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { mutate: createOrderMutate, isPending } = useMutation({
     mutationFn: createOrder,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
       toast.success("Pedido creado exitosamente");
+      navigate("/admin");
     },
     onError: () => {
       toast.error("Error al crear el pedido");
@@ -50,6 +54,8 @@ export const useCreateOrderMutation = () => {
 
 export const useUpdateOrderMutation = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { setIsOpen } = modalStore();
   const { mutate: updateOrderMutate, isPending } = useMutation({
     mutationFn: ({
       id,
@@ -72,6 +78,8 @@ export const useUpdateOrderMutation = () => {
       }));
 
       toast.success("Pedido actualizado correctamente");
+      navigate("/admin");
+      setIsOpen(true);
     },
     onError: () => {
       toast.error("Error al actualizar el pedido");

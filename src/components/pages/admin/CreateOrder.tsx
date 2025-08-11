@@ -16,7 +16,6 @@ export const CreateOrder = () => {
   const { data: products } = useProductsByCategory(selectedCategory);
   const { data: allProducts } = useProductsByCategory(null);
   const { data: client } = useCLient(phone);
-
   const form = useForm({
     defaultValues: {
       observacion: "",
