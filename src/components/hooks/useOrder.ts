@@ -90,12 +90,14 @@ export const useUpdateOrderMutation = () => {
 };
 
 export const useDeleteOrder = () => {
+  const { filter, page } = orderStore();
+
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteOrder,
     onSuccess: () => {
       toast.success("Pedido eliminado correctamente");
-      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({ queryKey: ["orders", filter, page] });
     },
   });
 };
@@ -108,6 +110,7 @@ export const usePayOrder = () => {
     onSuccess: (_, id) => {
       toast.success("Pago registrado correctamente");
       queryClient.invalidateQueries({ queryKey: ["order", id] });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
     },
     onError: () => {
       toast.error("Error al registrar el pago");
