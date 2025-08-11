@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   useOrder,
-  usePayOrder,
   useRemoveProductFromOrder,
   useUpdateOrderMutation,
 } from "../../hooks/useOrder";
@@ -19,7 +18,6 @@ export const EditOrder = () => {
   const { data: order } = useOrder(orderId);
   const { updateOrderMutate, isPending } = useUpdateOrderMutation();
   const { removeProduct } = useRemoveProductFromOrder();
-  const { payOrderMutation } = usePayOrder();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const { data: categories } = useCategorys();
   const { data: products } = useProductsByCategory(selectedCategory);
@@ -221,22 +219,6 @@ export const EditOrder = () => {
                     {!order.fecha_pago ? "Pendiente" : "Realizado"}
                   </span>
                 </label>
-                {!order.fecha_pago && (
-                  <button
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          `¿Seguro que quieres realizar el pago del pedido con ID ${id}?`
-                        )
-                      )
-                        payOrderMutation(orderId);
-                    }}
-                    type="button"
-                    className="border rounded-md border-orange-400 p-1 font-semibold bg-orange-400 text-white"
-                  >
-                    Realizar pago
-                  </button>
-                )}
               </div>
 
               <form.Field name="estado">

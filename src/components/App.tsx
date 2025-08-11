@@ -18,6 +18,7 @@ import { AuthProvider } from "./provider/AuthProvider";
 import { EditOrder } from "./pages/admin/EditOrder";
 import { CreateOrder } from "./pages/admin/CreateOrder";
 import { ProductPage } from "./pages/admin/ProductPage";
+import { Finances } from "./pages/admin/Finances";
 function App() {
   return (
     <AuthProvider>
@@ -36,6 +37,7 @@ function App() {
               <Route path="/admin/order" element={<CreateOrder />} />
               <Route path="/admin/order/:id" element={<EditOrder />} />
               <Route path="/admin/product" element={<ProductPage />} />
+              <Route path="/admin/finance" element={<Finances />} />
             </Route>
           </Route>
           <Route path="/user" element={<ProtectedRoutes role="user" />}>

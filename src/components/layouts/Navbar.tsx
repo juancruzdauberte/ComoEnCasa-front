@@ -56,6 +56,19 @@ export const Navbar = () => {
               Pedidos
             </NavLink>
           </li>
+          <li className=" hover:underline">
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-white text-black px-2 font-semibold rounded-md"
+                  : "text-white"
+              }
+              end
+              to="/admin/finance"
+            >
+              Finanzas
+            </NavLink>
+          </li>
           <li>
             <button
               onClick={handleLogout}

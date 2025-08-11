@@ -36,6 +36,10 @@ export type GetClientResponse = {
   apellido: string;
 };
 
+export type GetAmountTodayResponse = {
+  total: number;
+};
+
 export type CreateUpdateOrderResponse = {
   productos: { producto_id: number; cantidad: number }[];
   domicilio: string;

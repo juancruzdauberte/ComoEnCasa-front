@@ -3,16 +3,18 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import type { Order } from "../types/types";
 import { modalStore } from "../store/modalStore";
 import { orderStore } from "../store/orderStore";
-import { useDeleteOrder } from "../hooks/useOrder";
+import { useDeleteOrder, usePayOrder } from "../hooks/useOrder";
 import { renderEstado } from "../utils/utils";
 import { Spinner } from "./widget/Spinner";
 import { TrashIcon } from "./widget/TrashIcon";
+import { TbCashRegister } from "react-icons/tb";
+import { toast } from "sonner";
 
 const headers = [
   { label: "ID", key: "id" },
   { label: "Nombre", key: "apellido" },
-  { label: "Fecha creación", key: "fecha" },
   { label: "Domicilio", key: "domicilio" },
+  { label: "Fecha creación", key: "fecha" },
   { label: "Estado", key: "estado" },
   { label: "Acciones", key: "acciones" },
 ];
@@ -27,13 +29,10 @@ export function OrdersTable({
   const { setOrderSelected } = orderStore();
   const { setIsOpen } = modalStore();
   const { mutate: order } = useDeleteOrder();
+  const { payOrderMutation } = usePayOrder();
 
   const handleDelete = (id: number) => {
-    if (
-      window.confirm(`¿Seguro que quieres eliminar el pedido con ID ${id}?`)
-    ) {
-      order(id);
-    }
+    order(id);
   };
 
   const messageNoData =
@@ -74,11 +73,42 @@ export function OrdersTable({
               </button>
               <button
                 className="text-red-600 hover:text-red-400"
-                onClick={() => handleDelete(order.id)}
+                onClick={() => {
+                  toast.warning(
+                    `¿Estás seguro de que quieres eliminar el pedido ${order.id}?`,
+                    {
+                      duration: 1700,
+                      action: {
+                        label: "Eliminar",
+                        onClick: () => handleDelete(order.id),
+                      },
+                    }
+                  );
+                }}
                 title="Eliminar"
               >
                 <TrashIcon size={30} />
               </button>
+              {!order.fecha_pago && (
+                <button
+                  onClick={() => {
+                    toast.warning(
+                      `¿Estás seguro de que quieres pagar el pedido ${order.id}?`,
+                      {
+                        duration: 1700,
+                        action: {
+                          label: "Pagar",
+                          onClick: () => payOrderMutation(order.id),
+                        },
+                      }
+                    );
+                  }}
+                  type="button"
+                  className="border rounded-md border-orange-400 p-1 font-semibold bg-orange-400 text-white"
+                >
+                  <TbCashRegister />
+                </button>
+              )}
             </td>
           </tr>
         )}
