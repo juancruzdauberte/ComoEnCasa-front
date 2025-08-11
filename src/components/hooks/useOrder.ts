@@ -35,7 +35,7 @@ export const useOrder = (id: number) => {
 export const useCreateOrderMutation = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: createOrderMutate } = useMutation({
+  const { mutate: createOrderMutate, isPending } = useMutation({
     mutationFn: createOrder,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
@@ -45,12 +45,12 @@ export const useCreateOrderMutation = () => {
       toast.error("Error al crear el pedido");
     },
   });
-  return { createOrderMutate };
+  return { createOrderMutate, isPending };
 };
 
 export const useUpdateOrderMutation = () => {
   const queryClient = useQueryClient();
-  const { mutate: updateOrderMutate } = useMutation({
+  const { mutate: updateOrderMutate, isPending } = useMutation({
     mutationFn: ({
       id,
       data,
@@ -78,7 +78,7 @@ export const useUpdateOrderMutation = () => {
     },
   });
 
-  return { updateOrderMutate };
+  return { updateOrderMutate, isPending };
 };
 
 export const useDeleteOrder = () => {

@@ -18,7 +18,7 @@ export const EditOrder = () => {
   const { id } = useParams();
   const orderId = Number(id);
   const { data: order } = useOrder(orderId);
-  const { updateOrderMutate } = useUpdateOrderMutation();
+  const { updateOrderMutate, isPending } = useUpdateOrderMutation();
   const { removeProduct } = useRemoveProductFromOrder();
   const { payOrderMutation } = usePayOrder();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
@@ -27,6 +27,7 @@ export const EditOrder = () => {
   const { data: allProducts } = useProductsByCategory(null);
   const navigate = useNavigate();
   const { setIsOpen } = modalStore();
+
   const form = useForm({
     defaultValues: {
       observacion: order?.observacion,
@@ -62,8 +63,15 @@ export const EditOrder = () => {
 
   if (!order)
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="fixed inset-0 flex items-center justify-center bg-transparent z-50">
         <Spinner text="Cargando pedido..." />
+      </div>
+    );
+
+  if (isPending)
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-transparent z-50">
+        <Spinner text={`Actualizando pedido ${orderId}...`} />
       </div>
     );
   return (

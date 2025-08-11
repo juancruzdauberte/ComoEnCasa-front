@@ -6,9 +6,10 @@ import { agruparProductosPorCategoria } from "../../utils/utils";
 import type { CreateUpdateOrderResponse } from "../../types/types";
 import { useCLient } from "../../hooks/useClient";
 import { toast } from "sonner";
+import { Spinner } from "../../common/widget/Spinner";
 
 export const CreateOrder = () => {
-  const { createOrderMutate } = useCreateOrderMutation();
+  const { createOrderMutate, isPending } = useCreateOrderMutation();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [phone, setPhone] = useState<string>("");
   const { data: categories } = useCategorys();
@@ -56,6 +57,13 @@ export const CreateOrder = () => {
       );
     }
   }, [client, form, phone]);
+
+  if (isPending)
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-transparent z-50">
+        <Spinner text="Creando pedido..." />
+      </div>
+    );
 
   return (
     <section className="w-full flex flex-col items-center justify-center gap-10">
