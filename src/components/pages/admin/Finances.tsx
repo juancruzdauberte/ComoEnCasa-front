@@ -3,6 +3,7 @@ import {
   useCashAmountToday,
   useTransferAmountToday,
 } from "../../hooks/useFinance";
+import { formattedAmount } from "../../utils/utilsFunction";
 
 export const Finances = () => {
   const { data: amountToday } = useAmountToday();
@@ -25,16 +26,20 @@ export const Finances = () => {
         <div className="flex flex-col gap-1 mt-2 ">
           <p className="text-lg">
             Monto total:{" "}
-            <span className="font-semibold text-xl">${amountToday}</span>
+            <span className="font-semibold text-xl">
+              ${amountToday && formattedAmount(amountToday)}
+            </span>
           </p>
           <p>
             Efectivo:{" "}
-            <span className="font-semibold text-lg">${cashAmountToday}</span>
+            <span className="font-semibold text-lg">
+              ${cashAmountToday && formattedAmount(cashAmountToday)}
+            </span>
           </p>
           <p>
             Transferencia:{" "}
             <span className="font-semibold text-lg">
-              ${transferAmountToday}
+              ${transferAmountToday && formattedAmount(transferAmountToday)}
             </span>
           </p>
         </div>

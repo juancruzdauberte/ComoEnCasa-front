@@ -37,3 +37,7 @@ export const formatTimeForInput = (time: string | null) => {
   if (!time) return "";
   return time.slice(0, 5);
 };
+
+export const formattedAmount = (amount: number | null) => {
+  return Number(amount).toLocaleString("es-AR");
+};
