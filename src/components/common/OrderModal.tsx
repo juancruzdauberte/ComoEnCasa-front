@@ -6,6 +6,7 @@ import { useOrder } from "../hooks/useOrder";
 import { Spinner } from "./widget/Spinner";
 import { agruparPorCategoriaProductos, renderEstado } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
+import { formatTimeForInput } from "../utils/utilsFunction";
 export const OrderModal = () => {
   const { setIsOpen } = modalStore();
   const { orderSelected, setOrderSelected } = orderStore();
@@ -96,7 +97,9 @@ export const OrderModal = () => {
             </span>
             <span className="flex gap-1 font-semibold text-xl">
               Hora entrega:{" "}
-              <p className="font-normal text-lg">{order?.hora_entrega}</p>
+              <p className="font-normal text-lg">
+                {order?.hora_entrega && formatTimeForInput(order.hora_entrega)}
+              </p>
             </span>
           </div>
 

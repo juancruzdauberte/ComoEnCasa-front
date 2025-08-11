@@ -32,3 +32,8 @@ export function decodeToken(token: string | undefined): User | null {
 
   return user;
 }
+
+export const formatTimeForInput = (time: string | null) => {
+  if (!time) return "";
+  return time.slice(0, 5);
+};

@@ -38,8 +38,25 @@ export async function updateOrder(
   id: number,
   dataUpdated: CreateUpdateOrderResponse
 ) {
+  const {
+    productos,
+    domicilio,
+    metodo_pago,
+    monto,
+    observacion,
+    estado,
+    hora_entrega,
+  } = dataUpdated;
   try {
-    const { data } = await api.put<Order>(`/orders/${id}`, { dataUpdated });
+    const { data } = await api.put<Order>(`/orders/${id}`, {
+      productos,
+      domicilio,
+      metodo_pago,
+      monto,
+      hora_entrega,
+      observacion,
+      estado,
+    });
     return data;
   } catch (error) {
     console.error(error);

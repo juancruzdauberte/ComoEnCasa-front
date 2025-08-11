@@ -9,9 +9,10 @@ import { useCategorys, useProductsByCategory } from "../../hooks/useProduct";
 import type { CreateUpdateOrderResponse } from "../../types/types";
 import { useForm } from "@tanstack/react-form";
 import { agruparProductosPorCategoria } from "../../utils/utils";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Spinner } from "../../common/widget/Spinner";
 import { TrashIcon } from "../../common/widget/TrashIcon";
+import { modalStore } from "../../store/modalStore";
 
 export const EditOrder = () => {
   const { id } = useParams();
@@ -21,11 +22,11 @@ export const EditOrder = () => {
   const { removeProduct } = useRemoveProductFromOrder();
   const { payOrderMutation } = usePayOrder();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-
   const { data: categories } = useCategorys();
   const { data: products } = useProductsByCategory(selectedCategory);
   const { data: allProducts } = useProductsByCategory(null);
-
+  const navigate = useNavigate();
+  const { setIsOpen } = modalStore();
   const form = useForm({
     defaultValues: {
       observacion: order?.observacion,
@@ -39,7 +40,7 @@ export const EditOrder = () => {
       apellido_cliente: order?.apellido_cliente,
       telefono_cliente: order?.telefono_cliente,
     } as CreateUpdateOrderResponse,
-    onSubmit: ({ value, formApi }) => {
+    onSubmit: ({ value }) => {
       const productosFormateados = value.productos.map((producto) => ({
         producto_id: producto.producto_id,
         cantidad: producto.cantidad,
@@ -53,9 +54,9 @@ export const EditOrder = () => {
         domicilio: value.domicilio,
         productos: productosFormateados,
       };
-      console.log("🟢 Enviando orden:", order);
       updateOrderMutate({ id: orderId, data: order });
-      formApi.reset();
+      navigate("/admin");
+      setIsOpen(true);
     },
   });
 
@@ -225,7 +226,7 @@ export const EditOrder = () => {
                           `¿Seguro que quieres realizar el pago del pedido con ID ${id}?`
                         )
                       )
-                        payOrderMutation(Number(id));
+                        payOrderMutation(orderId);
                     }}
                     type="button"
                     className="border rounded-md border-orange-400 p-1 font-semibold bg-orange-400 text-white"
@@ -276,7 +277,6 @@ export const EditOrder = () => {
                         field.handleChange(e.target.value || null)
                       }
                       className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
                     />
                   </div>
                 )}

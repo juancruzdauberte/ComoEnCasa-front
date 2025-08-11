@@ -9,7 +9,7 @@ import {
   payOrder,
 } from "../services/orders.service";
 import { toast } from "sonner";
-import type { CreateUpdateOrderResponse } from "../types/types";
+import type { CreateUpdateOrderResponse, Order } from "../types/types";
 import { orderStore } from "../store/orderStore";
 import { useUser } from "./useAuth";
 
@@ -58,9 +58,19 @@ export const useUpdateOrderMutation = () => {
       id: number;
       data: CreateUpdateOrderResponse;
     }) => updateOrder(id, data),
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["orders"] });
-      queryClient.invalidateQueries({ queryKey: ["order", variables.id] });
+    onSuccess: (updatedOrder, variables) => {
+      queryClient.setQueryData(["orders"], (oldOrders: Order[]) => {
+        if (!oldOrders) return oldOrders;
+        return oldOrders.map((order: Order) =>
+          order.id === variables.id ? { ...order, ...updatedOrder } : order
+        );
+      });
+
+      queryClient.setQueryData(["order", variables.id], (oldOrder: Order) => ({
+        ...oldOrder,
+        ...updatedOrder,
+      }));
+
       toast.success("Pedido actualizado correctamente");
     },
     onError: () => {
