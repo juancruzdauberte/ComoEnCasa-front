@@ -15,13 +15,13 @@ import { useUser } from "./useAuth";
 import { useNavigate } from "react-router-dom";
 import { modalStore } from "../store/modalStore";
 
-export const useOrders = () => {
+export const useOrders = (filterParam?: string | null) => {
   const { filter, page } = orderStore();
   const { user } = useUser();
   const limit = user?.rol === "user" ? 1000 : 10;
   return useQuery({
     queryKey: ["orders", filter, page],
-    queryFn: () => getAllOrders(filter!, page, limit),
+    queryFn: () => getAllOrders(filter! || filterParam!, page, limit),
   });
 };
 
@@ -98,6 +98,8 @@ export const useDeleteOrder = () => {
     onSuccess: () => {
       toast.success("Pedido eliminado correctamente");
       queryClient.invalidateQueries({ queryKey: ["orders", filter, page] });
+      queryClient.invalidateQueries({ queryKey: ["amountDeliveryToPay"] });
+      queryClient.invalidateQueries({ queryKey: ["amountToday"] });
     },
   });
 };
@@ -111,6 +113,13 @@ export const usePayOrder = () => {
       toast.success("Pago registrado correctamente");
       queryClient.invalidateQueries({ queryKey: ["order", id] });
       queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({ queryKey: ["amountDeliveryToPay"] });
+      queryClient.invalidateQueries({ queryKey: ["amountToday"] });
+      queryClient.invalidateQueries({ queryKey: ["amountCashToday"] });
+      queryClient.invalidateQueries({ queryKey: ["amountMonthly"] });
+      queryClient.invalidateQueries({ queryKey: ["amountCashMonthly"] });
+      queryClient.invalidateQueries({ queryKey: ["amountTransferToday"] });
+      queryClient.invalidateQueries({ queryKey: ["amountTransferMonthly"] });
     },
     onError: () => {
       toast.error("Error al registrar el pago");

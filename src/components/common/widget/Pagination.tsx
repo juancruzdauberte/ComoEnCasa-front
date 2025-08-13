@@ -1,6 +1,6 @@
 import { BiLastPage } from "react-icons/bi";
 import { BiFirstPage } from "react-icons/bi";
-import { useOrders } from "../hooks/useOrder";
+import { useOrders } from "../../hooks/useOrder";
 
 type Props = {
   page: number;

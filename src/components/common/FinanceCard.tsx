@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { formattedAmount } from "../utils/utilsFunction";
 
 type CardProps = {
   title: string;
@@ -16,11 +17,8 @@ export const FinanceCard = ({
   data,
   headerExtra,
 }: CardProps) => {
-  const formattedAmount = (amount: number) =>
-    amount?.toLocaleString("es-AR", { minimumFractionDigits: 0 });
-
   return (
-    <div className="flex flex-col border-2 border-black rounded-sm p-4 w-[380px] shadow-md">
+    <div className="flex flex-col border-2 border-black rounded-sm p-4 w-[380px] shadow-md h-[250px]">
       <h2 className="text-center text-3xl font-bold">{title}</h2>
 
       {subtitle && <p className="mt-2 text-lg text-center">{subtitle}</p>}
@@ -29,8 +27,8 @@ export const FinanceCard = ({
 
       <div className="flex flex-col gap-2 mt-4">
         {data.map((item, idx) => (
-          <p key={idx} className="text-lg flex justify-between">
-            <span>{item.label}:</span>
+          <p key={idx} className="text-lg flex gap-2">
+            <span className="w-32">{item.label}:</span>
             <span className="font-semibold text-xl">
               ${item.value ? formattedAmount(Number(item.value)) : "0"}
             </span>

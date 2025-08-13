@@ -1,12 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getAmountMonthly,
   getAmountToday,
   getCashAmountMonthly,
   getCashAmountToday,
+  getDeliveryAmountToPay,
+  getValueFinanceParam,
   getTransferAmountMonthly,
   getTransferAmountToday,
+  updateValueFinanceParam,
 } from "../services/finances.service";
+import { toast } from "sonner";
 
 export const useAmountToday = () => {
   return useQuery({
@@ -15,10 +19,26 @@ export const useAmountToday = () => {
   });
 };
 
+export const useDeliveryAmountToPay = () => {
+  return useQuery({
+    queryKey: ["amountDeliveryToPay"],
+    queryFn: getDeliveryAmountToPay,
+  });
+};
+
+export const useValueFinanceParam = (paramName: string) => {
+  return useQuery({
+    queryKey: ["valueFinanceParam", paramName],
+    queryFn: () => getValueFinanceParam(paramName),
+    enabled: !!paramName,
+  });
+};
+
 export const useAmountMonthly = (month: number, year: number) => {
   return useQuery({
     queryKey: ["amountMonthly", month, year],
     queryFn: () => getAmountMonthly(month, year),
+    enabled: !!month && !!year,
   });
 };
 
@@ -33,6 +53,7 @@ export const useCashAmountMonthly = (month: number, year: number) => {
   return useQuery({
     queryKey: ["amountCashMonthly", month, year],
     queryFn: () => getCashAmountMonthly(month, year),
+    enabled: !!month && !!year,
   });
 };
 
@@ -47,5 +68,25 @@ export const useTransferAmountMonthly = (month: number, year: number) => {
   return useQuery({
     queryKey: ["amountTransferMonthly", month, year],
     queryFn: () => getTransferAmountMonthly(month, year),
+    enabled: !!month && !!year,
   });
+};
+
+export const useUpdateValueParam = () => {
+  const queryClient = useQueryClient();
+  const { mutate: updateValueParam } = useMutation({
+    mutationFn: ({ value, paramName }: { value: number; paramName: string }) =>
+      updateValueFinanceParam(value, paramName),
+    onSuccess: (_, paramName) => {
+      toast.success("Valor de parametro financiero actualizado");
+      queryClient.invalidateQueries({
+        queryKey: ["valueFinanceParam", paramName],
+      });
+    },
+    onError: () => {
+      toast.error("Error al actualizar el valor de parametro financiero");
+    },
+  });
+
+  return { updateValueParam };
 };

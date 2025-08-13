@@ -29,7 +29,7 @@ export const Navbar = () => {
           </p>
         </Link>
 
-        <ul className="flex items-center gap-3">
+        <ul className="flex items-center gap-6">
           <li className=" hover:underline">
             <NavLink
               className={({ isActive }) =>

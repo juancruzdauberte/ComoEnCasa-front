@@ -41,15 +41,17 @@ export const EditOrder = () => {
         producto_id: producto.producto_id,
         cantidad: producto.cantidad,
       }));
+      const domicilioFinal =
+        value.domicilio && value.domicilio.trim() !== ""
+          ? value.domicilio
+          : "busca";
+
       const order = {
-        observacion: value.observacion,
-        hora_entrega: value.hora_entrega,
-        metodo_pago: value.metodo_pago,
-        monto: value.monto,
-        estado: value.estado,
-        domicilio: value.domicilio,
+        ...value,
         productos: productosFormateados,
+        domicilio: domicilioFinal,
       };
+
       updateOrderMutate({ id: orderId, data: order });
     },
   });
@@ -146,10 +148,9 @@ export const EditOrder = () => {
                     </label>
                     <input
                       type="text"
-                      value={field.state.value}
+                      value={field.state.value!}
                       onChange={(e) => field.handleChange(e.target.value)}
                       className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
                     />
                   </div>
                 )}

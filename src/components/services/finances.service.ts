@@ -1,5 +1,8 @@
 import { api } from "../config/axios";
-import type { GetAmountTodayResponse } from "../types/types";
+import type {
+  GetAmountTodayResponse,
+  GetPriceToPayResponse,
+} from "../types/types";
 
 export async function getAmountToday() {
   try {
@@ -60,6 +63,40 @@ export async function getTransferAmountMonthly(month: number, year: number) {
       `/finances/monthly/transfer?month=${month}&year=${year}`
     );
     return data.total;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getDeliveryAmountToPay() {
+  try {
+    const { data } = await api.get<GetAmountTodayResponse>(
+      `/finances/today/delivery/pay`
+    );
+    return data.total;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getValueFinanceParam(paramName: string) {
+  try {
+    const { data } = await api.get<GetPriceToPayResponse>(
+      `/finances/param?paramName=${paramName}`
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateValueFinanceParam(
+  value: number,
+  paramName: string
+) {
+  try {
+    const { data } = await api.put("/finances/param", { value, paramName });
+    return data;
   } catch (error) {
     console.log(error);
   }

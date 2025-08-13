@@ -7,6 +7,7 @@ import type { CreateUpdateOrderResponse } from "../../types/types";
 import { useCLient } from "../../hooks/useClient";
 import { toast } from "sonner";
 import { Spinner } from "../../common/widget/Spinner";
+import { Trash2Icon } from "lucide-react";
 
 export const CreateOrder = () => {
   const { createOrderMutate, isPending } = useCreateOrderMutation();
@@ -30,18 +31,16 @@ export const CreateOrder = () => {
       telefono_cliente: "",
     } as CreateUpdateOrderResponse,
     onSubmit: ({ value, formApi }) => {
+      const domicilioFinal =
+        value.domicilio && value.domicilio.trim() !== ""
+          ? value.domicilio
+          : "busca";
+
       const order = {
-        observacion: value.observacion,
-        hora_entrega: value.hora_entrega,
-        metodo_pago: value.metodo_pago,
-        monto: value.monto,
-        estado: value.estado,
-        domicilio: value.domicilio,
-        productos: value.productos,
-        apellido_cliente: value.apellido_cliente,
-        nombre_cliente: value.nombre_cliente,
-        telefono_cliente: value.telefono_cliente,
+        ...value,
+        domicilio: domicilioFinal,
       };
+
       createOrderMutate(order);
       formApi.reset();
     },
@@ -177,30 +176,21 @@ export const CreateOrder = () => {
             )}
           </form.Field>
 
-          <form.Field
-            name="domicilio"
-            validators={{
-              onSubmit: ({ value }) => {
-                if (!value) return "Este campo es obligatorio";
-              },
-            }}
-          >
+          <form.Field name="domicilio">
             {(field) => (
               <div className="mb-4">
                 <label className="block font-semibold mb-1">Domicilio:</label>
-                <div className="flex flex-col">
-                  <input
-                    type="text"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    className="border p-2  rounded"
-                  />
-                  {field.state.meta.errors.length > 0 && (
-                    <em className="text-red-600 text-sm">
-                      {field.state.meta.errors.join(", ")}
-                    </em>
-                  )}
-                </div>
+
+                <input
+                  type="text"
+                  value={field.state.value!}
+                  onChange={(e) =>
+                    field.handleChange(
+                      e.target.value === "" ? null : e.target.value
+                    )
+                  }
+                  className="border p-2  rounded"
+                />
               </div>
             )}
           </form.Field>
@@ -220,12 +210,11 @@ export const CreateOrder = () => {
                   <input
                     type="text"
                     value={
-                      field.state.value
-                        ? new Intl.NumberFormat("es-AR", {
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 0,
-                          }).format(field.state.value)
-                        : ""
+                      field.state.value &&
+                      new Intl.NumberFormat("es-AR", {
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                      }).format(field.state.value)
                     }
                     onChange={(e) => {
                       const soloNumeros = e.target.value.replace(/\D/g, "");
@@ -450,10 +439,15 @@ export const CreateOrder = () => {
                               />
                               <button
                                 type="button"
-                                onClick={() => quitarProducto(producto.id)}
-                                className="text-red-600 font-semibold"
+                                onClick={() => {
+                                  quitarProducto(producto.id);
+                                  toast.success(
+                                    "Producto eliminado del pedido"
+                                  );
+                                }}
+                                className="text-red-600 hover:text-red-400"
                               >
-                                Quitar
+                                <Trash2Icon size={20} />
                               </button>
                             </div>
                           ))}

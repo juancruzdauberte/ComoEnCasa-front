@@ -1,13 +1,13 @@
 import { useOrders } from "../hooks/useOrder";
 import { useEffect } from "react";
-import { Filter } from "./Filter";
+import { Filter } from "../common/Filter";
 import { renderUserOrders } from "../utils/utils";
 import { useUser } from "../hooks/useAuth";
-import { OrdersTable } from "./OrdersTable";
-import { Pagination } from "./Pagination";
+import { OrdersTable } from "../common/OrdersTable";
+import { Pagination } from "../common/widget/Pagination";
 import { orderStore } from "../store/orderStore";
 
-export const OrderList = () => {
+export const OrderLayout = () => {
   const { user } = useUser();
   const { page, setPage, filter, setFilter } = orderStore();
   const isUser = user?.rol === "user";
@@ -25,13 +25,15 @@ export const OrderList = () => {
       {!noOrders && isUser && renderUserOrders(orders!)}
 
       {!isUser && (
-        <section>
-          <div className="flex gap-5">
+        <section className="flex gap-20 mt-14 w-full px-20">
+          <div className="flex flex-col gap-5 w-1/6">
             <Filter filter={filter} setFilter={setFilter} />
             <p>Pedidos filtrados: {orders?.pagination.totalItems}</p>
           </div>
-          <OrdersTable filteredTrips={orders?.data} isFetching={isLoading} />
-          {!noOrders && <Pagination setPage={setPage} page={page} />}
+          <div className="w-full">
+            <OrdersTable filteredTrips={orders?.data} isFetching={isLoading} />
+            {!noOrders && <Pagination setPage={setPage} page={page} />}
+          </div>
         </section>
       )}
 

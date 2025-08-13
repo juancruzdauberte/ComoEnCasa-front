@@ -3,12 +3,12 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import type { Order } from "../types/types";
 import { modalStore } from "../store/modalStore";
 import { orderStore } from "../store/orderStore";
-import { useDeleteOrder, usePayOrder } from "../hooks/useOrder";
+import { useDeleteOrder } from "../hooks/useOrder";
 import { renderEstado } from "../utils/utils";
 import { Spinner } from "./widget/Spinner";
 import { TrashIcon } from "./widget/TrashIcon";
-import { TbCashRegister } from "react-icons/tb";
 import { toast } from "sonner";
+import { BtnPayOrder } from "./widget/BtnPayOrder";
 
 const headers = [
   { label: "ID", key: "id" },
@@ -29,7 +29,6 @@ export function OrdersTable({
   const { setOrderSelected } = orderStore();
   const { setIsOpen } = modalStore();
   const { mutate: order } = useDeleteOrder();
-  const { payOrderMutation } = usePayOrder();
 
   const handleDelete = (id: number) => {
     order(id);
@@ -77,7 +76,7 @@ export function OrdersTable({
                   toast.warning(
                     `¿Estás seguro de que quieres eliminar el pedido ${order.id}?`,
                     {
-                      duration: 1700,
+                      duration: 2000,
                       action: {
                         label: "Eliminar",
                         onClick: () => handleDelete(order.id),
@@ -89,26 +88,7 @@ export function OrdersTable({
               >
                 <TrashIcon size={30} />
               </button>
-              {!order.fecha_pago && (
-                <button
-                  onClick={() => {
-                    toast.warning(
-                      `¿Estás seguro de que quieres pagar el pedido ${order.id}?`,
-                      {
-                        duration: 1700,
-                        action: {
-                          label: "Pagar",
-                          onClick: () => payOrderMutation(order.id),
-                        },
-                      }
-                    );
-                  }}
-                  type="button"
-                  className="border rounded-md border-orange-400 p-1 font-semibold bg-orange-400 text-white"
-                >
-                  <TbCashRegister />
-                </button>
-              )}
+              {!order.fecha_pago && <BtnPayOrder id={order.id} />}
             </td>
           </tr>
         )}

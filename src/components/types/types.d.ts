@@ -40,9 +40,18 @@ export type GetAmountTodayResponse = {
   total: number;
 };
 
+export type GetPriceToPayResponse = {
+  valor: number;
+};
+
+export type UpdateParamName = {
+  valor: number;
+  nombreParametro: string;
+};
+
 export type CreateUpdateOrderResponse = {
   productos: { producto_id: number; cantidad: number }[];
-  domicilio: string;
+  domicilio: string | null;
   estado: "preparando" | "entregado" | "listo" | "cancelado";
   hora_entrega: string | null;
   apellido_cliente?: string;

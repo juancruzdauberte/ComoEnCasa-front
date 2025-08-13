@@ -1,4 +1,4 @@
-import { OrderList } from "../../common/OrderList";
+import { OrderLayout } from "../../layouts/OrderLayout";
 import { Modal } from "../../layouts/Modal";
 import { OrderModal } from "../../common/OrderModal";
 import { modalStore } from "../../store/modalStore";
@@ -18,8 +18,8 @@ export const AdminHome = () => {
         </button>
       </section>
 
-      <section className="w-4/5">
-        <OrderList />
+      <section className="w-full">
+        <OrderLayout />
 
         {isOpen && (
           <Modal>
