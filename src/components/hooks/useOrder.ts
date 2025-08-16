@@ -11,17 +11,15 @@ import {
 import { toast } from "sonner";
 import type { CreateUpdateOrderResponse, Order } from "../types/types";
 import { orderStore } from "../store/orderStore";
-import { useUser } from "./useAuth";
 import { useNavigate } from "react-router-dom";
 import { modalStore } from "../store/modalStore";
 
-export const useOrders = (filterParam?: string | null) => {
-  const { filter, page } = orderStore();
-  const { user } = useUser();
-  const limit = user?.rol === "user" ? 1000 : 10;
+export const useOrders = () => {
+  const { filter, page, limit } = orderStore();
+
   return useQuery({
     queryKey: ["orders", filter, page],
-    queryFn: () => getAllOrders(filter! || filterParam!, page, limit),
+    queryFn: () => getAllOrders(filter!, page, limit),
   });
 };
 
@@ -76,7 +74,6 @@ export const useUpdateOrderMutation = () => {
         ...oldOrder,
         ...updatedOrder,
       }));
-
       toast.success("Pedido actualizado correctamente");
       navigate("/admin");
       setIsOpen(true);
@@ -100,6 +97,12 @@ export const useDeleteOrder = () => {
       queryClient.invalidateQueries({ queryKey: ["orders", filter, page] });
       queryClient.invalidateQueries({ queryKey: ["amountDeliveryToPay"] });
       queryClient.invalidateQueries({ queryKey: ["amountToday"] });
+      queryClient.invalidateQueries({ queryKey: ["amountCashToday"] });
+      queryClient.invalidateQueries({ queryKey: ["amountCashTodayDelivery"] });
+      queryClient.invalidateQueries({ queryKey: ["amountMonthly"] });
+      queryClient.invalidateQueries({ queryKey: ["amountCashMonthly"] });
+      queryClient.invalidateQueries({ queryKey: ["amountTransferToday"] });
+      queryClient.invalidateQueries({ queryKey: ["amountTransferMonthly"] });
     },
   });
 };
@@ -110,12 +113,13 @@ export const usePayOrder = () => {
   const { mutate: payOrderMutation } = useMutation({
     mutationFn: (id: number) => payOrder(id),
     onSuccess: (_, id) => {
-      toast.success("Pago registrado correctamente");
+      toast.success(`Pedido ${id} pagado exitosamente`);
       queryClient.invalidateQueries({ queryKey: ["order", id] });
       queryClient.invalidateQueries({ queryKey: ["orders"] });
       queryClient.invalidateQueries({ queryKey: ["amountDeliveryToPay"] });
       queryClient.invalidateQueries({ queryKey: ["amountToday"] });
       queryClient.invalidateQueries({ queryKey: ["amountCashToday"] });
+      queryClient.invalidateQueries({ queryKey: ["amountCashTodayDelivery"] });
       queryClient.invalidateQueries({ queryKey: ["amountMonthly"] });
       queryClient.invalidateQueries({ queryKey: ["amountCashMonthly"] });
       queryClient.invalidateQueries({ queryKey: ["amountTransferToday"] });

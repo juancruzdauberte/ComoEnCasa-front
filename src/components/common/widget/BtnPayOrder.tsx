@@ -8,7 +8,7 @@ export const BtnPayOrder = ({ id }: { id: number }) => {
     <button
       onClick={() => {
         toast.warning(`¿Estás seguro de que quieres pagar el pedido ${id}?`, {
-          duration: 2000,
+          duration: 3000,
           action: {
             label: "Pagar",
             onClick: () => payOrderMutation(id),

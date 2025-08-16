@@ -9,15 +9,18 @@ import { orderStore } from "../store/orderStore";
 
 export const OrderLayout = () => {
   const { user } = useUser();
-  const { page, setPage, filter, setFilter } = orderStore();
+  const { page, setPage, filter, setFilter, setLimit } = orderStore();
   const isUser = user?.rol === "user";
 
   useEffect(() => {
     if (user?.rol === "user") setFilter("hoy");
   }, [user, setFilter]);
 
+  useEffect(() => {
+    setLimit(user?.rol === "user" ? 100 : 10);
+  }, [setLimit, user?.rol]);
+
   const { data: orders, isLoading } = useOrders();
-  console.log(orders);
   const noOrders = orders?.data.length === 0;
 
   return (
@@ -28,7 +31,12 @@ export const OrderLayout = () => {
         <section className="flex gap-20 mt-14 w-full px-20">
           <div className="flex flex-col gap-5 w-1/6">
             <Filter filter={filter} setFilter={setFilter} />
-            <p>Pedidos filtrados: {orders?.pagination.totalItems}</p>
+            <p>
+              Pedidos filtrados:{" "}
+              <span className="font-semibold">
+                {orders?.pagination.totalItems}
+              </span>
+            </p>
           </div>
           <div className="w-full">
             <OrdersTable filteredTrips={orders?.data} isFetching={isLoading} />

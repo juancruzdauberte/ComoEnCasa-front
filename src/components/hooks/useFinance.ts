@@ -9,6 +9,7 @@ import {
   getTransferAmountMonthly,
   getTransferAmountToday,
   updateValueFinanceParam,
+  getDeliveryCashAmount,
 } from "../services/finances.service";
 import { toast } from "sonner";
 
@@ -46,6 +47,13 @@ export const useCashAmountToday = () => {
   return useQuery({
     queryKey: ["amountCashToday"],
     queryFn: getCashAmountToday,
+  });
+};
+
+export const useCashAmountDelivery = () => {
+  return useQuery({
+    queryKey: ["amountCashTodayDelivery"],
+    queryFn: getDeliveryCashAmount,
   });
 };
 

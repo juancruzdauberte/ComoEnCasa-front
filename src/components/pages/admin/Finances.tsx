@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useAmountMonthly,
   useAmountToday,
@@ -9,6 +9,7 @@ import {
   useTransferAmountMonthly,
   useTransferAmountToday,
   useUpdateValueParam,
+  useCashAmountDelivery,
 } from "../../hooks/useFinance";
 import { FinanceCard } from "../../common/FinanceCard";
 import { AccordionLayout } from "@/components/layouts/Accordion";
@@ -18,11 +19,14 @@ import { useForm } from "@tanstack/react-form";
 import type { UpdateParamName } from "@/components/types/types";
 import { TbEditOff } from "react-icons/tb";
 import { TbEdit } from "react-icons/tb";
+import { orderStore } from "@/components/store/orderStore";
+import { toLocalDateStringUTC3 } from "@/components/utils/utilsFunction";
 
 export const Finances = () => {
   const { data: amountToday } = useAmountToday();
   const { data: cashAmountToday } = useCashAmountToday();
   const { data: transferAmountToday } = useTransferAmountToday();
+  const { data: cashDeliveryAmount } = useCashAmountDelivery();
   const actuallyYear = new Date().getFullYear();
   const actuallyMonth = new Date().getMonth() + 1;
   const [year, setYear] = useState<number>(actuallyYear);
@@ -30,14 +34,23 @@ export const Finances = () => {
   const [valueAccordion, setValueAccordion] = useState<string | null>(
     "pedidos-hoy"
   );
+  const { setFilter, setLimit } = orderStore();
   const { data: amountMonthly } = useAmountMonthly(month, year);
   const { data: transferAmountMonthly } = useTransferAmountMonthly(month, year);
   const { data: cashAmountMonthly } = useCashAmountMonthly(month, year);
-  const { data: orders } = useOrders("hoy");
+  const { data: orders } = useOrders();
   const { data: amountToPay } = useDeliveryAmountToPay();
   const { data: priceDeliveryBiker } = useValueFinanceParam("monto_por_pedido");
   const { updateValueParam } = useUpdateValueParam();
   const [editValueParam, setEditValueParam] = useState<boolean>(false);
+
+  useEffect(() => {
+    setFilter("hoy");
+  }, [setFilter]);
+
+  useEffect(() => {
+    setLimit(100);
+  }, [setLimit]);
 
   const formParam = useForm({
     defaultValues: {
@@ -92,23 +105,29 @@ export const Finances = () => {
         <div className="flex justify-center w-full">
           {valueAccordion === "pedidos-hoy" && (
             <div className="flex gap-10">
-              <FinanceCard
-                title="HOY"
-                subtitle={`Día de hoy: ${new Date().toLocaleDateString()}`}
-                data={[
-                  { label: "Efectivo", value: cashAmountToday },
-                  { label: "Transferencia", value: transferAmountToday },
-                  { label: "Monto total", value: amountToday },
-                ]}
-              />
+              <div className="flex flex-col gap-5">
+                <FinanceCard
+                  title="HOY"
+                  subtitle={`Día de hoy: ${toLocalDateStringUTC3(
+                    new Date().toISOString()
+                  )}`}
+                  data={[
+                    { label: "Efectivo 💵", value: cashAmountToday },
+                    { label: "Transferencia 📲", value: transferAmountToday },
+                    { label: "Monto total 💲", value: amountToday },
+                  ]}
+                />
+
+                <p>
+                  Pedidos totales:{" "}
+                  <span className="font-semibold">{orders?.data.length}</span>
+                </p>
+              </div>
 
               <div className="grid grid-cols-2 gap-3">
                 {orders?.data.map((o) => (
                   <div key={o.id}>
-                    {new Date(o.fecha_pedido).toLocaleDateString("en-CA") ===
-                      new Date().toLocaleDateString("en-CA") && (
-                      <OrderCard id={o.id} />
-                    )}
+                    <OrderCard id={o.id} />
                   </div>
                 ))}
               </div>
@@ -117,18 +136,30 @@ export const Finances = () => {
 
           {valueAccordion === "delivery-hoy" && (
             <div className="flex gap-10">
-              <FinanceCard
-                title="DELIVERY"
-                subtitle={`Día de hoy: ${new Date().toLocaleDateString()}`}
-                data={[{ label: "A pagar", value: amountToPay }]}
-              />
+              <div className="flex flex-col gap-5">
+                <FinanceCard
+                  title="DELIVERY"
+                  subtitle={`Día de hoy: ${toLocalDateStringUTC3(
+                    new Date().toISOString()
+                  )}`}
+                  data={[
+                    { label: "Total efectivo 💵", value: cashDeliveryAmount },
+                    { label: "A pagar 💲", value: amountToPay },
+                  ]}
+                />
+                <p>
+                  Pedidos totales:
+                  <span className="font-semibold">
+                    {" "}
+                    {orders?.data.filter((o) => o.domicilio !== "busca").length}
+                  </span>
+                </p>
+              </div>
 
               <div className="grid grid-cols-2 gap-3">
                 {orders?.data.map((o) => (
-                  <div key={o.id} className="">
-                    {new Date(o.fecha_pedido).toLocaleDateString("en-CA") ===
-                      new Date().toLocaleDateString("en-CA") &&
-                      o.domicilio !== "busca" && <OrderCard id={o.id} />}
+                  <div key={o.id}>
+                    {o.domicilio !== "busca" && <OrderCard id={o.id} />}
                   </div>
                 ))}
               </div>
@@ -239,9 +270,9 @@ export const Finances = () => {
                 </div>
               }
               data={[
-                { label: "Efectivo", value: cashAmountMonthly },
-                { label: "Transferencia", value: transferAmountMonthly },
-                { label: "Monto total", value: amountMonthly },
+                { label: "Efectivo 💵", value: cashAmountMonthly },
+                { label: "Transferencia 📲", value: transferAmountMonthly },
+                { label: "Monto total 💲", value: amountMonthly },
               ]}
             />
           )}

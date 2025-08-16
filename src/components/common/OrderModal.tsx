@@ -95,7 +95,9 @@ export const OrderModal = () => {
             <span className="flex gap-1 font-semibold text-xl">
               Metodo de pago:{" "}
               <p className="font-normal capitalize text-lg">
-                {order?.metodo_pago}
+                {order?.metodo_pago === "efectivo"
+                  ? "Efectivo 💵"
+                  : "Transferencia 📲"}
               </p>
             </span>
             <span className="flex gap-1 font-semibold text-xl">

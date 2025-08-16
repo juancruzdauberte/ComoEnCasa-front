@@ -64,3 +64,21 @@ export async function createProduct(nombre: string, categoria_id: number) {
     return [];
   }
 }
+
+export async function deleteProduct(id: number) {
+  try {
+    const { data } = await api.delete(`/products/${id}`);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteCategory(id: number) {
+  try {
+    const { data } = await api.delete(`/products/category/${id}`);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}

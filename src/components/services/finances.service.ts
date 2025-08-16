@@ -101,3 +101,14 @@ export async function updateValueFinanceParam(
     console.log(error);
   }
 }
+
+export async function getDeliveryCashAmount() {
+  try {
+    const { data } = await api.get<GetAmountTodayResponse>(
+      "/finances/today/delivery/cash"
+    );
+    return data.total;
+  } catch (error) {
+    console.log(error);
+  }
+}

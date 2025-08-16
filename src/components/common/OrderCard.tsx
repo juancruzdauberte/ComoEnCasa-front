@@ -5,7 +5,7 @@ import { BtnPayOrder } from "./widget/BtnPayOrder";
 export const OrderCard = ({ id }: { id: number }) => {
   const { data: order } = useOrder(id);
   return (
-    <div className="flex gap-5 border border-black items-center w-auto p-1">
+    <div className="flex gap-5 items-center w-auto p-2 rounded-sm shadow-md border border-gray-200">
       <div className="flex flex-col">
         <label className="font-semibold">ID:</label>
         <p>{order?.id}</p>
@@ -16,7 +16,11 @@ export const OrderCard = ({ id }: { id: number }) => {
       </div>
       <div className="flex flex-col capitalize">
         <label className="font-semibold">Metodo pago:</label>
-        <p>{order?.metodo_pago}</p>
+        <span>
+          {order?.metodo_pago === "efectivo"
+            ? "Efectivo 💵"
+            : "Transferencia 📲"}
+        </span>
       </div>
       <div className="flex flex-col capitalize">
         <label className="font-semibold">Pago:</label>
