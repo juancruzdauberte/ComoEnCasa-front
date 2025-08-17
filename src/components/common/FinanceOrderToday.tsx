@@ -38,7 +38,10 @@ export const FinanceOrderToday = ({
       <div className="grid grid-cols-2 gap-3">
         {orders.map((o) => (
           <div key={o.id}>
-            <OrderCard id={o.id} />
+            {toLocalDateStringUTC3(o.fecha_pedido) ===
+              toLocalDateStringUTC3(new Date().toISOString()) && (
+              <OrderCard id={o.id} />
+            )}
           </div>
         ))}
       </div>

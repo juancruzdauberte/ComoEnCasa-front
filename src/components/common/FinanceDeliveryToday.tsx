@@ -13,7 +13,12 @@ export const FinanceDeliveryToday = ({
   amountToPay,
   orders,
 }: Props) => {
-  const filteredOrders = orders.filter((o) => o.domicilio !== "busca");
+  const filteredOrders = orders.filter(
+    (o) =>
+      o.domicilio !== "busca" &&
+      toLocalDateStringUTC3(o.fecha_pedido) ===
+        toLocalDateStringUTC3(new Date().toISOString())
+  );
 
   return (
     <div className="flex gap-10">

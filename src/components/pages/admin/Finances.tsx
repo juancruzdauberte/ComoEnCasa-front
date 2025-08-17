@@ -31,7 +31,7 @@ export const Finances = () => {
   const [valueAccordion, setValueAccordion] = useState<string | null>(
     "pedidos-hoy"
   );
-  const { setFilter, setLimit } = orderStore();
+  const { setLimit } = orderStore();
   const { data: amountMonthly } = useAmountMonthly(month, year);
   const { data: transferAmountMonthly } = useTransferAmountMonthly(month, year);
   const { data: cashAmountMonthly } = useCashAmountMonthly(month, year);
@@ -39,10 +39,6 @@ export const Finances = () => {
   const { data: amountToPay } = useDeliveryAmountToPay();
   const { data: priceDeliveryBiker } = useValueFinanceParam("monto_por_pedido");
   const { updateValueParam } = useUpdateValueParam();
-
-  useEffect(() => {
-    setFilter("hoy");
-  }, [setFilter]);
 
   useEffect(() => {
     setLimit(100);
