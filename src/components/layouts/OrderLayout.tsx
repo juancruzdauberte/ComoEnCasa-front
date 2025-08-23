@@ -1,6 +1,6 @@
 import { useOrders } from "../hooks/useOrder";
 import { useEffect } from "react";
-import { Filter } from "../common/Filter";
+import { Filter } from "../common/widget/Filter";
 import { renderUserOrders } from "../utils/utils";
 import { useUser } from "../hooks/useAuth";
 import { OrdersTable } from "../common/OrdersTable";
@@ -28,7 +28,7 @@ export const OrderLayout = () => {
       {!noOrders && isUser && renderUserOrders(orders!)}
 
       {!isUser && (
-        <section className="flex gap-20 mt-14 w-full px-20">
+        <section className="flex gap-20 w-full px-20">
           <div className="flex flex-col gap-5 w-1/6">
             <Filter filter={filter} setFilter={setFilter} />
             <p>

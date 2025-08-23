@@ -7,7 +7,7 @@ import type { CreateUpdateOrderResponse } from "../../types/types";
 import { useCLient } from "../../hooks/useClient";
 import { toast } from "sonner";
 import { Spinner } from "../../common/widget/Spinner";
-import { Trash2Icon } from "lucide-react";
+import { TrashIcon } from "@/components/common/widget/TrashIcon";
 
 export const CreateOrder = () => {
   const { createOrderMutate, isPending } = useCreateOrderMutation();
@@ -19,8 +19,8 @@ export const CreateOrder = () => {
   const { data: client } = useCLient(phone);
   const form = useForm({
     defaultValues: {
-      observacion: "",
-      hora_entrega: "",
+      observacion: null,
+      hora_entrega: null,
       domicilio: "",
       estado: "preparando",
       productos: [] as { producto_id: number; cantidad: number }[],
@@ -189,7 +189,7 @@ export const CreateOrder = () => {
                       e.target.value === "" ? null : e.target.value
                     )
                   }
-                  className="border p-2  rounded"
+                  className="w-full border p-2  rounded"
                 />
               </div>
             )}
@@ -447,7 +447,7 @@ export const CreateOrder = () => {
                                 }}
                                 className="text-red-600 hover:text-red-400"
                               >
-                                <Trash2Icon size={20} />
+                                <TrashIcon size={20} />
                               </button>
                             </div>
                           ))}

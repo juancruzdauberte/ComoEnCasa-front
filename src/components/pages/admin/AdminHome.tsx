@@ -8,8 +8,8 @@ export const AdminHome = () => {
   const { isOpen } = modalStore();
   const navigate = useNavigate();
   return (
-    <section className="flex flex-col items-center">
-      <section>
+    <section className="flex flex-col items-center gap-14">
+      <section className="mt-5">
         <button
           className="border rounded-md px-2 bg-slate-700 text-white text-2xl hover:bg-slate-500"
           onClick={() => navigate("/admin/order")}

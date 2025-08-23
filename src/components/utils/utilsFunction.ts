@@ -44,6 +44,6 @@ export const formattedAmount = (amount: number | null) => {
 
 export function toLocalDateStringUTC3(date: string) {
   const d = new Date(date);
-  d.setHours(d.getHours() - 3); // Ajustar a UTC-3
-  return d.toISOString().split("T")[0]; // YYYY-MM-DD
+  d.setHours(d.getHours() - 3); 
+  return d.toISOString().split("T")[0]; 
 }

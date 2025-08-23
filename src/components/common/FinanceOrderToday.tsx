@@ -15,6 +15,11 @@ export const FinanceOrderToday = ({
   amountToday,
   orders,
 }: Props) => {
+  const filteredOrders = orders.filter(
+    (o) =>
+      toLocalDateStringUTC3(o.fecha_pedido) ===
+      toLocalDateStringUTC3(new Date().toISOString())
+  );
   return (
     <div className="flex gap-10">
       <div className="flex flex-col gap-5">
@@ -31,18 +36,13 @@ export const FinanceOrderToday = ({
         />
         <p>
           Pedidos totales:{" "}
-          <span className="font-semibold">{orders.length}</span>
+          <span className="font-semibold">{filteredOrders.length}</span>
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        {orders.map((o) => (
-          <div key={o.id}>
-            {toLocalDateStringUTC3(o.fecha_pedido) ===
-              toLocalDateStringUTC3(new Date().toISOString()) && (
-              <OrderCard id={o.id} />
-            )}
-          </div>
+        {filteredOrders.map((o) => (
+          <div key={o.id}>{<OrderCard id={o.id} />}</div>
         ))}
       </div>
     </div>

@@ -1,5 +1,4 @@
-import { AccordionLayout } from "../layouts/Accordion";
-
+import { AccordionLayout } from "@/components/layouts/Accordion";
 type Props = {
   filter: string | null;
   setFilter: (filter: string | null) => void;

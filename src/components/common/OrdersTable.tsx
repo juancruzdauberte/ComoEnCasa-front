@@ -45,7 +45,14 @@ export function OrdersTable({
         data={isFetching ? [] : filteredTrips || []}
         noDataMessage={messageNoData}
         renderRow={(order) => (
-          <tr key={order.id} className="capitalize border-b border-gray-200">
+          <tr
+            key={order.id}
+            className="capitalize border-b border-gray-200 hover:bg-gray-50 cursor-pointer"
+            onClick={() => {
+              setOrderSelected(order.id);
+              setIsOpen(true);
+            }}
+          >
             <td className="p-2">{order.id}</td>
             <td className="p-2">
               {order.nombre_cliente} {order.apellido_cliente}

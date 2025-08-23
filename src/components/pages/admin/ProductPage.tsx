@@ -61,8 +61,8 @@ export const ProductPage = () => {
 
   return (
     <section className="flex flex-col  gap-10 w-full">
-      <h1 className="text-center text-3xl font-semibold mt-10">
-        Crear categoria y producto
+      <h1 className="text-center text-3xl font-semibold mt-5">
+        Productos y Categorías
       </h1>
       <div className="flex w-full justify-between">
         <div className="w-1/2 px-36 flex flex-col gap-16">
@@ -128,7 +128,7 @@ export const ProductPage = () => {
                         type="text"
                         value={field.state.value ?? ""}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                       {field.state.meta.errors.length > 0 && (
                         <em className="text-red-600 text-sm">
@@ -154,7 +154,7 @@ export const ProductPage = () => {
             <div className="flex items-center gap-12">
               <div className="flex flex-col gap-3">
                 <div>
-                  <h5>Categoria</h5>
+                  <h5>Categoría</h5>
                   <select
                     onChange={(e) => {
                       const catId = e.target.value
@@ -200,7 +200,7 @@ export const ProductPage = () => {
               {selectedProduct && (
                 <div className="flex items-center gap-6 border shadow-lg p-2">
                   <div className="flex flex-col">
-                    <span className="font-semibold">Categoria:</span>
+                    <span className="font-semibold">Categoría:</span>
                     <span className="capitalize">
                       {selectedProduct.categoria}
                     </span>
@@ -236,7 +236,7 @@ export const ProductPage = () => {
 
         <div className="w-1/2 px-36 flex flex-col gap-14">
           <div>
-            <h2 className="font-semibold text-2xl mb-5">Crear categoria</h2>
+            <h2 className="font-semibold text-2xl mb-5">Crear categoría</h2>
 
             <form
               onSubmit={(e) => {
@@ -254,13 +254,13 @@ export const ProductPage = () => {
               >
                 {(field) => (
                   <div className="flex flex-col gap-2">
-                    <label>Nombre categoria:</label>
+                    <label>Nombre categoría:</label>
                     <div className="flex flex-col">
                       <input
                         type="text"
                         value={field.state.value ?? ""}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                       {field.state.meta.errors.length > 0 && (
                         <em className="text-red-600 text-sm">
@@ -282,9 +282,9 @@ export const ProductPage = () => {
           </div>
 
           <div className="flex flex-col gap-5">
-            <h4 className="font-semibold text-2xl">Eliminar categoria</h4>
+            <h4 className="font-semibold text-2xl">Eliminar categoría</h4>
             <div className="flex flex-col">
-              <h5>Categoria</h5>
+              <h5>Categoría</h5>
               <select
                 onChange={(e) => {
                   const catId = e.target.value ? Number(e.target.value) : null;
@@ -317,7 +317,7 @@ export const ProductPage = () => {
                       className="text-red-500 hover:text-red-300"
                       onClick={() => {
                         toast.warning(
-                          `¿Estás seguro de que quieres eliminar la categoria ${selectedCat.nombre}?`,
+                          `¿Estás seguro de que quieres eliminar la categoría ${selectedCat.nombre}?`,
                           {
                             duration: 3000,
                             action: {

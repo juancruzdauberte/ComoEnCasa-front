@@ -1,4 +1,5 @@
 import type { GetOrdersResponse, Producto } from "../types/types";
+import { formatTimeForInput } from "./utilsFunction";
 
 export const renderEstado = (estado: string) => {
   const base =
@@ -44,45 +45,55 @@ export const agruparPorCategoriaProductos = (
 };
 
 export const renderUserOrders = (orders: GetOrdersResponse) => (
-  <section className="grid grid-cols-4 gap-4">
+  <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-4 items-start">
     {orders?.data.map((order) => (
       <div
         key={order.id}
-        className="border border-black p-2 flex flex-col gap-2"
+        className="border border-gray-300 shadow-sm p-3 flex flex-col rounded-md bg-white"
       >
-        <div className="font-bold">Pedido: {order.id}</div>
+        {/* Header */}
+        <header className="flex justify-between items-center mb-2">
+          <span className="font-bold text-xl">Pedido #{order.id}</span>
+          <span className="text-xl text-gray-600">
+            {renderEstado(order.estado)}
+          </span>
+        </header>
 
-        <div className="flex justify-between gap-2">
-          <div className="flex flex-col">
-            <span className="font-semibold">Domicilio: </span>
-            <span className="capitalize">{order.domicilio}</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-semibold">Hora entrega:</span>
-            <span>{order.hora_entrega}</span>
-          </div>
-          <div className="flex flex-col">
+        {/* Datos principales */}
+        <div className="flex flex-wrap gap-3 text-lg">
+          <div>
             <span className="font-semibold">Cliente:</span>
-            <span className="capitalize">
+            <div className="capitalize truncate">
               {order.nombre_cliente} {order.apellido_cliente}
-            </span>
+            </div>
           </div>
-        </div>
 
-        <div className="flex gap-1">
-          <span className="font-bold">Estado: </span>
-          {renderEstado(order.estado)}
-        </div>
+          {order.hora_entrega && (
+            <div>
+              <span className="font-semibold">Entrega:</span>
+              <div>{formatTimeForInput(order.hora_entrega)}</div>
+            </div>
+          )}
 
-        <div className="flex flex-col">
-          <span className="font-bold">Observaciones:</span>
-          <span>{order.observacion ?? "Sin observaciones"}</span>
+          <div className="col-span-2">
+            <span className="font-semibold">Domicilio:</span>
+            <div className="truncate">{order.domicilio}</div>
+          </div>
+
+          {order.observacion && (
+            <div className="col-span-2">
+              <span className="font-semibold">Obs:</span>
+              <div>{order.observacion}</div>
+            </div>
+          )}
         </div>
 
         {order.productos && (
-          <div>
-            <h2 className="font-bold">Productos:</h2>
-            <div className="flex gap-2">{renderProductos(order.productos)}</div>
+          <div className="mt-2 text-lg  overflow-y-auto">
+            <h4 className="font-semibold">Productos:</h4>
+            <div className="flex flex-wrap gap-x-5">
+              {renderProductos(order.productos)}
+            </div>
           </div>
         )}
       </div>
@@ -100,11 +111,11 @@ export const renderProductos = (productos: Producto[]) => {
         <div>
           {productos.length > 0 ? (
             productos.map((product, index) => (
-              <div key={index}>
-                <span className="capitalize">
+              <ul key={index} className="list-disc list-inside">
+                <li className="capitalize">
                   {product.nombre} - {product.cantidad}
-                </span>
-              </div>
+                </li>
+              </ul>
             ))
           ) : (
             <span className="text-sm italic text-gray-500">
