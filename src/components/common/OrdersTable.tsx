@@ -9,12 +9,13 @@ import { Spinner } from "./widget/Spinner";
 import { TrashIcon } from "./widget/TrashIcon";
 import { toast } from "sonner";
 import { BtnPayOrder } from "./widget/BtnPayOrder";
+import { formatTimeForInput } from "../utils/utilsFunction";
 
 const headers = [
   { label: "ID", key: "id" },
   { label: "Nombre", key: "apellido" },
   { label: "Domicilio", key: "domicilio" },
-  { label: "Fecha creación", key: "fecha" },
+  { label: "Hs entrega", key: "hora_entrega" },
   { label: "Estado", key: "estado" },
   { label: "Acciones", key: "acciones" },
 ];
@@ -59,7 +60,9 @@ export function OrdersTable({
             </td>
             <td className="p-2">{order.domicilio}</td>
             <td className="p-2">
-              {new Date(order.fecha_pedido).toLocaleDateString("es-AR")}
+              {order.hora_entrega
+                ? formatTimeForInput(order.hora_entrega)
+                : "S/H"}
             </td>
             <td className="p-2 font-bold capitalize">
               <span className="capitalize font-semibold">
