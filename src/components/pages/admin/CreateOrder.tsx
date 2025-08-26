@@ -73,16 +73,24 @@ export const CreateOrder = () => {
     );
 
   return (
-    <section className="w-full flex flex-col items-center justify-center gap-8">
-      <h1 className="text-center text-3xl font-bold mt-7">Crear pedido</h1>
+    <section className="w-full flex flex-col gap-8 items-center">
+      <div>
+        <h1 className="text-center text-3xl font-bold mt-7 mb-2">
+          Crear pedido
+        </h1>
+        <em>
+          Los campos <span className="text-red-500">*</span> son requeridos
+        </em>
+      </div>
+
       <form
         onSubmit={(e) => {
           e.preventDefault();
           form.handleSubmit();
         }}
-        className="flex flex-col"
+        className="flex flex-col gap-5"
       >
-        <div className="grid grid-cols-4 gap-y-6">
+        <div className="flex gap-10">
           <form.Field
             name="nombre_cliente"
             validators={{
@@ -97,6 +105,8 @@ export const CreateOrder = () => {
                   htmlFor="nombre_cliente"
                   className="block font-semibold mb-1"
                 >
+                  {" "}
+                  <span className="text-red-500 mr-1">*</span>
                   Nombre:
                 </label>
                 <div className="flex flex-col">
@@ -105,7 +115,7 @@ export const CreateOrder = () => {
                     type="text"
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="border p-2 rounded w-7/12"
+                    className="border p-2 rounded "
                   />
                   {field.state.meta.errors.length > 0 && (
                     <em className="text-red-600 text-sm">
@@ -127,13 +137,16 @@ export const CreateOrder = () => {
           >
             {(field) => (
               <div>
-                <label className="block font-semibold mb-1">Apellido:</label>
+                <label className="block font-semibold mb-1">
+                  {" "}
+                  <span className="text-red-500 mr-1">*</span>Apellido:
+                </label>
                 <div className="flex flex-col">
                   <input
                     type="text"
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="border p-2  rounded w-7/12"
+                    className="border p-2  rounded"
                   />
 
                   {field.state.meta.errors.length > 0 && (
@@ -158,7 +171,10 @@ export const CreateOrder = () => {
           >
             {(field) => (
               <div>
-                <label className="block font-semibold mb-1">Teléfono:</label>
+                <label className="block font-semibold mb-1">
+                  {" "}
+                  <span className="text-red-500 mr-1">*</span>Teléfono:
+                </label>
                 <div className="flex flex-col">
                   <input
                     type="text"
@@ -172,7 +188,7 @@ export const CreateOrder = () => {
                       field.handleChange(soloNumeros);
                       setPhone(soloNumeros);
                     }}
-                    className="border p-2  rounded w-7/12"
+                    className="border p-2  rounded"
                   />
 
                   {field.state.meta.errors.length > 0 && (
@@ -188,7 +204,10 @@ export const CreateOrder = () => {
           <form.Field name="domicilio">
             {(field) => (
               <div>
-                <label className="block font-semibold mb-1">Domicilio:</label>
+                <label className="block font-semibold mb-1">
+                  {" "}
+                  <span className="text-red-500 mr-1">*</span> Domicilio:
+                </label>
 
                 <input
                   type="text"
@@ -198,12 +217,14 @@ export const CreateOrder = () => {
                       e.target.value === "" ? null : e.target.value
                     )
                   }
-                  className="border p-2  rounded w-7/12"
+                  className="border p-2  rounded w-[270px]"
                 />
               </div>
             )}
           </form.Field>
+        </div>
 
+        <div className="flex gap-10">
           <form.Field
             name="monto"
             validators={{
@@ -214,7 +235,10 @@ export const CreateOrder = () => {
           >
             {(field) => (
               <div>
-                <label className="block font-semibold mb-1">Monto:</label>
+                <label className="block font-semibold mb-1">
+                  {" "}
+                  <span className="text-red-500 mr-1">*</span>Monto:
+                </label>
                 <div className="flex flex-col">
                   <input
                     type="text"
@@ -229,7 +253,7 @@ export const CreateOrder = () => {
                       const soloNumeros = e.target.value.replace(/\D/g, "");
                       field.handleChange(Number(soloNumeros));
                     }}
-                    className="border p-2 rounded w-7/12 "
+                    className="border p-2 rounded "
                   />
                   {field.state.meta.errors.length > 0 && (
                     <em className="text-red-600 text-sm">
@@ -251,7 +275,10 @@ export const CreateOrder = () => {
           >
             {(field) => (
               <div>
-                <label className="block font-semibold mb-1">Método pago:</label>
+                <label className="block font-semibold mb-1">
+                  {" "}
+                  <span className="text-red-500 mr-1">*</span>Método pago:
+                </label>
                 <div className="flex flex-col">
                   <select
                     value={field.state.value}
@@ -260,7 +287,7 @@ export const CreateOrder = () => {
                         e.target.value as "efectivo" | "transferencia" | ""
                       )
                     }
-                    className="border p-2 rounded w-2/5"
+                    className="border p-2 rounded"
                   >
                     <option value="">Seleccionar</option>
                     <option value="transferencia">Transferencia</option>
@@ -300,7 +327,7 @@ export const CreateOrder = () => {
                 <textarea
                   value={field.state.value ?? ""}
                   onChange={(e) => field.handleChange(e.target.value || null)}
-                  className="border p-2 rounded w-96"
+                  className="border p-2 rounded w-[410px]"
                 />
               </div>
             )}
@@ -371,7 +398,10 @@ export const CreateOrder = () => {
               <div className="flex gap-10 pt-5">
                 <div className="flex gap-7">
                   <div>
-                    <label className="block font-semibold">Categoría</label>
+                    <label className="block font-semibold">
+                      {" "}
+                      <span className="text-red-500 mr-1">*</span>Categoría
+                    </label>
                     <select
                       id="categoria"
                       className="border p-2  rounded capitalize"
@@ -397,6 +427,8 @@ export const CreateOrder = () => {
                         !selectedCategory && "text-gray-500"
                       }`}
                     >
+                      {" "}
+                      <span className="text-red-500 mr-1">*</span>
                       Productos
                     </label>
                     <select
@@ -485,7 +517,7 @@ export const CreateOrder = () => {
 
         <button
           type="submit"
-          className="absolute top-[485px] left-20 w-48 bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700 transition"
+          className="absolute top-[520px] w-48 bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700 transition"
         >
           Crear Pedido
         </button>
