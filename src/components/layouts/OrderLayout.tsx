@@ -28,7 +28,7 @@ export const OrderLayout = () => {
       {!noOrders && isUser && renderUserOrders(orders!)}
 
       {!isUser && (
-        <section className="flex gap-20 w-full px-20">
+        <section className="flex gap-14 w-full px-32">
           <div className="flex flex-col gap-5 w-1/6">
             <Filter filter={filter} setFilter={setFilter} />
             <p>
@@ -38,7 +38,7 @@ export const OrderLayout = () => {
               </span>
             </p>
           </div>
-          <div className="w-full">
+          <div className="w-11/12">
             <OrdersTable filteredTrips={orders?.data} isFetching={isLoading} />
             {!noOrders && <Pagination setPage={setPage} page={page} />}
           </div>

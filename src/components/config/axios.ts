@@ -15,7 +15,7 @@ api.interceptors.request.use(
     let token = userStore.getState().accessToken;
     if (config.url?.includes("/auth/refresh")) return config;
 
-    if (token && isTokenNearExpiry(token, 60)) {
+    if (token && isTokenNearExpiry(token, 90)) {
       console.log(
         "[Interceptor] Token cerca de expirar. Intentando refrescar..."
       );

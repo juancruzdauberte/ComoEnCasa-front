@@ -59,7 +59,7 @@ export type CreateUpdateOrderResponse = {
   telefono_cliente?: string;
   observacion: string | null;
   metodo_pago: "efectivo" | "transferencia" | "";
-  monto: number;
+  monto: number | null;
 };
 
 export type RefreshResponse = {

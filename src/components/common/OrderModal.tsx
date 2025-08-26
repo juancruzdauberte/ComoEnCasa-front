@@ -100,21 +100,28 @@ export const OrderModal = () => {
                   : "Transferencia 📲"}
               </p>
             </span>
-            <span className="flex gap-1 font-semibold text-xl">
-              Hora entrega:{" "}
-              <p className="font-normal text-lg">
-                {order?.hora_entrega && formatTimeForInput(order.hora_entrega)}
-              </p>
-            </span>
+
+            {order?.hora_entrega && (
+              <span className="flex gap-1 font-semibold text-xl">
+                Hora entrega:{" "}
+                <p className="font-normal text-lg">
+                  {order?.hora_entrega &&
+                    formatTimeForInput(order.hora_entrega)}
+                </p>
+              </span>
+            )}
           </div>
 
           <div className="flex flex-col gap-7 self-start">
-            <span className="flex gap-1 font-semibold text-xl">
-              Observación:{" "}
-              <p className="font-normal capitalize text-lg">
-                {order?.observacion}
-              </p>
-            </span>
+            {order?.observacion && (
+              <span className="flex gap-1 font-semibold text-xl">
+                Observación:
+                <p className="font-normal capitalize text-lg">
+                  {order?.observacion}
+                </p>
+              </span>
+            )}
+
             <div className="flex gap-5">
               <span className="font-semibold text-xl">Productos:</span>
               <div className="flex gap-7 capitalize">

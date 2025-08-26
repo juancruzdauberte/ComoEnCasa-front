@@ -60,14 +60,14 @@ export const ProductPage = () => {
   const CategoryField = categoryForm.Field;
 
   return (
-    <section className="flex flex-col  gap-10 w-full">
-      <h1 className="text-center text-3xl font-semibold mt-5">
+    <section className="flex flex-col gap-7 w-full">
+      <h1 className="text-center text-3xl font-semibold mt-2">
         Productos y Categorías
       </h1>
       <div className="flex w-full justify-between">
         <div className="w-1/2 px-36 flex flex-col gap-16">
-          <div className="">
-            <h2 className="font-semibold text-2xl mb-5">Crear producto</h2>
+          <div>
+            <h2 className="font-semibold text-2xl mb-3">Crear producto</h2>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -128,7 +128,7 @@ export const ProductPage = () => {
                         type="text"
                         value={field.state.value ?? ""}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-1/2 border border-gray-300 p-2 rounded focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
                       />
                       {field.state.meta.errors.length > 0 && (
                         <em className="text-red-600 text-sm">
@@ -150,7 +150,7 @@ export const ProductPage = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-2xl mb-5">Eliminar producto</h4>
+            <h4 className="font-semibold text-2xl mb-3">Eliminar producto</h4>
             <div className="flex items-center gap-12">
               <div className="flex flex-col gap-3">
                 <div>
@@ -236,7 +236,7 @@ export const ProductPage = () => {
 
         <div className="w-1/2 px-36 flex flex-col gap-14">
           <div>
-            <h2 className="font-semibold text-2xl mb-5">Crear categoría</h2>
+            <h2 className="font-semibold text-2xl mb-3">Crear categoría</h2>
 
             <form
               onSubmit={(e) => {
@@ -260,7 +260,7 @@ export const ProductPage = () => {
                         type="text"
                         value={field.state.value ?? ""}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-1/2 border border-gray-300 p-2 rounded focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
                       />
                       {field.state.meta.errors.length > 0 && (
                         <em className="text-red-600 text-sm">
@@ -281,7 +281,7 @@ export const ProductPage = () => {
             </form>
           </div>
 
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-3">
             <h4 className="font-semibold text-2xl">Eliminar categoría</h4>
             <div className="flex flex-col">
               <h5>Categoría</h5>

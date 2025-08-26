@@ -13,6 +13,9 @@ export const CreateOrder = () => {
   const { createOrderMutate, isPending } = useCreateOrderMutation();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [phone, setPhone] = useState<string>("");
+  const [cantidadInput, setCantidadInput] = useState<{ [id: number]: string }>(
+    {}
+  );
   const { data: categories } = useCategorys();
   const { data: products } = useProductsByCategory(selectedCategory);
   const { data: allProducts } = useProductsByCategory(null);
@@ -23,8 +26,8 @@ export const CreateOrder = () => {
       hora_entrega: null,
       domicilio: "",
       estado: "preparando",
-      productos: [] as { producto_id: number; cantidad: number }[],
-      monto: 0,
+      productos: [],
+      monto: null,
       nombre_cliente: "",
       metodo_pago: "",
       apellido_cliente: "",
@@ -36,9 +39,15 @@ export const CreateOrder = () => {
           ? value.domicilio
           : "busca";
 
+      const productosConvertidos = value.productos.map((p) => ({
+        producto_id: p.producto_id,
+        cantidad: Number(p.cantidad),
+      }));
+
       const order = {
         ...value,
         domicilio: domicilioFinal,
+        productos: productosConvertidos,
       };
 
       createOrderMutate(order);
@@ -64,8 +73,8 @@ export const CreateOrder = () => {
     );
 
   return (
-    <section className="w-full flex flex-col items-center justify-center gap-10">
-      <h1 className="text-center text-3xl font-bold mt-10">Crear pedido</h1>
+    <section className="w-full flex flex-col items-center justify-center gap-8">
+      <h1 className="text-center text-3xl font-bold mt-7">Crear pedido</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -73,7 +82,7 @@ export const CreateOrder = () => {
         }}
         className="flex flex-col"
       >
-        <div className="grid grid-cols-4 gap-5 justify-center px-20">
+        <div className="grid grid-cols-4 gap-y-6">
           <form.Field
             name="nombre_cliente"
             validators={{
@@ -83,7 +92,7 @@ export const CreateOrder = () => {
             }}
           >
             {(field) => (
-              <div className="mb-4">
+              <div>
                 <label
                   htmlFor="nombre_cliente"
                   className="block font-semibold mb-1"
@@ -96,7 +105,7 @@ export const CreateOrder = () => {
                     type="text"
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="border p-2  rounded"
+                    className="border p-2 rounded w-7/12"
                   />
                   {field.state.meta.errors.length > 0 && (
                     <em className="text-red-600 text-sm">
@@ -117,14 +126,14 @@ export const CreateOrder = () => {
             }}
           >
             {(field) => (
-              <div className="mb-4">
+              <div>
                 <label className="block font-semibold mb-1">Apellido:</label>
                 <div className="flex flex-col">
                   <input
                     type="text"
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="border p-2  rounded"
+                    className="border p-2  rounded w-7/12"
                   />
 
                   {field.state.meta.errors.length > 0 && (
@@ -148,7 +157,7 @@ export const CreateOrder = () => {
             }}
           >
             {(field) => (
-              <div className="mb-4">
+              <div>
                 <label className="block font-semibold mb-1">Teléfono:</label>
                 <div className="flex flex-col">
                   <input
@@ -163,7 +172,7 @@ export const CreateOrder = () => {
                       field.handleChange(soloNumeros);
                       setPhone(soloNumeros);
                     }}
-                    className="border p-2  rounded"
+                    className="border p-2  rounded w-7/12"
                   />
 
                   {field.state.meta.errors.length > 0 && (
@@ -178,7 +187,7 @@ export const CreateOrder = () => {
 
           <form.Field name="domicilio">
             {(field) => (
-              <div className="mb-4">
+              <div>
                 <label className="block font-semibold mb-1">Domicilio:</label>
 
                 <input
@@ -189,7 +198,7 @@ export const CreateOrder = () => {
                       e.target.value === "" ? null : e.target.value
                     )
                   }
-                  className="w-full border p-2  rounded"
+                  className="border p-2  rounded w-7/12"
                 />
               </div>
             )}
@@ -204,13 +213,13 @@ export const CreateOrder = () => {
             }}
           >
             {(field) => (
-              <div className="mb-4">
+              <div>
                 <label className="block font-semibold mb-1">Monto:</label>
                 <div className="flex flex-col">
                   <input
                     type="text"
                     value={
-                      field.state.value &&
+                      field.state.value! &&
                       new Intl.NumberFormat("es-AR", {
                         minimumFractionDigits: 0,
                         maximumFractionDigits: 0,
@@ -220,7 +229,7 @@ export const CreateOrder = () => {
                       const soloNumeros = e.target.value.replace(/\D/g, "");
                       field.handleChange(Number(soloNumeros));
                     }}
-                    className="border p-2 rounded w-56 "
+                    className="border p-2 rounded w-7/12 "
                   />
                   {field.state.meta.errors.length > 0 && (
                     <em className="text-red-600 text-sm">
@@ -241,7 +250,7 @@ export const CreateOrder = () => {
             }}
           >
             {(field) => (
-              <div className="mb-4">
+              <div>
                 <label className="block font-semibold mb-1">Método pago:</label>
                 <div className="flex flex-col">
                   <select
@@ -251,7 +260,7 @@ export const CreateOrder = () => {
                         e.target.value as "efectivo" | "transferencia" | ""
                       )
                     }
-                    className="border p-2  rounded"
+                    className="border p-2 rounded w-2/5"
                   >
                     <option value="">Seleccionar</option>
                     <option value="transferencia">Transferencia</option>
@@ -270,7 +279,7 @@ export const CreateOrder = () => {
 
           <form.Field name="hora_entrega">
             {(field) => (
-              <div className="mb-4">
+              <div>
                 <label className="block font-semibold mb-1">
                   Hora entrega:
                 </label>
@@ -286,7 +295,7 @@ export const CreateOrder = () => {
 
           <form.Field name="observacion">
             {(field) => (
-              <div className="mb-4">
+              <div>
                 <label className="block font-semibold mb-1">Observación:</label>
                 <textarea
                   value={field.state.value ?? ""}
@@ -322,20 +331,29 @@ export const CreateOrder = () => {
               ) {
                 field.handleChange([
                   ...productosSeleccionados,
-                  { producto_id, cantidad: 1 },
+                  { producto_id, cantidad: 0 },
                 ]);
               }
             };
 
             const cambiarCantidad = (
               producto_id: number,
-              nuevaCantidad: number
+              nuevaCantidad: string
             ) => {
-              if (nuevaCantidad < 1) return;
+              setCantidadInput((prev) => ({
+                ...prev,
+                [producto_id]: nuevaCantidad,
+              }));
+
+              const cantidadNum =
+                nuevaCantidad === "" ? 0 : Number(nuevaCantidad);
+
+              if (cantidadNum < 1 && nuevaCantidad !== "") return;
+
               field.handleChange(
                 productosSeleccionados.map((p) =>
                   p.producto_id === producto_id
-                    ? { ...p, cantidad: nuevaCantidad }
+                    ? { ...p, cantidad: cantidadNum }
                     : p
                 )
               );
@@ -350,7 +368,7 @@ export const CreateOrder = () => {
             };
 
             return (
-              <div className="flex px-20 gap-10 pt-5">
+              <div className="flex gap-10 pt-5">
                 <div className="flex gap-7">
                   <div>
                     <label className="block font-semibold">Categoría</label>
@@ -417,7 +435,7 @@ export const CreateOrder = () => {
                           <h5 className="font-semibold mb-2 capitalize">
                             {categoria}
                           </h5>
-                          {productos.map(({ producto, cantidad }) => (
+                          {productos.map(({ producto }) => (
                             <div
                               key={producto.id}
                               className="flex items-center gap-4 p-2 border rounded mb-2"
@@ -426,16 +444,15 @@ export const CreateOrder = () => {
                                 {producto.nombre}
                               </span>
                               <input
-                                type="number"
-                                min={1}
-                                value={cantidad}
+                                value={cantidadInput[producto.id] ?? ""}
                                 onChange={(e) =>
                                   cambiarCantidad(
                                     producto.id,
-                                    Number(e.target.value)
+                                    e.target.value.replace(/\D/g, "")
                                   )
                                 }
                                 className="w-14 border px-2 py-1 rounded"
+                                required
                               />
                               <button
                                 type="button"
@@ -468,7 +485,7 @@ export const CreateOrder = () => {
 
         <button
           type="submit"
-          className="absolute top-[530px] left-20 w-48 bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700 transition"
+          className="absolute top-[485px] left-20 w-48 bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700 transition"
         >
           Crear Pedido
         </button>

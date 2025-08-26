@@ -34,14 +34,12 @@ export const useOrder = (id: number) => {
 
 export const useCreateOrderMutation = () => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const { mutate: createOrderMutate, isPending } = useMutation({
     mutationFn: createOrder,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
       toast.success("Pedido creado exitosamente");
-      navigate("/admin");
     },
     onError: () => {
       toast.error("Error al crear el pedido");

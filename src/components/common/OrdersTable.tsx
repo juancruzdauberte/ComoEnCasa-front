@@ -15,7 +15,7 @@ const headers = [
   { label: "ID", key: "id" },
   { label: "Nombre", key: "apellido" },
   { label: "Domicilio", key: "domicilio" },
-  { label: "Hs entrega", key: "hora_entrega" },
+  { label: "Entrega", key: "hora_entrega" },
   { label: "Estado", key: "estado" },
   { label: "Acciones", key: "acciones" },
 ];
@@ -82,7 +82,8 @@ export function OrdersTable({
               </button>
               <button
                 className="text-red-600 hover:text-red-400"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   toast.warning(
                     `¿Estás seguro de que quieres eliminar el pedido ${order.id}?`,
                     {
