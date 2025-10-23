@@ -11,6 +11,18 @@ import { agruparProductosPorCategoria } from "../../utils/utils";
 import { useParams } from "react-router-dom";
 import { Spinner } from "../../common/widget/Spinner";
 import { TrashIcon } from "../../common/widget/TrashIcon";
+import {
+  ShoppingBag,
+  MapPin,
+  DollarSign,
+  CreditCard,
+  Clock,
+  MessageSquare,
+  Package,
+  CheckCircle2,
+  AlertCircle,
+  Save,
+} from "lucide-react";
 
 export const EditOrder = () => {
   const { id } = useParams();
@@ -58,99 +70,49 @@ export const EditOrder = () => {
 
   if (!order)
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-transparent z-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-indigo-900/20 to-purple-900/20 backdrop-blur-md z-50">
         <Spinner text="Cargando pedido..." />
       </div>
     );
 
   if (isPending)
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-transparent z-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-indigo-900/20 to-purple-900/20 backdrop-blur-md z-50">
         <Spinner text={`Actualizando pedido ${orderId}...`} />
       </div>
     );
+
   return (
-    <section className="p-6 bg-white rounded shadow-md">
-      <h1 className="text-center font-bold text-2xl">
-        Editar pedido: {order?.id}
-      </h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          form.handleSubmit();
-        }}
-        className="space-y-6 "
-      >
-        <div className="flex justify-between w-full">
-          <div>
-            <h3 className="text-lg font-bold mb-4">Datos del Cliente</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <form.Field name="nombre_cliente">
-                {(field) => (
-                  <div>
-                    <label
-                      htmlFor="nombre_cliente"
-                      className="block text-sm font-semibold mb-1"
-                    >
-                      Nombre
-                    </label>
-                    <input
-                      id="nombre_cliente"
-                      type="text"
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      disabled
-                    />
-                  </div>
-                )}
-              </form.Field>
+    <section className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50 to-purple-100 py-12">
+      <div className="container mx-auto px-6 max-w-5xl">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}
+          className="space-y-6"
+        >
+          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 animate-fade-in">
+            <div className="flex items-center gap-3 mb-6">
+              <ShoppingBag className="w-6 h-6 text-indigo-600" />
+              <h3 className="text-2xl font-bold text-slate-800">
+                Pedido #{orderId}
+              </h3>
+            </div>
 
-              <form.Field name="apellido_cliente">
-                {(field) => (
-                  <div>
-                    <label className="block text-sm font-semibold mb-1">
-                      Apellido
-                    </label>
-                    <input
-                      type="text"
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      disabled
-                    />
-                  </div>
-                )}
-              </form.Field>
-
-              <form.Field name="telefono_cliente">
-                {(field) => (
-                  <div>
-                    <label className="block text-sm font-semibold mb-1">
-                      Teléfono
-                    </label>
-                    <input
-                      type="text"
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      disabled
-                    />
-                  </div>
-                )}
-              </form.Field>
-
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <form.Field name="domicilio">
                 {(field) => (
-                  <div>
-                    <label className="block text-sm font-semibold mb-1">
+                  <div className="group">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                      <MapPin className="w-4 h-4" />
                       Domicilio
                     </label>
                     <input
                       type="text"
                       value={field.state.value!}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none"
                     />
                   </div>
                 )}
@@ -158,35 +120,42 @@ export const EditOrder = () => {
 
               <form.Field name="monto">
                 {(field) => (
-                  <div>
-                    <label className="block text-sm font-semibold mb-1">
+                  <div className="group">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                      <DollarSign className="w-4 h-4" />
                       Monto
                     </label>
-                    <input
-                      type="text"
-                      value={
-                        field.state.value
-                          ? new Intl.NumberFormat("es-AR", {
-                              minimumFractionDigits: 0,
-                              maximumFractionDigits: 0,
-                            }).format(field.state.value)
-                          : ""
-                      }
-                      onChange={(e) => {
-                        const soloNumeros = e.target.value.replace(/\D/g, "");
-                        field.handleChange(Number(soloNumeros));
-                      }}
-                      className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={
+                          field.state.value
+                            ? new Intl.NumberFormat("es-AR", {
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0,
+                              }).format(field.state.value)
+                            : ""
+                        }
+                        onChange={(e) => {
+                          const soloNumeros = e.target.value.replace(/\D/g, "");
+                          field.handleChange(Number(soloNumeros));
+                        }}
+                        required
+                        className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none"
+                      />
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+                        $
+                      </span>
+                    </div>
                   </div>
                 )}
               </form.Field>
 
               <form.Field name="metodo_pago">
                 {(field) => (
-                  <div>
-                    <label className="block text-sm font-semibold mb-1">
+                  <div className="group">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                      <CreditCard className="w-4 h-4" />
                       Método de Pago
                     </label>
                     <select
@@ -196,37 +165,49 @@ export const EditOrder = () => {
                           e.target.value as "efectivo" | "transferencia" | ""
                         )
                       }
-                      className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                       required
+                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none cursor-pointer"
                     >
                       <option value="">Seleccionar</option>
-                      <option value="transferencia">Transferencia</option>
-                      <option value="efectivo">Efectivo</option>
+                      <option value="transferencia">💳 Transferencia</option>
+                      <option value="efectivo">💵 Efectivo</option>
                     </select>
                   </div>
                 )}
               </form.Field>
 
-              <div className="flex items-center gap-2">
-                <label className={`text-sm block  font-semibold mb-1`}>
-                  Fecha pago:{" "}
-                  <span
-                    className={`text-sm font-semibold px-1 border rounded-md capitalize text-center  ${
-                      !order.fecha_pago
-                        ? "text-yellow-500 border-yellow-400 bg-yellow-100"
-                        : "text-green-500 border-green-400 bg-green-100"
-                    }`}
-                  >
-                    {!order.fecha_pago ? "Pendiente" : "Realizado"}
-                  </span>
+              <div className="flex flex-col">
+                <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2">
+                  <CheckCircle2 className="w-4 h-4" />
+                  Estado de Pago
                 </label>
+                <div
+                  className={`px-4 py-3 rounded-xl border-2 font-semibold text-center transition-all ${
+                    !order.fecha_pago
+                      ? "bg-amber-50 border-amber-300 text-amber-700"
+                      : "bg-emerald-50 border-emerald-300 text-emerald-700"
+                  }`}
+                >
+                  {!order.fecha_pago ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <AlertCircle className="w-4 h-4" />
+                      Pendiente
+                    </span>
+                  ) : (
+                    <span className="flex items-center justify-center gap-2">
+                      <CheckCircle2 className="w-4 h-4" />
+                      Realizado
+                    </span>
+                  )}
+                </div>
               </div>
 
               <form.Field name="estado">
                 {(field) => (
-                  <div>
-                    <label className="block text-sm font-semibold mb-1">
-                      Estado
+                  <div className="group">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                      <Package className="w-4 h-4" />
+                      Estado del Pedido
                     </label>
                     <select
                       value={field.state.value}
@@ -239,12 +220,12 @@ export const EditOrder = () => {
                             | "cancelado"
                         )
                       }
-                      className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none cursor-pointer capitalize"
                     >
-                      <option value="preparando">Preparando</option>
-                      <option value="listo">Listo</option>
-                      <option value="entregado">Entregado</option>
-                      <option value="cancelado">Cancelado</option>
+                      <option value="preparando">🔄 Preparando</option>
+                      <option value="listo">✅ Listo</option>
+                      <option value="entregado">📦 Entregado</option>
+                      <option value="cancelado">❌ Cancelado</option>
                     </select>
                   </div>
                 )}
@@ -252,8 +233,9 @@ export const EditOrder = () => {
 
               <form.Field name="hora_entrega">
                 {(field) => (
-                  <div>
-                    <label className="block text-sm font-semibold mb-1">
+                  <div className="group">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                      <Clock className="w-4 h-4" />
                       Hora de Entrega
                     </label>
                     <input
@@ -262,7 +244,7 @@ export const EditOrder = () => {
                       onChange={(e) =>
                         field.handleChange(e.target.value || null)
                       }
-                      className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none"
                     />
                   </div>
                 )}
@@ -271,32 +253,29 @@ export const EditOrder = () => {
 
             <form.Field name="observacion">
               {(field) => (
-                <div className="mt-4">
-                  <label className="block text-sm font-semibold mb-1">
+                <div className="mt-6 group">
+                  <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                    <MessageSquare className="w-4 h-4" />
                     Observación
                   </label>
                   <textarea
                     value={field.state.value ?? ""}
                     onChange={(e) => field.handleChange(e.target.value || null)}
-                    className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                     rows={3}
-                    placeholder="Escribe una observación..."
+                    className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none resize-none"
+                    placeholder="Notas adicionales..."
                   />
                 </div>
               )}
             </form.Field>
-          </div>
 
-          <div>
-            <h3 className="text-lg font-bold mb-4">Productos</h3>
-
-            <div className="flex flex-col sm:flex-row gap-4 items-start">
-              {/* Categoría */}
-              <div className="flex flex-col w-full sm:w-1/3">
-                <label className="font-semibold mb-1">Categoría</label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2 mt-5">
+              <div className="group">
+                <label className="block font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                  Categoría
+                </label>
                 <select
-                  id="categoria"
-                  className="border p-2 rounded capitalize"
+                  className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none capitalize cursor-pointer"
                   value={selectedCategory ?? ""}
                   onChange={(e) => {
                     const catId = e.target.value
@@ -314,7 +293,6 @@ export const EditOrder = () => {
                 </select>
               </div>
 
-              {/* Selector de productos */}
               <form.Field name="productos">
                 {(field) => {
                   const productosSeleccionados = field.state.value || [];
@@ -363,55 +341,63 @@ export const EditOrder = () => {
                   };
 
                   return (
-                    <div className="w-full sm:w-2/3">
-                      <label
-                        className={`font-semibold mb-1 block ${
-                          !selectedCategory && "text-gray-500"
-                        }`}
-                      >
-                        Seleccionar Producto
-                      </label>
-                      <select
-                        className="border p-2 rounded capitalize w-full"
-                        onChange={(e) => {
-                          const productoId = Number(e.target.value);
-                          if (productoId) agregarProducto(productoId);
-                          e.currentTarget.value = "";
-                        }}
-                        defaultValue=""
-                        disabled={!selectedCategory}
-                      >
-                        <option value="">Seleccionar producto</option>
-                        {products?.map((producto) => (
-                          <option key={producto.id} value={producto.id}>
-                            {producto.nombre}
-                          </option>
-                        ))}
-                      </select>
+                    <>
+                      <div className="group">
+                        <label
+                          className={`block font-semibold mb-2 transition-colors ${
+                            !selectedCategory
+                              ? "text-slate-400"
+                              : "text-slate-700 group-hover:text-indigo-600"
+                          }`}
+                        >
+                          Seleccionar Producto
+                        </label>
+                        <select
+                          className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none capitalize cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                          onChange={(e) => {
+                            const productoId = Number(e.target.value);
+                            if (productoId) agregarProducto(productoId);
+                            e.currentTarget.value = "";
+                          }}
+                          defaultValue=""
+                          disabled={!selectedCategory}
+                        >
+                          <option value="">Seleccionar producto</option>
+                          {products?.map((producto) => (
+                            <option key={producto.id} value={producto.id}>
+                              {producto.nombre}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
-                      <div className="mt-4 ">
+                      <div className="md:col-span-2 mt-6">
                         {Object.entries(productosAgrupados).length === 0 ? (
-                          <p className="text-gray-600">
-                            No hay productos seleccionados.
-                          </p>
+                          <div className="text-center py-12 bg-slate-50/20 rounded-2xl border-2 border-dashed border-slate-300">
+                            <Package className="w-16 h-16 mx-auto text-slate-300 mb-3" />
+                            <p className="text-slate-500 font-medium">
+                              No hay productos seleccionados
+                            </p>
+                          </div>
                         ) : (
-                          <div className="flex flex-wrap gap-2">
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                             {Object.entries(productosAgrupados).map(
                               ([categoria, productos]) => (
-                                <div key={categoria} className="capitalize">
-                                  <h5 className="font-semibold mb-2">
+                                <div key={categoria} className="space-y-3">
+                                  <h5 className="font-bold text-indigo-600 capitalize flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-indigo-600"></div>
                                     {categoria}
                                   </h5>
                                   {productos.map(({ producto, cantidad }) => (
                                     <div
                                       key={producto.id}
-                                      className="flex items-center gap-4 p-3 border rounded mb-2"
+                                      className="flex items-center w-[250px] gap-3 p-3 bg-white border-2 border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-lg transition-all duration-200"
                                     >
-                                      <span className="flex-1 font-medium">
+                                      <span className="flex-1 font-medium capitalize text-slate-700">
                                         {producto.nombre}
                                       </span>
                                       <input
-                                        type="number"
+                                        type="text"
                                         min={1}
                                         value={cantidad}
                                         onChange={(e) =>
@@ -420,16 +406,16 @@ export const EditOrder = () => {
                                             Number(e.target.value)
                                           )
                                         }
-                                        className="w-14 border px-2 py-1 rounded"
+                                        className="w-14 p-1 text-center border-2 border-slate-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none"
                                       />
                                       <button
                                         type="button"
                                         onClick={() =>
                                           quitarProducto(producto.id)
                                         }
-                                        className="text-red-600 font-semibold hover:text-red-400"
+                                        className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors duration-200"
                                       >
-                                        <TrashIcon size={23} />
+                                        <TrashIcon size={20} />
                                       </button>
                                     </div>
                                   ))}
@@ -439,23 +425,74 @@ export const EditOrder = () => {
                           </div>
                         )}
                       </div>
-                    </div>
+                    </>
                   );
                 }}
               </form.Field>
             </div>
           </div>
-        </div>
 
-        <div className="text-center">
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-700 transition text-white py-2 px-6 rounded shadow"
-          >
-            Editar Pedido
-          </button>
-        </div>
-      </form>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="group relative px-10 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-indigo-500/50 transition-all duration-300 hover:scale-105 hover:-translate-y-1 overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+              <span className="relative flex items-center gap-3">
+                <Save className="w-6 h-6" />
+                Guardar Cambios
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <style>{`
+        @keyframes slide-down {
+          from {
+            opacity: 0;
+            transform: translateY(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        
+        @keyframes fade-in-delay {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        
+        .animate-slide-down {
+          animation: slide-down 0.6s ease-out;
+        }
+        
+        .animate-fade-in {
+          animation: fade-in 0.6s ease-out;
+        }
+        
+        .animate-fade-in-delay {
+          animation: fade-in-delay 0.6s ease-out 0.2s both;
+        }
+      `}</style>
     </section>
   );
 };

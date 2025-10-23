@@ -51,12 +51,9 @@ export type UpdateParamName = {
 
 export type CreateUpdateOrderResponse = {
   productos: { producto_id: number; cantidad: number }[];
-  domicilio: string | null;
+  domicilio: string;
   estado: "preparando" | "entregado" | "listo" | "cancelado";
   hora_entrega: string | null;
-  apellido_cliente?: string;
-  nombre_cliente?: string;
-  telefono_cliente?: string;
   observacion: string | null;
   metodo_pago: "efectivo" | "transferencia" | "";
   monto: number | null;
