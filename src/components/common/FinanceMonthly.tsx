@@ -1,4 +1,4 @@
-import { FinanceCard } from "./FinanceCard";
+import { FinanceCard } from "../layouts/FinanceCard";
 
 type Props = {
   actuallyMonth: number;

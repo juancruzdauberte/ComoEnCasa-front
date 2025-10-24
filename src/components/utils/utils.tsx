@@ -48,7 +48,7 @@ export const renderEstado = (estado: string) => {
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 
+      className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-lg border-2 
                     font-semibold text-sm capitalize ${estadoConfig.bg} ${estadoConfig.border} ${estadoConfig.text}
                     shadow-sm hover:shadow-md transition-all duration-300`}
     >
@@ -121,23 +121,28 @@ export const renderUserOrders = (orders: GetOrdersResponse) => (
 
         {/* Datos principales */}
         <div className="space-y-3 text-base flex-1">
-          {order.hora_entrega && (
+          <div className="flex gap-3">
             <div>
               <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
-                Entrega
+                Domicilio
               </span>
-              <div className="flex items-center gap-2 text-[#424242] font-semibold">
-                <Clock size={16} className="text-[#757575]" />
-                {formatTimeForInput(order.hora_entrega)}
+              <div className="text-[#424242] line-clamp-2">
+                {order.domicilio}
               </div>
             </div>
-          )}
-
-          <div>
-            <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
-              Domicilio
-            </span>
-            <div className="text-[#424242] line-clamp-2">{order.domicilio}</div>
+            <div>
+              {order.hora_entrega && (
+                <div>
+                  <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
+                    Entrega
+                  </span>
+                  <div className="flex items-center gap-2 text-[#424242] font-semibold">
+                    <Clock size={16} className="text-[#757575]" />
+                    {formatTimeForInput(order.hora_entrega)}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {order.observacion && (

@@ -1,6 +1,6 @@
 import type { Order } from "../types/types";
 import { toLocalDateStringUTC3 } from "../utils/utilsFunction";
-import { FinanceCard } from "./FinanceCard";
+import { FinanceCard } from "../layouts/FinanceCard";
 import { OrderCard } from "./OrderCard";
 
 type Props = {

@@ -168,7 +168,7 @@ export const Finances = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-6 -mt-10 pb-12">
+      <div className="container mx-auto px-6 mt-1 pb-12">
         <div className="flex gap-6">
           {/* Sidebar Navigation */}
           <div className="w-1/5 animate-slide-in-left">

@@ -37,7 +37,7 @@ export const Navbar = () => {
 
   return (
     <aside
-      className={`fixed left-0 top-0 h-screen bg-[#000000] shadow-2xl z-50 transition-all duration-300 ease-in-out ${
+      className={`fixed left-0 top-0 h-screen bg-[#000000] shadow-2xl z-50 transition-all duration-200 ease-in-out ${
         isHovered ? "w-64" : "w-20"
       }`}
       onMouseEnter={() => setIsHovered(true)}

@@ -2,14 +2,13 @@ import { OrderLayout } from "../../layouts/OrderLayout";
 import { Modal } from "../../layouts/Modal";
 import { OrderModal } from "../../common/OrderModal";
 import { modalStore } from "../../store/modalStore";
-import { Link, useNavigate } from "react-router-dom"; // <-- Importé Link
-import { PlusCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 import { orderStore } from "@/components/store/orderStore";
+import { BtnCreateOrder } from "@/components/common/widget/BtnCreateOrder";
 
 export const AdminHome = () => {
   const { isOpen } = modalStore();
   const { setFilter } = orderStore();
-  const navigate = useNavigate();
 
   const handlePedidosClick = (filter: string) => {
     // Seteamos el filtro en el store global
@@ -70,44 +69,12 @@ export const AdminHome = () => {
               elegancia y eficiencia
             </p>
 
-            {/* Botón de acción principal */}
-            <div
-              className="pt-4 animate-scale-in"
-              style={{ animationDelay: "0.4s" }}
-            >
-              <button
-                onClick={() => navigate("/admin/order")}
-                className="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#FFFFFF] text-[#000000] 
+            <BtnCreateOrder
+              btnClassname="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#FFFFFF] text-[#000000] 
                            font-bold rounded-2xl shadow-2xl hover:shadow-[#BDBDBD]/50 
                            transition-all duration-500 hover:scale-105 hover:-translate-y-2
                            overflow-hidden border-2 border-transparent hover:border-[#BDBDBD]"
-              >
-                {/* Fondo animado */}
-                <div
-                  className="absolute inset-0 bg-gradient-to-r from-[#000000] via-[#424242] to-[#000000] 
-                             opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                ></div>
-
-                {/* Contenido */}
-                <div className="relative z-10 flex items-center gap-3 group-hover:text-[#FFFFFF] transition-colors duration-300">
-                  <PlusCircle className="w-6 h-6 group-hover:rotate-90 transition-transform duration-500" />
-                  <span className="text-lg">Crear Nuevo Pedido</span>
-                </div>
-
-                {/* Efecto de brillo */}
-                <div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent 
-                             opacity-0 group-hover:opacity-100 transform -translate-x-full group-hover:translate-x-full 
-                             transition-all duration-1000"
-                ></div>
-
-                {/* Borde inferior animado */}
-                <div
-                  className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#000000] via-[#757575] to-[#000000] 
-                             transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
-                ></div>
-              </button>
-            </div>
+            />
 
             {/* Estadísticas rápidas */}
             <div
@@ -195,14 +162,23 @@ export const AdminHome = () => {
           style={{ animationDelay: "0.8s" }}
         >
           {/* Encabezado de la sección */}
-          <div className="mb-6 pb-4 border-b-2 border-[#BDBDBD]/30">
-            <h2 className="text-2xl font-bold text-[#000000] flex items-center gap-3">
-              <div className="w-1 h-8 bg-gradient-to-b from-[#000000] to-[#424242] rounded-full"></div>
-              Gestión de Pedidos
-            </h2>
-            <p className="text-[#757575] mt-2 ml-7">
-              Visualiza y administra todos los pedidos del sistema
-            </p>
+          <div className="mb-6 pb-4 border-b-2 border-[#BDBDBD]/30 flex justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-[#000000] flex items-center gap-3">
+                <div className="w-1 h-8 bg-gradient-to-b from-[#000000] to-[#424242] rounded-full"></div>
+                Gestión de Pedidos
+              </h2>
+              <p className="text-[#757575] mt-2 ml-7">
+                Visualiza y administra todos los pedidos del sistema
+              </p>
+            </div>
+
+            <BtnCreateOrder
+              btnClassname="group relative inline-flex items-center gap-2 px-3 py-2 bg-[#000000] text-[#FFFFFF] 
+                           font-bold rounded-2xl 
+                           transition-all duration-500 hover:scale-105 hover:-translate-y-1
+                           overflow-hidden border-2 border-transparent hover:border-[#BDBDBD]"
+            />
           </div>
 
           <div id="pedidos">
