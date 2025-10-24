@@ -43,10 +43,7 @@ export const EditOrder = () => {
       productos: order?.productos,
       estado: order?.estado,
       monto: order?.monto,
-      nombre_cliente: order?.nombre_cliente,
       metodo_pago: order?.metodo_pago,
-      apellido_cliente: order?.apellido_cliente,
-      telefono_cliente: order?.telefono_cliente,
     } as CreateUpdateOrderResponse,
     onSubmit: ({ value }) => {
       const productosFormateados = value.productos.map((producto) => ({

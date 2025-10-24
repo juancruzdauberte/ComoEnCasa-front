@@ -1,7 +1,6 @@
 import { modalStore } from "../store/modalStore";
 import { orderStore } from "../store/orderStore";
 import { VscEdit } from "react-icons/vsc";
-import { CgClose } from "react-icons/cg";
 import { useOrder } from "../hooks/useOrder";
 import { Spinner } from "./widget/Spinner";
 import { agruparPorCategoriaProductos, renderEstado } from "../utils/utils";
@@ -16,16 +15,6 @@ export const OrderModal = () => {
 
   return (
     <div className="bg-white rounded-md shadow-lg w-full max-w-5xl  p-6 relative animate-fadeIn text-black">
-      <button
-        onClick={() => {
-          setOrderSelected(null);
-          setIsOpen(false);
-        }}
-        className="absolute top-4 right-5 text-black transition hover:text-slate-600"
-      >
-        <CgClose size={30} />
-      </button>
-
       <button
         onClick={() => {
           setOrderSelected(orderSelected);
@@ -46,12 +35,6 @@ export const OrderModal = () => {
           <h1 className="font-bold text-2xl">Pedido ID: {order?.id}</h1>
           <div className="flex flex-wrap gap-10">
             <span className="flex gap-1 font-semibold text-xl">
-              Nombre:{" "}
-              <p className="font-normal text-lg">
-                {order?.nombre_cliente} {order?.apellido_cliente}
-              </p>
-            </span>
-            <span className="flex gap-1 font-semibold text-xl">
               Fecha creación:{" "}
               <p className="font-normal text-lg">
                 {order?.fecha_pedido &&
@@ -63,10 +46,6 @@ export const OrderModal = () => {
               <p className="font-normal capitalize text-lg">
                 {order?.domicilio}
               </p>
-            </span>
-            <span className="capitalize flex gap-1 font-semibold text-xl">
-              Telefono:{" "}
-              <p className="font-normal text-lg">{order?.telefono_cliente}</p>
             </span>
             <span className="flex gap-1 font-semibold text-xl">
               Valor:{" "}

@@ -13,7 +13,7 @@ interface OrderStore {
 
 export const orderStore = create<OrderStore>((set) => ({
   orderSelected: null,
-  filter: "desc",
+  filter: "todos",
   page: 1,
   limit: 10,
   setLimit: (limit) => set({ limit }),

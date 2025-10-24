@@ -2,57 +2,212 @@ import { OrderLayout } from "../../layouts/OrderLayout";
 import { Modal } from "../../layouts/Modal";
 import { OrderModal } from "../../common/OrderModal";
 import { modalStore } from "../../store/modalStore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // <-- Importé Link
 import { PlusCircle } from "lucide-react";
+import { orderStore } from "@/components/store/orderStore";
 
 export const AdminHome = () => {
   const { isOpen } = modalStore();
+  const { setFilter } = orderStore();
   const navigate = useNavigate();
-  
+
+  const handlePedidosClick = (filter: string) => {
+    // Seteamos el filtro en el store global
+    setFilter(filter);
+
+    // Hacemos scroll suave a la sección
+    document.getElementById("pedidos")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
-      {/* Header con gradiente y sombra */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 pt-16 pb-24">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20"></div>
-        
+    <section className="min-h-screen bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF]">
+      {/* Header con gradiente monocromático */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#000000] via-[#424242] to-[#000000] pt-20 pb-32">
+        <div className="absolute inset-0 bg-[#000000]/20"></div>
+
+        {/* Patrón de puntos decorativo */}
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle, #FFFFFF 1px, transparent 1px)",
+              backgroundSize: "30px 30px",
+            }}
+          ></div>
+        </div>
+
+        {/* Elementos decorativos flotantes */}
+        <div className="absolute top-20 left-20 w-32 h-32 bg-[#BDBDBD]/10 rounded-full blur-3xl animate-pulse"></div>
+        <div
+          className="absolute bottom-20 right-20 w-40 h-40 bg-[#757575]/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        ></div>
+
         <div className="relative container mx-auto px-6">
-          <div className="text-center space-y-6 animate-fade-in">
-            <h1 className="text-5xl md:text-6xl font-bold text-white drop-shadow-2xl">
-              Panel Administrativo
-            </h1>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              Gestiona pedidos, productos y finanzas desde un solo lugar
-            </p>
-            
-            <button
-              onClick={() => navigate("/admin/order")}
-              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-indigo-600 font-semibold rounded-2xl 
-                         shadow-2xl hover:shadow-indigo-500/50 transition-all duration-300 hover:scale-105 hover:-translate-y-1
-                         overflow-hidden"
+          <div className="text-center space-y-8 animate-fade-in">
+            {/* Título principal */}
+            <div className="space-y-4">
+              <h1
+                className="text-6xl md:text-7xl font-bold text-[#FFFFFF] drop-shadow-2xl 
+                           bg-clip-text text-transparent bg-gradient-to-r from-[#FFFFFF] via-[#BDBDBD] to-[#FFFFFF]
+                           animate-slide-in-left"
+              >
+                Panel Administrativo
+              </h1>
+              <div className="h-1 w-32 mx-auto bg-gradient-to-r from-transparent via-[#BDBDBD] to-transparent"></div>
+            </div>
+
+            {/* Descripción */}
+            <p
+              className="text-xl text-[#BDBDBD] max-w-2xl mx-auto leading-relaxed animate-slide-in-right"
+              style={{ animationDelay: "0.2s" }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 opacity-0 group-hover:opacity-10 transition-opacity"></div>
-              <PlusCircle className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
-              <span className="text-lg">Crear Nuevo Pedido</span>
-              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-            </button>
+              Gestiona pedidos, productos y finanzas desde un solo lugar con
+              elegancia y eficiencia
+            </p>
+
+            {/* Botón de acción principal */}
+            <div
+              className="pt-4 animate-scale-in"
+              style={{ animationDelay: "0.4s" }}
+            >
+              <button
+                onClick={() => navigate("/admin/order")}
+                className="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#FFFFFF] text-[#000000] 
+                           font-bold rounded-2xl shadow-2xl hover:shadow-[#BDBDBD]/50 
+                           transition-all duration-500 hover:scale-105 hover:-translate-y-2
+                           overflow-hidden border-2 border-transparent hover:border-[#BDBDBD]"
+              >
+                {/* Fondo animado */}
+                <div
+                  className="absolute inset-0 bg-gradient-to-r from-[#000000] via-[#424242] to-[#000000] 
+                             opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                ></div>
+
+                {/* Contenido */}
+                <div className="relative z-10 flex items-center gap-3 group-hover:text-[#FFFFFF] transition-colors duration-300">
+                  <PlusCircle className="w-6 h-6 group-hover:rotate-90 transition-transform duration-500" />
+                  <span className="text-lg">Crear Nuevo Pedido</span>
+                </div>
+
+                {/* Efecto de brillo */}
+                <div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent 
+                             opacity-0 group-hover:opacity-100 transform -translate-x-full group-hover:translate-x-full 
+                             transition-all duration-1000"
+                ></div>
+
+                {/* Borde inferior animado */}
+                <div
+                  className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#000000] via-[#757575] to-[#000000] 
+                             transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+                ></div>
+              </button>
+            </div>
+
+            {/* Estadísticas rápidas */}
+            <div
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pt-8"
+              style={{ animation: "fadeInRow 0.6s ease-out 0.6s both" }}
+            >
+              {[
+                {
+                  label: "Pedidos Activos",
+                  icon: "📦",
+                  to: "pedidos",
+                  filter: "todos",
+                },
+                {
+                  label: "En Proceso",
+                  icon: "⚡",
+                  to: "pedidos",
+                  filter: "preparando",
+                },
+                {
+                  label: "Productos",
+                  icon: "🏷️",
+                  to: "product",
+                  filter: "hoy",
+                },
+              ].map((stat, index) => {
+                // Definimos el contenido de la tarjeta
+                const cardContent = (
+                  <div
+                    className="bg-[#FFFFFF]/5 backdrop-blur-sm border border-[#BDBDBD]/20 rounded-xl p-4
+                               hover:bg-[#FFFFFF]/10 transition-all duration-300 group cursor-pointer"
+                    style={{ animationDelay: `${0.6 + index * 0.1}s` }}
+                  >
+                    <div className="text-3xl mb-2 group-hover:scale-110 transition-transform duration-300">
+                      {stat.icon}
+                    </div>
+                    <p className="text-[#BDBDBD] text-sm font-medium">
+                      {stat.label}
+                    </p>
+                  </div>
+                );
+
+                if (stat.to === "product") {
+                  return (
+                    <Link key={stat.label} to={stat.to}>
+                      {cardContent}
+                    </Link>
+                  );
+                } else {
+                  return (
+                    <div
+                      key={stat.label}
+                      onClick={() => handlePedidosClick(stat.filter)}
+                    >
+                      {cardContent}
+                    </div>
+                  );
+                }
+              })}
+            </div>
           </div>
         </div>
 
-        {/* Decorative wave */}
+        {/* Wave decorativo inferior */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg className="w-full h-16" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,0 C300,100 900,100 1200,0 L1200,120 L0,120 Z" 
-                  className="fill-slate-50"></path>
+          <svg
+            className="w-full h-20"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0 C300,80 900,80 1200,0 L1200,120 L0,120 Z"
+              className="fill-[#FFFFFF]"
+            ></path>
           </svg>
         </div>
       </div>
 
       {/* Content */}
-      <section className="container mx-auto px-6 -mt-12 pb-12">
-        <div className="bg-white rounded-3xl shadow-2xl p-8 border border-slate-200/60 backdrop-blur-xl 
-                        transform transition-all duration-500 hover:shadow-indigo-500/20">
-          <OrderLayout />
+      <section className="container mx-auto px-6 -mt-20 pb-12">
+        <div
+          className="bg-[#FFFFFF] rounded-3xl shadow-2xl p-8 border-2 border-[#BDBDBD]/20 
+                     backdrop-blur-xl transform transition-all duration-500 hover:shadow-[#424242]/20
+                     animate-scale-in"
+          style={{ animationDelay: "0.8s" }}
+        >
+          {/* Encabezado de la sección */}
+          <div className="mb-6 pb-4 border-b-2 border-[#BDBDBD]/30">
+            <h2 className="text-2xl font-bold text-[#000000] flex items-center gap-3">
+              <div className="w-1 h-8 bg-gradient-to-b from-[#000000] to-[#424242] rounded-full"></div>
+              Gestión de Pedidos
+            </h2>
+            <p className="text-[#757575] mt-2 ml-7">
+              Visualiza y administra todos los pedidos del sistema
+            </p>
+          </div>
+
+          <div id="pedidos">
+            <OrderLayout />
+          </div>
         </div>
       </section>
 
@@ -63,7 +218,7 @@ export const AdminHome = () => {
       )}
 
       <style>{`
-        @keyframes fade-in {
+        @keyframes fadeInRow {
           from {
             opacity: 0;
             transform: translateY(20px);
@@ -72,10 +227,6 @@ export const AdminHome = () => {
             opacity: 1;
             transform: translateY(0);
           }
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.8s ease-out;
         }
       `}</style>
     </section>
