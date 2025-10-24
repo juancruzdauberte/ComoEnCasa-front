@@ -97,7 +97,7 @@ export const renderUserOrders = (orders: GetOrdersResponse) => (
         className="group border-2 border-[#BDBDBD]/30 shadow-lg rounded-2xl p-5 flex flex-col 
                  bg-gradient-to-br from-[#FFFFFF] to-[#BDBDBD]/5
                  hover:shadow-2xl hover:shadow-[#424242]/20 hover:border-[#757575]
-                 transition-all duration-300 hover:scale-105 relative overflow-hidden"
+                 transition-all duration-300 hover:scale-105 relative overflow-hidden w-[290px]"
         style={{
           animation: `fadeInScale 0.4s ease-out ${index * 0.05}s both`,
         }}
