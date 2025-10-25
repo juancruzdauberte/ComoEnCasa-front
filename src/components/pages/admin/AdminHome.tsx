@@ -2,32 +2,31 @@ import { OrderLayout } from "../../layouts/OrderLayout";
 import { Modal } from "../../layouts/Modal";
 import { OrderModal } from "../../common/OrderModal";
 import { modalStore } from "../../store/modalStore";
-import { Link } from "react-router-dom";
-import { orderStore } from "@/components/store/orderStore";
+// import { Link } from "react-router-dom";
+// import { orderStore } from "@/components/store/orderStore";
 import { BtnCreateOrder } from "@/components/common/widget/BtnCreateOrder";
 
 export const AdminHome = () => {
   const { isOpen } = modalStore();
-  const { setFilter } = orderStore();
+  // const { setFilter } = orderStore();
 
-  const handlePedidosClick = (filter: string) => {
-    // Seteamos el filtro en el store global
-    setFilter(filter);
+  // const handlePedidosClick = (filter: string) => {
+  //   // Seteamos el filtro en el store global
+  //   setFilter(filter);
 
-    // Hacemos scroll suave a la sección
-    document.getElementById("pedidos")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
+  //   // Hacemos scroll suave a la sección
+  //   document.getElementById("pedidos")?.scrollIntoView({
+  //     behavior: "smooth",
+  //     block: "start",
+  //   });
+  // };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF]">
-      {/* Header con gradiente monocromático */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#000000] via-[#424242] to-[#000000] pt-20 pb-32">
+    <section className="mt-20 bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF]">
+      {/* <div className="relative overflow-hidden bg-gradient-to-br from-[#000000] via-[#424242] to-[#000000] pt-20 pb-32">
         <div className="absolute inset-0 bg-[#000000]/20"></div>
 
-        {/* Patrón de puntos decorativo */}
+
         <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
@@ -39,7 +38,7 @@ export const AdminHome = () => {
           ></div>
         </div>
 
-        {/* Elementos decorativos flotantes */}
+
         <div className="absolute top-20 left-20 w-32 h-32 bg-[#BDBDBD]/10 rounded-full blur-3xl animate-pulse"></div>
         <div
           className="absolute bottom-20 right-20 w-40 h-40 bg-[#757575]/10 rounded-full blur-3xl animate-pulse"
@@ -48,7 +47,7 @@ export const AdminHome = () => {
 
         <div className="relative container mx-auto px-6">
           <div className="text-center space-y-8 animate-fade-in">
-            {/* Título principal */}
+
             <div className="space-y-4">
               <h1
                 className="text-6xl md:text-7xl font-bold text-[#FFFFFF] drop-shadow-2xl 
@@ -60,7 +59,6 @@ export const AdminHome = () => {
               <div className="h-1 w-32 mx-auto bg-gradient-to-r from-transparent via-[#BDBDBD] to-transparent"></div>
             </div>
 
-            {/* Descripción */}
             <p
               className="text-xl text-[#BDBDBD] max-w-2xl mx-auto leading-relaxed animate-slide-in-right"
               style={{ animationDelay: "0.2s" }}
@@ -76,7 +74,6 @@ export const AdminHome = () => {
                            overflow-hidden border-2 border-transparent hover:border-[#BDBDBD]"
             />
 
-            {/* Estadísticas rápidas */}
             <div
               className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pt-8"
               style={{ animation: "fadeInRow 0.6s ease-out 0.6s both" }}
@@ -138,7 +135,7 @@ export const AdminHome = () => {
           </div>
         </div>
 
-        {/* Wave decorativo inferior */}
+   
         <div className="absolute bottom-0 left-0 right-0">
           <svg
             className="w-full h-20"
@@ -151,7 +148,7 @@ export const AdminHome = () => {
             ></path>
           </svg>
         </div>
-      </div>
+      </div> */}
 
       {/* Content */}
       <section className="container mx-auto px-6 -mt-20 pb-12">
