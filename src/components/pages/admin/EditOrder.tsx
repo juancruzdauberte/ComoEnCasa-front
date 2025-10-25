@@ -80,7 +80,7 @@ export const EditOrder = () => {
     );
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50 to-purple-100 py-12">
+    <section className="min-h-screen bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF] py-12">
       <div className="container mx-auto px-6 max-w-5xl">
         <form
           onSubmit={(e) => {
@@ -91,8 +91,8 @@ export const EditOrder = () => {
         >
           <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 animate-fade-in">
             <div className="flex items-center gap-3 mb-6">
-              <ShoppingBag className="w-6 h-6 text-indigo-600" />
-              <h3 className="text-2xl font-bold text-slate-800">
+              <ShoppingBag className="w-6 h-6 text-slate-600" />
+              <h3 className="text-2xl font-bold text-slate-900">
                 Pedido #{orderId}
               </h3>
             </div>
@@ -101,7 +101,7 @@ export const EditOrder = () => {
               <form.Field name="domicilio">
                 {(field) => (
                   <div className="group">
-                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 transition-colors">
                       <MapPin className="w-4 h-4" />
                       Domicilio
                     </label>
@@ -109,7 +109,7 @@ export const EditOrder = () => {
                       type="text"
                       value={field.state.value!}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none"
+                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-slate-500 transition-all duration-200 outline-none"
                     />
                   </div>
                 )}
@@ -118,7 +118,7 @@ export const EditOrder = () => {
               <form.Field name="monto">
                 {(field) => (
                   <div className="group">
-                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 transition-colors">
                       <DollarSign className="w-4 h-4" />
                       Monto
                     </label>
@@ -138,7 +138,7 @@ export const EditOrder = () => {
                           field.handleChange(Number(soloNumeros));
                         }}
                         required
-                        className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none"
+                        className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-slate-500  transition-all duration-200 outline-none"
                       />
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
                         $
@@ -151,7 +151,7 @@ export const EditOrder = () => {
               <form.Field name="metodo_pago">
                 {(field) => (
                   <div className="group">
-                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 transition-colors">
                       <CreditCard className="w-4 h-4" />
                       Método de Pago
                     </label>
@@ -163,7 +163,7 @@ export const EditOrder = () => {
                         )
                       }
                       required
-                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none cursor-pointer"
+                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-slate-500  transition-all duration-200 outline-none cursor-pointer"
                     >
                       <option value="">Seleccionar</option>
                       <option value="transferencia">💳 Transferencia</option>
@@ -179,7 +179,7 @@ export const EditOrder = () => {
                   Estado de Pago
                 </label>
                 <div
-                  className={`px-4 py-3 rounded-xl border-2 font-semibold text-center transition-all ${
+                  className={`px-2 py-3 rounded-xl border-2 font-semibold text-center transition-all ${
                     !order.fecha_pago
                       ? "bg-amber-50 border-amber-300 text-amber-700"
                       : "bg-emerald-50 border-emerald-300 text-emerald-700"
@@ -202,7 +202,7 @@ export const EditOrder = () => {
               <form.Field name="estado">
                 {(field) => (
                   <div className="group">
-                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 transition-colors">
                       <Package className="w-4 h-4" />
                       Estado del Pedido
                     </label>
@@ -217,7 +217,7 @@ export const EditOrder = () => {
                             | "cancelado"
                         )
                       }
-                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none cursor-pointer capitalize"
+                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-slate-500  transition-all duration-200 outline-none cursor-pointer capitalize"
                     >
                       <option value="preparando">🔄 Preparando</option>
                       <option value="listo">✅ Listo</option>
@@ -231,7 +231,7 @@ export const EditOrder = () => {
               <form.Field name="hora_entrega">
                 {(field) => (
                   <div className="group">
-                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 transition-colors">
                       <Clock className="w-4 h-4" />
                       Hora de Entrega
                     </label>
@@ -241,7 +241,7 @@ export const EditOrder = () => {
                       onChange={(e) =>
                         field.handleChange(e.target.value || null)
                       }
-                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none"
+                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-slate-500  transition-all duration-200 outline-none"
                     />
                   </div>
                 )}
@@ -251,7 +251,7 @@ export const EditOrder = () => {
             <form.Field name="observacion">
               {(field) => (
                 <div className="mt-6 group">
-                  <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                  <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 transition-colors">
                     <MessageSquare className="w-4 h-4" />
                     Observación
                   </label>
@@ -259,7 +259,7 @@ export const EditOrder = () => {
                     value={field.state.value ?? ""}
                     onChange={(e) => field.handleChange(e.target.value || null)}
                     rows={3}
-                    className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none resize-none"
+                    className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-slate-500  transition-all duration-200 outline-none resize-none"
                     placeholder="Notas adicionales..."
                   />
                 </div>
@@ -268,11 +268,11 @@ export const EditOrder = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2 mt-5">
               <div className="group">
-                <label className="block font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                <label className="block font-semibold text-slate-700 mb-2 transition-colors">
                   Categoría
                 </label>
                 <select
-                  className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none capitalize cursor-pointer"
+                  className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-slate-500  transition-all duration-200 outline-none capitalize cursor-pointer"
                   value={selectedCategory ?? ""}
                   onChange={(e) => {
                     const catId = e.target.value
@@ -344,13 +344,13 @@ export const EditOrder = () => {
                           className={`block font-semibold mb-2 transition-colors ${
                             !selectedCategory
                               ? "text-slate-400"
-                              : "text-slate-700 group-hover:text-indigo-600"
+                              : "text-slate-700"
                           }`}
                         >
                           Seleccionar Producto
                         </label>
                         <select
-                          className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-200 outline-none capitalize cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-slate-500  transition-all duration-200 outline-none capitalize cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                           onChange={(e) => {
                             const productoId = Number(e.target.value);
                             if (productoId) agregarProducto(productoId);
@@ -381,14 +381,14 @@ export const EditOrder = () => {
                             {Object.entries(productosAgrupados).map(
                               ([categoria, productos]) => (
                                 <div key={categoria} className="space-y-3">
-                                  <h5 className="font-bold text-indigo-600 capitalize flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-indigo-600"></div>
+                                  <h5 className="font-bold text-slate-600 capitalize flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-slate-600"></div>
                                     {categoria}
                                   </h5>
                                   {productos.map(({ producto, cantidad }) => (
                                     <div
                                       key={producto.id}
-                                      className="flex items-center w-[250px] gap-3 p-3 bg-white border-2 border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-lg transition-all duration-200"
+                                      className="flex items-center w-[250px] gap-3 p-3 bg-white border-2 border-slate-200 rounded-xl hover:border-slate-300 hover:shadow-lg transition-all duration-200"
                                     >
                                       <span className="flex-1 font-medium capitalize text-slate-700">
                                         {producto.nombre}
@@ -403,7 +403,7 @@ export const EditOrder = () => {
                                             Number(e.target.value)
                                           )
                                         }
-                                        className="w-14 p-1 text-center border-2 border-slate-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none"
+                                        className="w-14 p-1 text-center border-2 border-slate-200 rounded-lg focus:border-slate-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none"
                                       />
                                       <button
                                         type="button"
@@ -432,7 +432,7 @@ export const EditOrder = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="group relative px-10 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-indigo-500/50 transition-all duration-300 hover:scale-105 hover:-translate-y-1 overflow-hidden"
+              className="group relative px-10 py-4 bg-green-500 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-green-500/50 transition-all duration-300 hover:scale-105 hover:-translate-y-1 overflow-hidden"
             >
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
               <span className="relative flex items-center gap-3">

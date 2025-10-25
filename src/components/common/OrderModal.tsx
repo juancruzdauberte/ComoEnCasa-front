@@ -15,7 +15,10 @@ export const OrderModal = () => {
   const productosAgrupados = agruparPorCategoriaProductos(order?.productos);
 
   return (
-    <div className="bg-gradient-to-br from-white via-slate-50 to-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[100vh] relative animate-fadeIn text-gray-800 border border-gray-100 backdrop-blur-sm flex flex-col overflow-hidden ">
+    <div
+      id="tablaPedidos"
+      className="bg-gradient-to-br from-white via-slate-50 to-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[85vh] relative animate-fadeIn text-gray-800 border border-gray-100 backdrop-blur-sm flex flex-col overflow-hidden "
+    >
       {/* Header Fijo */}
       <div className="flex-shrink-0 relative px-8 pt-8 pb-4 border-b border-gray-200 bg-gradient-to-br from-white via-slate-50 to-white">
         {/* Edit Button with Hover Animation */}
@@ -25,7 +28,7 @@ export const OrderModal = () => {
             setIsOpen(false);
             navigate(`/admin/order/${orderSelected}`);
           }}
-          className="absolute top-6 right-6 text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-110 hover:rotate-12 p-2 rounded-lg hover:bg-blue-50 group z-10"
+          className="absolute top-6 right-6 text-gray-600 transition-all duration-200 hover:text-blue-600 hover:scale-110 hover:rotate-12 p-2 rounded-lg hover:bg-blue-50 group z-10"
           aria-label="Editar pedido"
         >
           <VscEdit
@@ -54,7 +57,7 @@ export const OrderModal = () => {
             {/* Info Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
               {/* Fecha Creación Card */}
-              <div className="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 group">
+              <div className="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-100 hover:-translate-y-1 border border-gray-100 group">
                 <div className="flex items-center gap-2">
                   <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
                     📅
@@ -213,9 +216,9 @@ export const OrderModal = () => {
                   ([categoria, productos]) => (
                     <div
                       key={categoria}
-                      className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-gray-300 group"
+                      className="bg-white rounded-lg p-2 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-gray-300 group"
                     >
-                      <h3 className="font-bold text-lg text-gray-900 mb-3 pb-2 border-b-2 border-gray-200 capitalize group-hover:text-gray-600 transition-colors duration-300">
+                      <h3 className="font-bold text-md text-gray-900 mb-3 ml-1 pb-2 border-b-2 border-gray-200 capitalize group-hover:text-gray-600 transition-colors duration-300">
                         {categoria}
                       </h3>
                       <ul className="space-y-2">
@@ -224,7 +227,7 @@ export const OrderModal = () => {
                             key={producto.producto_id}
                             className="flex justify-between items-center text-gray-700 transition-colors duration-200 py-1 capitalize group/item"
                           >
-                            <span className="font-medium group-hover/item:translate-x-1 transition-transform duration-200">
+                            <span className="font-medium group-hover/item:translate-x-1 ml-1 transition-transform duration-200">
                               {producto.nombre}
                             </span>
                             <span className="bg-gray-100 text-gray-700 font-semibold px-2 py-1 rounded-full text-sm group-hover/item:scale-110 transition-transform duration-200">

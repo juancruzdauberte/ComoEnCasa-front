@@ -32,29 +32,38 @@ export const OrdersTable = memo(function OrdersTable({
   const { mutate: order } = useDeleteOrder();
 
   // OPTIMIZACIÓN: Memoizar callbacks
-  const handleDelete = useCallback((id: number) => {
-    order(id);
-  }, [order]);
+  const handleDelete = useCallback(
+    (id: number) => {
+      order(id);
+    },
+    [order]
+  );
 
-  const handleViewOrder = useCallback((orderId: number, e: React.MouseEvent) => {
-    e.stopPropagation();
-    setOrderSelected(orderId);
-    setIsOpen(true);
-  }, [setOrderSelected, setIsOpen]);
+  const handleViewOrder = useCallback(
+    (orderId: number, e: React.MouseEvent) => {
+      e.stopPropagation();
+      setOrderSelected(orderId);
+      setIsOpen(true);
+    },
+    [setOrderSelected, setIsOpen]
+  );
 
-  const handleDeleteConfirm = useCallback((orderId: number, e: React.MouseEvent) => {
-    e.stopPropagation();
-    toast.warning(
-      `¿Estás seguro de que quieres eliminar el pedido #${orderId}?`,
-      {
-        duration: 3000,
-        action: {
-          label: "Eliminar",
-          onClick: () => handleDelete(orderId),
-        },
-      }
-    );
-  }, [handleDelete]);
+  const handleDeleteConfirm = useCallback(
+    (orderId: number, e: React.MouseEvent) => {
+      e.stopPropagation();
+      toast.warning(
+        `¿Estás seguro de que quieres eliminar el pedido #${orderId}?`,
+        {
+          duration: 3000,
+          action: {
+            label: "Eliminar",
+            onClick: () => handleDelete(orderId),
+          },
+        }
+      );
+    },
+    [handleDelete]
+  );
 
   const messageNoData =
     !isFetching && (!filteredTrips || filteredTrips.length === 0)

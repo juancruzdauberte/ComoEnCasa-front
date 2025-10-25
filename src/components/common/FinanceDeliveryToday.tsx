@@ -1,7 +1,6 @@
 import type { Order } from "../types/types";
 import { toLocalDateStringUTC3 } from "../utils/utilsFunction";
 import { FinanceCard } from "../layouts/FinanceCard";
-import { OrderCard } from "./OrderCard";
 
 type Props = {
   cashDeliveryAmount: number | undefined;
@@ -37,14 +36,6 @@ export const FinanceDeliveryToday = ({
           Pedidos totales:{" "}
           <span className="font-semibold">{filteredOrders.length}</span>
         </p>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        {filteredOrders.map((o) => (
-          <div key={o.id}>
-            <OrderCard id={o.id} />
-          </div>
-        ))}
       </div>
     </div>
   );

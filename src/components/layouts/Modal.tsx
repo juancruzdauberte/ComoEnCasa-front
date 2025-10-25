@@ -14,7 +14,7 @@ export const Modal = ({ children }: { children: ReactNode }) => {
 
   return (
     <section
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm animate-fadeIn overflow-y-auto py-8"
       onClick={handleBackgroundClick}
     >
       <div

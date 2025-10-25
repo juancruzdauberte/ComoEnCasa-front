@@ -15,7 +15,6 @@ import {
   MessageSquare,
   MapPin,
   Package,
-  Sparkles,
 } from "lucide-react";
 
 export const CreateOrder = () => {
@@ -68,23 +67,20 @@ export const CreateOrder = () => {
     );
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-12">
+    <section className="min-h-screen bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF] py-12">
       <div className="container mx-auto px-6 max-w-4xl">
         {/* Header animado */}
         <div className="text-center mb-12 animate-slide-down">
           <div className="inline-flex items-center gap-3 mb-4">
-            <div className="p-3 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl shadow-lg">
+            <div className="p-3 bg-black rounded-2xl shadow-lg">
               <ShoppingBag className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-black to-gray-500 bg-clip-text text-transparent">
               Crear Pedido
             </h1>
           </div>
           <p className="text-slate-600 flex items-center justify-center gap-2">
-            <Sparkles className="w-4 h-4 text-amber-500" />
-            Los campos con <span className="text-red-500 font-semibold">
-              *
-            </span>{" "}
+            Los campos con <span className="text-red-500 font-semibold">*</span>{" "}
             son requeridos
           </p>
         </div>
@@ -103,16 +99,16 @@ export const CreateOrder = () => {
               <form.Field name="domicilio">
                 {(field) => (
                   <div className="group">
-                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2">
                       <MapPin className="w-5 h-5" />
-                      <span className="text-red-500">*</span> Domicilio
+                      Domicilio
                     </label>
                     <input
                       type="text"
                       value={field.state.value!}
                       onChange={(e) => field.handleChange(e.target.value)}
                       className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                               focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 
+                               focus:border-slate-500   
                                transition-all duration-200 outline-none"
                       placeholder="Ingrese el domicilio de entrega"
                     />
@@ -123,7 +119,7 @@ export const CreateOrder = () => {
               <form.Field name="hora_entrega">
                 {(field) => (
                   <div className="group">
-                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 ">
                       <Clock className="w-5 h-5" />
                       Hora de entrega
                     </label>
@@ -134,7 +130,7 @@ export const CreateOrder = () => {
                         field.handleChange(e.target.value || null)
                       }
                       className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                               focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 
+                               focus:border-slate-500 
                                transition-all duration-200 outline-none"
                     />
                   </div>
@@ -154,7 +150,7 @@ export const CreateOrder = () => {
               >
                 {(field) => (
                   <div className="group">
-                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 ">
                       <DollarSign className="w-5 h-5" />
                       <span className="text-red-500">*</span> Monto
                     </label>
@@ -173,7 +169,7 @@ export const CreateOrder = () => {
                           field.handleChange(Number(soloNumeros));
                         }}
                         className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                                 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 
+                                 focus:border-slate-500 
                                  transition-all duration-200 outline-none"
                         placeholder="0"
                       />
@@ -200,7 +196,7 @@ export const CreateOrder = () => {
               >
                 {(field) => (
                   <div className="group">
-                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 ">
                       <CreditCard className="w-5 h-5" />
                       <span className="text-red-500">*</span> Método de pago
                     </label>
@@ -212,7 +208,7 @@ export const CreateOrder = () => {
                         )
                       }
                       className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                               focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 
+                               focus:border-slate-500 
                                transition-all duration-200 outline-none cursor-pointer"
                     >
                       <option value="">Seleccionar método</option>
@@ -230,25 +226,6 @@ export const CreateOrder = () => {
             </div>
 
             {/* Observaciones */}
-            <form.Field name="observacion">
-              {(field) => (
-                <div className="group mb-8">
-                  <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
-                    <MessageSquare className="w-5 h-5" />
-                    Observaciones
-                  </label>
-                  <textarea
-                    value={field.state.value ?? ""}
-                    onChange={(e) => field.handleChange(e.target.value || null)}
-                    rows={3}
-                    className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                             focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 
-                             transition-all duration-200 outline-none resize-none"
-                    placeholder="Notas adicionales sobre el pedido..."
-                  />
-                </div>
-              )}
-            </form.Field>
 
             {/* Selección de productos */}
             <form.Field
@@ -311,9 +288,9 @@ export const CreateOrder = () => {
                 };
 
                 return (
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Package className="w-6 h-6 text-indigo-600" />
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                      <Package className="w-6 h-6 text-slate-600" />
                       <h3 className="text-xl font-bold text-slate-800">
                         <span className="text-red-500">*</span> Productos
                       </h3>
@@ -321,12 +298,12 @@ export const CreateOrder = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="group">
-                        <label className="block font-semibold text-slate-700 mb-2 group-hover:text-indigo-600 transition-colors">
+                        <label className="block font-semibold text-slate-700 mb-2 ">
                           Categoría
                         </label>
                         <select
                           className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                                   focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 
+                                   focus:border-slate-500 
                                    transition-all duration-200 outline-none capitalize cursor-pointer"
                           value={selectedCategory ?? ""}
                           onChange={(e) => {
@@ -350,14 +327,14 @@ export const CreateOrder = () => {
                           className={`block font-semibold mb-2 transition-colors ${
                             !selectedCategory
                               ? "text-slate-400"
-                              : "text-slate-700 group-hover:text-indigo-600"
+                              : "text-slate-700 "
                           }`}
                         >
                           Producto
                         </label>
                         <select
                           className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                                   focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 
+                                   focus:border-slate-500 
                                    transition-all duration-200 outline-none capitalize cursor-pointer
                                    disabled:opacity-50 disabled:cursor-not-allowed"
                           onChange={(e) => {
@@ -395,14 +372,14 @@ export const CreateOrder = () => {
                           {Object.entries(productosAgrupados).map(
                             ([categoria, productos]) => (
                               <div key={categoria} className="space-y-3">
-                                <h4 className="font-bold text-indigo-600 capitalize flex items-center gap-2">
-                                  <div className="w-2 h-2 rounded-full bg-indigo-600"></div>
+                                <h4 className="font-bold text-slate-600 capitalize flex items-center gap-2">
+                                  <div className="w-2 h-2 rounded-full bg-slate-600"></div>
                                   {categoria}
                                 </h4>
                                 {productos.map(({ producto }) => (
                                   <div
                                     key={producto.id}
-                                    className="flex items-center w-[250px] gap-3 p-3 bg-white border-2 border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-lg transition-all duration-200"
+                                    className="flex items-center w-[250px] gap-3 p-3 bg-white border-2 border-slate-200 rounded-xl hover:border-slate-300 hover:shadow-lg transition-all duration-200"
                                   >
                                     <span className="flex-1 capitalize font-medium text-slate-700">
                                       {producto.nombre}
@@ -416,7 +393,7 @@ export const CreateOrder = () => {
                                           e.target.value.replace(/\D/g, "")
                                         )
                                       }
-                                      className="w-14 p-1 text-center border-2 border-slate-200 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none"
+                                      className="w-14 p-1 text-center border-2 border-slate-200 rounded-lg focus:border-slate-500  transition-all outline-none"
                                       placeholder="0"
                                       required
                                     />
@@ -449,22 +426,41 @@ export const CreateOrder = () => {
                 );
               }}
             </form.Field>
+
+            <form.Field name="observacion">
+              {(field) => (
+                <div className="group mb-8 mt-5">
+                  <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 ">
+                    <MessageSquare className="w-5 h-5" />
+                    Observaciones
+                  </label>
+                  <textarea
+                    value={field.state.value ?? ""}
+                    onChange={(e) => field.handleChange(e.target.value || null)}
+                    rows={3}
+                    className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
+                             focus:border-slate-500 
+                             transition-all duration-200 outline-none resize-none"
+                    placeholder="Notas adicionales sobre el pedido..."
+                  />
+                </div>
+              )}
+            </form.Field>
           </div>
 
           {/* Botón de envío */}
           <div className="flex justify-center">
             <button
               type="submit"
-              className="group relative px-10 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 
+              className="group relative px-10 py-4 bg-green-500
                        text-white font-bold text-lg rounded-2xl shadow-2xl 
-                       hover:shadow-indigo-500/50 transition-all duration-300 
+                       hover:shadow-green-500/50 transition-all duration-300 
                        hover:scale-105 hover:-translate-y-1 overflow-hidden"
             >
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
               <span className="relative flex items-center gap-3">
                 <ShoppingBag className="w-6 h-6" />
                 Crear Pedido
-                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
               </span>
             </button>
           </div>

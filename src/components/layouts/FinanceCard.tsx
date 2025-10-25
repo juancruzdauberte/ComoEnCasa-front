@@ -44,7 +44,7 @@ export const FinanceCard = ({
             </div>
           </div>
           <h2
-            className="text-3xl font-bold text-black bg-clip-text text-transparent
+            className="text-3xl font-bold text-black bg-clip-text
                        transition-all duration-500"
           >
             {title}
