@@ -9,7 +9,7 @@ import { Spinner } from "./widget/Spinner";
 import { toast } from "sonner";
 import { BtnPayOrder } from "./widget/BtnPayOrder";
 import { formatTimeForInput } from "../utils/utilsFunction";
-import { Eye, Trash2, Clock, MapPin, Hash } from "lucide-react";
+import { Eye, Trash2, Clock, MapPin, Hash, Store } from "lucide-react";
 
 const headers = [
   { label: "ID", key: "id" },
@@ -130,7 +130,12 @@ const OrderTableRow = memo(function OrderTableRow({
 
       <td className="p-4 text-gray-700 transition-colors duration-fast group-hover:text-black">
         <div className="flex items-center gap-2">
-          <MapPin size={16} className="text-gray-600 flex-shrink-0" />
+          {order.domicilio === "busca" ? (
+            <Store size={18} className="text-gray-600 flex-shrink-0" />
+          ) : (
+            <MapPin size={18} className="text-gray-600 flex-shrink-0" />
+          )}
+
           <span
             className="text-gray-700 font-medium truncate max-w-xs"
             title={order.domicilio}
