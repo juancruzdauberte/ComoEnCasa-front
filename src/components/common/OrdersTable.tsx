@@ -160,9 +160,9 @@ const OrderTableRow = memo(function OrderTableRow({
       <td className="p-4 text-gray-700 transition-colors duration-fast group-hover:text-black">
         <div className="flex items-center gap-2">
           <button
-            className="p-2.5 rounded-lg bg-gray-200/20 hover:bg-black text-gray-700 hover:text-white
+            className="p-2 rounded-lg bg-gray-200/20 hover:bg-black text-gray-700 hover:text-white
                        transition-gpu duration-fast hover:scale-110 group/btn relative overflow-hidden
-                       focus-ring gpu-accelerated"
+                       gpu-accelerated"
             onClick={(e) => onView(order.id, e)}
             title="Ver detalles"
           >
@@ -175,9 +175,9 @@ const OrderTableRow = memo(function OrderTableRow({
           </button>
 
           <button
-            className="p-2.5 rounded-lg bg-red-50 hover:bg-red-600 text-red-600 hover:text-white
+            className="p-2 rounded-lg bg-red-50 hover:bg-red-600 text-red-600 hover:text-white
                        transition-gpu duration-fast hover:scale-110 group/btn relative overflow-hidden
-                       border border-red-200 hover:border-red-600 focus-ring gpu-accelerated"
+                        hover:border-red-600  gpu-accelerated"
             onClick={(e) => onDelete(order.id, e)}
             title="Eliminar pedido"
           >

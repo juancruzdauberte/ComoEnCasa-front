@@ -52,17 +52,14 @@ export const Navbar = () => {
         {/* Logo - OPTIMIZADO */}
         <Link
           to="/admin"
-          className="flex items-center gap-3 px-5 mb-8 group relative overflow-hidden focus-ring"
+          className="flex items-center gap-3 px-3 mb-8 group relative overflow-hidden"
         >
           <div className="relative z-10 flex-shrink-0 py-0.5">
             <img
               src="https://res.cloudinary.com/dttpgbmdx/image/upload/v1749124735/LogoComoEnCasaRedondo_gwhyxu.png"
               alt="logo"
               loading="lazy"
-              width="48"
-              height="48"
-              className="h-12 w-12 rounded-full ring-1 ring-gray-600 group-hover:ring-gray-400 
-                       transition-gpu duration-fast group-hover:scale-105 img-optimized"
+              className="w-12 h-12 border border-1 border-white rounded-full transition-gpu duration-fast img-optimized"
             />
           </div>
 

@@ -195,7 +195,7 @@ export const Finances = () => {
           >
             <div
               className="bg-[#FFFFFF] rounded-2xl shadow-xl border-2 border-[#BDBDBD]/30 p-8
-                          hover:shadow-2xl hover:shadow-[#424242]/10 transition-all duration-300 min-h-[400px]"
+                          hover:shadow-2xl hover:shadow-[#424242]/10 transition-all duration-300 min-h-[400px] flex justify-center"
               id="finanzas"
             >
               {valueAccordion === "pedidos-hoy" && (

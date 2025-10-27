@@ -119,20 +119,28 @@ export const CreateOrder = () => {
               <form.Field name="hora_entrega">
                 {(field) => (
                   <div className="group">
-                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 ">
-                      <Clock className="w-5 h-5" />
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-slate-900 transition-colors">
+                      <Clock className="w-5 h-5 group-hover:scale-110 transition-transform" />
                       Hora de entrega
                     </label>
-                    <input
-                      type="time"
-                      value={field.state.value ?? ""}
-                      onChange={(e) =>
-                        field.handleChange(e.target.value || null)
-                      }
-                      className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                               focus:border-slate-500 
-                               transition-all duration-200 outline-none"
-                    />
+                    <div className="relative">
+                      <input
+                        type="time"
+                        value={field.state.value ?? ""}
+                        onChange={(e) =>
+                          field.handleChange(e.target.value || null)
+                        }
+                        className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
+                                 focus:border-slate-500 focus:bg-white focus:shadow-lg focus:scale-[1.02]
+                                 hover:border-slate-300 hover:shadow-md
+                                 transition-all duration-300 outline-none cursor-pointer"
+                      />
+                      <div
+                        className="absolute inset-0 rounded-xl bg-gradient-to-r from-slate-500/0 to-slate-500/0 
+                                    group-hover:from-slate-500/5 group-hover:to-transparent 
+                                    transition-all duration-300 pointer-events-none"
+                      ></div>
+                    </div>
                   </div>
                 )}
               </form.Field>
@@ -170,7 +178,7 @@ export const CreateOrder = () => {
                         }}
                         className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
                                  focus:border-slate-500 
-                                 transition-all duration-200 outline-none"
+                                 transition-all duration-200 outline-none "
                         placeholder="0"
                       />
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
@@ -196,27 +204,37 @@ export const CreateOrder = () => {
               >
                 {(field) => (
                   <div className="group">
-                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 ">
-                      <CreditCard className="w-5 h-5" />
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-slate-900 transition-colors">
+                      <CreditCard className="w-5 h-5 group-hover:scale-110 transition-transform" />
                       <span className="text-red-500">*</span> Método de pago
                     </label>
-                    <select
-                      value={field.state.value}
-                      onChange={(e) =>
-                        field.setValue(
-                          e.target.value as "efectivo" | "transferencia" | ""
-                        )
-                      }
-                      className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                               focus:border-slate-500 
-                               transition-all duration-200 outline-none cursor-pointer"
-                    >
-                      <option value="">Seleccionar método</option>
-                      <option value="transferencia">💳 Transferencia</option>
-                      <option value="efectivo">💵 Efectivo</option>
-                    </select>
+                    <div className="relative">
+                      <select
+                        value={field.state.value}
+                        onChange={(e) =>
+                          field.setValue(
+                            e.target.value as "efectivo" | "transferencia" | ""
+                          )
+                        }
+                        className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
+                                 focus:border-slate-500 focus:bg-white focus:shadow-lg focus:scale-[1.02]
+                                 hover:border-slate-300 hover:shadow-md appearance-none
+                                 transition-all duration-300 outline-none cursor-pointer font-medium
+                                 bg-no-repeat bg-[length:1.2rem] bg-[right_0.75rem_center]
+                                 bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')]"
+                      >
+                        <option value="">Seleccionar método</option>
+                        <option value="transferencia">💳 Transferencia</option>
+                        <option value="efectivo">💵 Efectivo</option>
+                      </select>
+                      <div
+                        className="absolute inset-0 rounded-xl bg-gradient-to-r from-slate-500/0 to-slate-500/0 
+                                    group-hover:from-slate-500/5 group-hover:to-transparent 
+                                    transition-all duration-300 pointer-events-none"
+                      ></div>
+                    </div>
                     {field.state.meta.errors.length > 0 && (
-                      <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                      <p className="text-red-500 text-sm mt-1 flex items-center gap-1 animate-shake">
                         <span>⚠</span> {field.state.meta.errors.join(", ")}
                       </p>
                     )}
@@ -298,60 +316,83 @@ export const CreateOrder = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="group">
-                        <label className="block font-semibold text-slate-700 mb-2 ">
+                        <label className="block font-semibold text-slate-700 mb-2 group-hover:text-slate-900 transition-colors">
                           Categoría
                         </label>
-                        <select
-                          className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                                   focus:border-slate-500 
-                                   transition-all duration-200 outline-none capitalize cursor-pointer"
-                          value={selectedCategory ?? ""}
-                          onChange={(e) => {
-                            const catId = e.target.value
-                              ? Number(e.target.value)
-                              : null;
-                            setSelectedCategory(catId);
-                          }}
-                        >
-                          <option value="">Todas las categorías</option>
-                          {categories?.map((cat) => (
-                            <option key={cat.id} value={cat.id}>
-                              {cat.nombre}
-                            </option>
-                          ))}
-                        </select>
+                        <div className="relative">
+                          <select
+                            className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
+                                     focus:border-slate-500 focus:bg-white focus:shadow-lg focus:scale-[1.02]
+                                     hover:border-slate-300 hover:shadow-md appearance-none
+                                     transition-all duration-300 outline-none capitalize cursor-pointer font-medium
+                                     bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] 
+                                     bg-no-repeat bg-[length:1.2rem] bg-[right_0.75rem_center]"
+                            value={selectedCategory ?? ""}
+                            onChange={(e) => {
+                              const catId = e.target.value
+                                ? Number(e.target.value)
+                                : null;
+                              setSelectedCategory(catId);
+                            }}
+                          >
+                            <option value="">Todas las categorías</option>
+                            {categories?.map((cat) => (
+                              <option key={cat.id} value={cat.id}>
+                                {cat.nombre}
+                              </option>
+                            ))}
+                          </select>
+                          <div
+                            className="absolute inset-0 rounded-xl bg-gradient-to-r from-slate-500/0 to-slate-500/0 
+                                        group-hover:from-slate-500/5 group-hover:to-transparent 
+                                        transition-all duration-300 pointer-events-none"
+                          ></div>
+                        </div>
                       </div>
 
                       <div className="group">
                         <label
-                          className={`block font-semibold mb-2 transition-colors ${
+                          className={`block font-semibold mb-2 transition-all duration-300 ${
                             !selectedCategory
                               ? "text-slate-400"
-                              : "text-slate-700 "
+                              : "text-slate-700 group-hover:text-slate-900"
                           }`}
                         >
                           Producto
                         </label>
-                        <select
-                          className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                                   focus:border-slate-500 
-                                   transition-all duration-200 outline-none capitalize cursor-pointer
-                                   disabled:opacity-50 disabled:cursor-not-allowed"
-                          onChange={(e) => {
-                            const productoId = Number(e.target.value);
-                            if (productoId) agregarProducto(productoId);
-                            e.currentTarget.value = "";
-                          }}
-                          defaultValue=""
-                          disabled={!selectedCategory}
-                        >
-                          <option value="">Seleccionar producto</option>
-                          {products?.map((producto) => (
-                            <option key={producto.id} value={producto.id}>
-                              {producto.nombre}
-                            </option>
-                          ))}
-                        </select>
+                        <div className="relative">
+                          <select
+                            className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
+                                     focus:border-slate-500 focus:bg-white focus:shadow-lg focus:scale-[1.02]
+                                     hover:border-slate-300 hover:shadow-md appearance-none
+                                     transition-all duration-300 outline-none capitalize cursor-pointer font-medium
+                                     disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:scale-100
+                                     bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] 
+                                     bg-no-repeat bg-[length:1.2rem] bg-[right_0.75rem_center]"
+                            onChange={(e) => {
+                              const productoId = Number(e.target.value);
+                              if (productoId) agregarProducto(productoId);
+                              e.currentTarget.value = "";
+                            }}
+                            defaultValue=""
+                            disabled={!selectedCategory}
+                          >
+                            <option value="">Seleccionar producto</option>
+                            {products?.map((producto) => (
+                              <option key={producto.id} value={producto.id}>
+                                {producto.nombre}
+                              </option>
+                            ))}
+                          </select>
+                          <div
+                            className={`absolute inset-0 rounded-xl bg-gradient-to-r from-slate-500/0 to-slate-500/0 
+                                        transition-all duration-300 pointer-events-none ${
+                                          selectedCategory
+                                            ? "group-hover:from-slate-500/5 group-hover:to-transparent"
+                                            : ""
+                                        }`}
+                          ></div>
+                        </div>
                       </div>
                     </div>
 
@@ -489,6 +530,12 @@ export const CreateOrder = () => {
             transform: scale(1);
           }
         }
+
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-5px); }
+          75% { transform: translateX(5px); }
+        }
         
         .animate-slide-down {
           animation: slide-down 0.6s ease-out;
@@ -496,6 +543,68 @@ export const CreateOrder = () => {
         
         .animate-fade-in {
           animation: fade-in 0.6s ease-out;
+        }
+
+        .animate-shake {
+          animation: shake 0.3s ease-in-out;
+        }
+
+        /* Estilos personalizados para inputs de tipo time */
+        input[type="time"]::-webkit-calendar-picker-indicator {
+          cursor: pointer;
+          filter: opacity(0.6);
+          transition: filter 0.2s;
+        }
+
+        input[type="time"]:hover::-webkit-calendar-picker-indicator {
+          filter: opacity(1);
+        }
+
+        /* Estilos mejorados para options de select */
+        select option {
+          padding: 12px 16px;
+          margin: 4px 0;
+          background-color: #ffffff;
+          color: #334155;
+          font-weight: 500;
+          border-radius: 8px;
+          transition: all 0.2s ease;
+        }
+
+        select option:hover {
+          background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+          color: #0f172a;
+          font-weight: 600;
+          padding-left: 20px;
+        }
+
+        select option:checked {
+          background: linear-gradient(135deg, #334155 0%, #475569 100%);
+          color: #ffffff;
+          font-weight: 600;
+        }
+
+        select option:disabled {
+          color: #cbd5e1;
+          background-color: #f8fafc;
+          cursor: not-allowed;
+        }
+
+        /* Placeholder option styling */
+        select option[value=""] {
+          color: #94a3b8;
+          font-style: italic;
+        }
+
+        /* Firefox specific styles */
+        @-moz-document url-prefix() {
+          select option {
+            padding: 10px;
+          }
+          
+          select option:hover {
+            background-color: #f1f5f9;
+          }
         }
       `}</style>
     </section>
