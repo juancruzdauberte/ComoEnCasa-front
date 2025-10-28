@@ -3,30 +3,32 @@ import { useState } from "react";
 
 export const Login = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   const handleLogin = () => {
+    setIsAuthenticating(true);
     return (window.location.href = `${
       import.meta.env.VITE_API_URL
     }/auth/callback`);
   };
 
   return (
-    <section className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-blue-50 to-blue-100">
+    <section className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-br from-violet-50 via-blue-50 to-violet-100">
       {/* Elementos decorativos de fondo */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+        <div className="absolute -top-40 -left-40 w-80 h-80 bg-violet-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
         <div className="absolute -top-20 -right-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-40 left-20 w-80 h-80 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute -bottom-40 left-20 w-80 h-80 bg-violet-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
       {/* Contenedor principal con glassmorphism */}
-      <div className="relative z-10 w-full max-w-5xl mx-4">
-        <div className="backdrop-blur-xl bg-white/80 shadow-2xl rounded-3xl p-8 md:p-16 border border-white/20 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-3xl">
+      <div className="relative z-10 w-full max-w-6xl mx-4">
+        <div className="backdrop-blur-xl bg-white/80 shadow-2xl rounded-3xl p-8 md:p-16 border border-white/20 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
             {/* Logo y marca */}
             <div className="flex-1 flex flex-col items-center lg:items-start gap-6 animate-fade-in">
               <div className="relative group">
-                <div className="absolute -inset-2 bg-gradient-to-r from-blue-400 to-violet-400 rounded-full blur-lg opacity-0 group-hover:opacity-30 transition duration-500"></div>
+                <div className="absolute -inset-2 bg-gradient-to-r from-violet-400 to-blue-400 rounded-full blur-lg opacity-0 group-hover:opacity-30 transition duration-500"></div>
                 <picture className="relative">
                   <img
                     src="https://res.cloudinary.com/dttpgbmdx/image/upload/v1749124735/LogoComoEnCasaRedondo_gwhyxu.png"
@@ -50,7 +52,7 @@ export const Login = () => {
             {/* Formulario de login */}
             <div className="flex-1 w-full max-w-md space-y-8 animate-slide-in-right">
               <div className="text-center space-y-3">
-                <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-black to-gray-600 bg-clip-text text-transparent">
+                <h1 className="text-4xl md:text-5xl font-extrabold text-black bg-clip-text">
                   Iniciar Sesión
                 </h1>
                 <p className="text-gray-600">
@@ -58,39 +60,69 @@ export const Login = () => {
                 </p>
               </div>
 
-              {/* Botón de Google mejorado */}
+              {/* Botón de Google mejorado con spinner */}
               <div className="space-y-4">
                 <button
                   className="relative w-full group"
                   onClick={handleLogin}
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
+                  disabled={isAuthenticating}
                 >
                   {/* Fondo con gradiente animado */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-violet-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
+                  <div
+                    className={`absolute -inset-1 bg-gradient-to-r from-violet-500 to-blue-500 rounded-2xl blur transition duration-300 ${
+                      isAuthenticating
+                        ? "opacity-40 animate-pulse"
+                        : "opacity-25 group-hover:opacity-40"
+                    }`}
+                  ></div>
 
                   {/* Botón principal */}
-                  <div className="relative bg-white rounded-xl px-8 py-4 shadow-lg border border-gray-200 flex items-center justify-center gap-4 transition-all duration-300 group-hover:shadow-xl group-hover:scale-[1.02] group-hover:border-blue-300">
-                    <FcGoogle
-                      size={32}
-                      className={`transform transition-transform duration-300 ${
-                        isHovered ? "scale-110 rotate-12" : ""
-                      }`}
-                    />
-                    <span className="text-lg md:text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
-                      Continuar con Google
-                    </span>
+                  <div
+                    className={`relative bg-white rounded-xl px-8 py-4 shadow-lg border border-gray-200 flex items-center justify-center gap-4 transition-all duration-300 ${
+                      isAuthenticating
+                        ? "cursor-not-allowed opacity-90"
+                        : "group-hover:shadow-xl group-hover:scale-[1.02] group-hover:border-violet-300 cursor-pointer"
+                    }`}
+                  >
+                    {/* Spinner de carga */}
+                    {isAuthenticating ? (
+                      <>
+                        <div className="relative">
+                          <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+                          <div className="absolute inset-0 w-8 h-8 border-4 border-transparent border-t-blue-400 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <span className="text-lg md:text-xl font-semibold text-gray-700 animate-pulse">
+                          Autenticando...
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        {/* Icono de Google con animación */}
+                        <div className="relative">
+                          <FcGoogle
+                            size={32}
+                            className={`transform transition-all duration-300 ${
+                              isHovered && "scale-110"
+                            }`}
+                          />
+                        </div>
+                        <span
+                          className={`text-lg md:text-xl font-semibold transition-colors duration-300 ${
+                            isHovered ? "text-black font-bold" : "text-gray-800"
+                          }`}
+                        >
+                          Continuar con Google
+                        </span>
+                      </>
+                    )}
                   </div>
                 </button>
-
-                {/* Texto informativo */}
-                <p className="text-center text-xs text-gray-500 px-4">
-                  Al continuar, aceptas nuestros términos y condiciones
-                </p>
               </div>
 
               {/* Elementos decorativos adicionales */}
-              <div className="relative pt-8">
+              <div className="relative ">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-300"></div>
                 </div>
@@ -173,6 +205,15 @@ export const Login = () => {
           }
         }
 
+        @keyframes spin-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(-360deg);
+          }
+        }
+
         .animate-blob {
           animation: blob 7s infinite;
         }
@@ -191,6 +232,10 @@ export const Login = () => {
 
         .animate-slide-in-right {
           animation: slide-in-right 0.8s ease-out;
+        }
+
+        .animate-spin-slow {
+          animation: spin-slow 2s linear infinite;
         }
       `}</style>
     </section>
