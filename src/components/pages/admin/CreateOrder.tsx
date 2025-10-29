@@ -14,6 +14,7 @@ import {
   Clock,
   MessageSquare,
   MapPin,
+  User2Icon,
   Package,
 } from "lucide-react";
 
@@ -31,18 +32,14 @@ export const CreateOrder = () => {
     defaultValues: {
       observacion: null,
       hora_entrega: null,
-      domicilio: "",
+      domicilio: null,
       estado: "preparando",
       productos: [],
+      apellido_cliente: null,
       monto: null,
       metodo_pago: "",
     } as CreateUpdateOrderResponse,
     onSubmit: ({ value, formApi }) => {
-      const domicilioFinal =
-        value.domicilio && value.domicilio.trim() !== ""
-          ? value.domicilio
-          : "busca";
-
       const productosConvertidos = value.productos.map((p) => ({
         producto_id: p.producto_id,
         cantidad: Number(p.cantidad),
@@ -50,7 +47,6 @@ export const CreateOrder = () => {
 
       const order = {
         ...value,
-        domicilio: domicilioFinal,
         productos: productosConvertidos,
       };
 
@@ -116,31 +112,36 @@ export const CreateOrder = () => {
                 )}
               </form.Field>
 
-              <form.Field name="hora_entrega">
+              <form.Field
+                name="apellido_cliente"
+                validators={{
+                  onSubmit: ({ value }) => {
+                    const addressValue = form.getFieldValue("domicilio");
+                    if (!value && !addressValue)
+                      return "Campo obligatorio si domicilio es vacío";
+                  },
+                }}
+              >
                 {(field) => (
                   <div className="group">
-                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-slate-900 transition-colors">
-                      <Clock className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                      Hora de entrega
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2">
+                      <User2Icon className="w-5 h-5" />
+                      Cliente
                     </label>
-                    <div className="relative">
-                      <input
-                        type="time"
-                        value={field.state.value ?? ""}
-                        onChange={(e) =>
-                          field.handleChange(e.target.value || null)
-                        }
-                        className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                                 focus:border-slate-500 focus:bg-white focus:shadow-lg focus:scale-[1.02]
-                                 hover:border-slate-300 hover:shadow-md
-                                 transition-all duration-300 outline-none cursor-pointer"
-                      />
-                      <div
-                        className="absolute inset-0 rounded-xl bg-gradient-to-r from-slate-500/0 to-slate-500/0 
-                                    group-hover:from-slate-500/5 group-hover:to-transparent 
-                                    transition-all duration-300 pointer-events-none"
-                      ></div>
-                    </div>
+                    <input
+                      type="text"
+                      value={field.state.value!}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
+                               focus:border-slate-500   
+                               transition-all duration-200 outline-none"
+                      placeholder="Ingrese el apellido del cliente"
+                    />
+                    {field.state.meta.errors.length > 0 && (
+                      <p className="text-red-500 text-sm mt-1 flex items-center gap-1 animate-shake">
+                        <span>⚠</span> {field.state.meta.errors.join(", ")}
+                      </p>
+                    )}
                   </div>
                 )}
               </form.Field>
@@ -242,8 +243,6 @@ export const CreateOrder = () => {
                 )}
               </form.Field>
             </div>
-
-            {/* Observaciones */}
 
             {/* Selección de productos */}
             <form.Field
@@ -467,26 +466,57 @@ export const CreateOrder = () => {
                 );
               }}
             </form.Field>
-
-            <form.Field name="observacion">
-              {(field) => (
-                <div className="group mb-8 mt-5">
-                  <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 ">
-                    <MessageSquare className="w-5 h-5" />
-                    Observaciones
-                  </label>
-                  <textarea
-                    value={field.state.value ?? ""}
-                    onChange={(e) => field.handleChange(e.target.value || null)}
-                    rows={3}
-                    className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
+            <div className="flex gap-6 mt-5">
+              <form.Field name="hora_entrega">
+                {(field) => (
+                  <div className="group w-1/3">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-slate-900 transition-colors">
+                      <Clock className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                      Hora de entrega
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="time"
+                        value={field.state.value ?? ""}
+                        onChange={(e) =>
+                          field.handleChange(e.target.value || null)
+                        }
+                        className="w-full max-w-[200px] px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
+                                 focus:border-slate-500 focus:bg-white focus:shadow-lg focus:scale-[1.02]
+                                 hover:border-slate-300 hover:shadow-md
+                                 transition-all duration-300 outline-none cursor-pointer"
+                      />
+                      <div
+                        className="absolute inset-0 rounded-xl bg-gradient-to-r from-slate-500/0 to-slate-500/0 
+                                    group-hover:from-slate-500/5 group-hover:to-transparent 
+                                    transition-all duration-300 pointer-events-none"
+                      ></div>
+                    </div>
+                  </div>
+                )}
+              </form.Field>
+              <form.Field name="observacion">
+                {(field) => (
+                  <div className="group mb-8 w-full">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 ">
+                      <MessageSquare className="w-5 h-5" />
+                      Observaciones
+                    </label>
+                    <textarea
+                      value={field.state.value ?? ""}
+                      onChange={(e) =>
+                        field.handleChange(e.target.value || null)
+                      }
+                      rows={3}
+                      className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
                              focus:border-slate-500 
                              transition-all duration-200 outline-none resize-none"
-                    placeholder="Notas adicionales sobre el pedido..."
-                  />
-                </div>
-              )}
-            </form.Field>
+                      placeholder="Notas adicionales sobre el pedido..."
+                    />
+                  </div>
+                )}
+              </form.Field>
+            </div>
           </div>
 
           {/* Botón de envío */}

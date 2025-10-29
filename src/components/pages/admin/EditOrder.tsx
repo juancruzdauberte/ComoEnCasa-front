@@ -14,6 +14,7 @@ import { TrashIcon } from "../../common/widget/TrashIcon";
 import {
   ShoppingBag,
   MapPin,
+  User2,
   DollarSign,
   CreditCard,
   Clock,
@@ -44,21 +45,17 @@ export const EditOrder = () => {
       estado: order?.estado,
       monto: order?.monto,
       metodo_pago: order?.metodo_pago,
+      apellido_cliente: order?.apellido_cliente,
     } as CreateUpdateOrderResponse,
     onSubmit: ({ value }) => {
       const productosFormateados = value.productos.map((producto) => ({
         producto_id: producto.producto_id,
         cantidad: producto.cantidad,
       }));
-      const domicilioFinal =
-        value.domicilio && value.domicilio.trim() !== ""
-          ? value.domicilio
-          : "busca";
 
       const order = {
         ...value,
         productos: productosFormateados,
-        domicilio: domicilioFinal,
       };
 
       updateOrderMutate({ id: orderId, data: order });
@@ -144,6 +141,23 @@ export const EditOrder = () => {
                         $
                       </span>
                     </div>
+                  </div>
+                )}
+              </form.Field>
+
+              <form.Field name="apellido_cliente">
+                {(field) => (
+                  <div className="group">
+                    <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 transition-colors">
+                      <User2 className="w-4 h-4" />
+                      Cliente
+                    </label>
+                    <input
+                      type="text"
+                      value={field.state.value!}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-slate-500 transition-all duration-200 outline-none"
+                    />
                   </div>
                 )}
               </form.Field>

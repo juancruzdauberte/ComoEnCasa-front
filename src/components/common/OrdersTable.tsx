@@ -9,7 +9,7 @@ import { Spinner } from "./widget/Spinner";
 import { toast } from "sonner";
 import { BtnPayOrder } from "./widget/BtnPayOrder";
 import { formatTimeForInput } from "../utils/utilsFunction";
-import { Eye, Trash2, Clock, MapPin, Hash, Store } from "lucide-react";
+import { Eye, Trash2, Clock, MapPinHouse, Hash, Store } from "lucide-react";
 
 const headers = [
   { label: "ID", key: "id" },
@@ -117,31 +117,35 @@ const OrderTableRow = memo(function OrderTableRow({
                      opacity-0 group-hover:opacity-100 transition-opacity duration-fast"
         ></div>
 
-        <div className="flex items-center gap-2">
-          <div className="p-1.5 bg-gray-200/20 rounded-lg group-hover:bg-gray-700/20 transition-colors duration-fast">
+        <div className="flex items-center gap-0.5">
+          <div className="bg-gray-200/20 rounded-lg group-hover:bg-gray-700/20 transition-colors duration-fast">
             <Hash
               size={16}
               className="text-gray-700 group-hover:text-black transition-colors duration-fast"
             />
           </div>
-          <span className="font-bold text-black">#{order.id}</span>
+          <span className="font-bold text-black">{order.id}</span>
         </div>
       </td>
 
       <td className="p-4 text-gray-700 transition-colors duration-fast group-hover:text-black">
         <div className="flex items-center gap-2">
-          {order.domicilio === "busca" ? (
+          {order.domicilio === null ? (
             <Store size={18} className="text-gray-600 flex-shrink-0" />
           ) : (
-            <MapPin size={18} className="text-gray-600 flex-shrink-0" />
+            <MapPinHouse size={18} className="text-gray-600 flex-shrink-0" />
           )}
 
-          <span
-            className="text-gray-700 font-medium truncate max-w-xs"
-            title={order.domicilio}
-          >
-            {order.domicilio}
-          </span>
+          <div className="flex flex-col">
+            <span
+              className="text-gray-700 font-medium truncate max-w-xs"
+              title={order.domicilio}
+            >
+              {order.domicilio === null ? "busca" : order.domicilio}
+            </span>
+
+            <span>{order.domicilio === null && order.apellido_cliente}</span>
+          </div>
         </div>
       </td>
 

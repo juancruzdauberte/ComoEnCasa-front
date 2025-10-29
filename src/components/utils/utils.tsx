@@ -90,93 +90,95 @@ export const agruparPorCategoriaProductos = (
 };
 
 export const renderUserOrders = (orders: GetOrdersResponse) => (
-  <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
-    {orders?.data.map((order, index) => (
-      <div
-        key={order.id}
-        className="group border-2 border-[#BDBDBD]/30 shadow-lg rounded-2xl p-5 flex flex-col 
+  <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+    {orders?.data
+      .filter((o) => o.estado === "preparando" || o.estado === "listo")
+      .map((order, index) => (
+        <div
+          key={order.id}
+          className="group border-2 border-[#BDBDBD]/30 shadow-lg rounded-2xl p-4 flex flex-col 
                  bg-gradient-to-br from-[#FFFFFF] to-[#BDBDBD]/5
                  hover:shadow-2xl hover:shadow-[#424242]/20 hover:border-[#757575]
-                 transition-all duration-300 hover:scale-105 relative overflow-hidden w-[290px]"
-        style={{
-          animation: `fadeInScale 0.4s ease-out ${index * 0.05}s both`,
-        }}
-      >
-        {/* Decoración superior */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#000000] via-[#424242] to-[#000000]"></div>
+                 transition-all duration-300 hover:scale-105 relative overflow-hidden w-[300px] h-fit"
+          style={{
+            animation: `fadeInScale 0.4s ease-out ${index * 0.05}s both`,
+          }}
+        >
+          {/* Decoración superior */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#000000] via-[#424242] to-[#000000]"></div>
 
-        {/* Header */}
-        <header className="flex justify-between items-center mb-4 pb-3 border-b-2 border-[#BDBDBD]/30">
-          <span className="font-bold text-xl text-[#000000] flex items-center gap-2">
-            <div
-              className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#000000] to-[#424242] 
+          {/* Header */}
+          <header className="flex justify-between items-center mb-4 pb-3 border-b-2 border-[#BDBDBD]/30">
+            <span className="font-bold text-xl text-[#000000] flex items-center gap-2">
+              <div
+                className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#000000] to-[#424242] 
                           flex items-center justify-center text-[#FFFFFF] text-sm"
-            >
-              {order.id}
-            </div>
-            Pedido
-          </span>
-          <div className="scale-90">{renderEstado(order.estado)}</div>
-        </header>
+              >
+                {order.id}
+              </div>
+              Pedido
+            </span>
+            <div className="scale-90">{renderEstado(order.estado)}</div>
+          </header>
 
-        {/* Datos principales */}
-        <div className="space-y-3 text-base flex-1">
-          <div className="flex gap-3">
-            <div>
-              <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
-                Domicilio
-              </span>
-              <div className="text-[#424242] line-clamp-2">
-                {order.domicilio}
+          {/* Datos principales */}
+          <div className="space-y-2.5 text-base">
+            <div className="flex gap-3">
+              <div>
+                <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
+                  Domicilio
+                </span>
+                <div className="text-[#424242] line-clamp-2">
+                  {order.domicilio === null ? "busca" : order.domicilio}
+                </div>
+              </div>
+              <div>
+                {order.hora_entrega && (
+                  <div>
+                    <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
+                      Entrega
+                    </span>
+                    <div className="flex items-center gap-2 text-[#424242] font-semibold">
+                      <Clock size={16} className="text-[#757575]" />
+                      {formatTimeForInput(order.hora_entrega)}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-            <div>
-              {order.hora_entrega && (
-                <div>
-                  <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
-                    Entrega
-                  </span>
-                  <div className="flex items-center gap-2 text-[#424242] font-semibold">
-                    <Clock size={16} className="text-[#757575]" />
-                    {formatTimeForInput(order.hora_entrega)}
-                  </div>
+
+            {order.observacion && (
+              <div>
+                <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
+                  Observación
+                </span>
+                <div className="text-[#424242] text-sm italic bg-[#BDBDBD]/10 p-2 rounded-lg">
+                  {order.observacion}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
 
-          {order.observacion && (
-            <div>
-              <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
-                Observación
-              </span>
-              <div className="text-[#424242] text-sm italic bg-[#BDBDBD]/10 p-2 rounded-lg">
-                {order.observacion}
+          {order.productos && (
+            <div className="mt-3 pt-3 border-t-2 border-[#BDBDBD]/30">
+              <h4 className="font-bold text-[#000000] mb-1.5 flex items-center gap-2">
+                <Package size={16} className="text-[#757575]" />
+                Productos
+              </h4>
+              <div className="space-y-1 grid grid-cols-2 gap-1">
+                {renderProductos(order.productos)}
               </div>
             </div>
           )}
-        </div>
 
-        {order.productos && (
-          <div className="mt-4 pt-4 border-t-2 border-[#BDBDBD]/30">
-            <h4 className="font-bold text-[#000000] mb-2 flex items-center gap-2">
-              <Package size={16} className="text-[#757575]" />
-              Productos
-            </h4>
-            <div className="space-y-2 max-h-40 overflow-y-auto custom-scrollbar">
-              {renderProductos(order.productos)}
-            </div>
-          </div>
-        )}
-
-        {/* Efecto de brillo en hover */}
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
+          {/* Efecto de brillo en hover */}
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
                       opacity-0 group-hover:opacity-100 transform -translate-x-full group-hover:translate-x-full 
                       transition-all duration-1000 pointer-events-none"
-        ></div>
-      </div>
-    ))}
+          ></div>
+        </div>
+      ))}
 
     <style>{`
       @keyframes fadeInScale {
@@ -216,14 +218,14 @@ export const renderProductos = (productos: Producto[]) => {
 
   return Object.entries(productosPorCategoria!).map(
     ([categoria, productos]) => (
-      <div key={categoria} className="bg-[#BDBDBD]/5 rounded-lg p-2">
-        <h3 className="font-bold capitalize text-[#424242] text-sm mb-1 flex items-center gap-1">
+      <div key={categoria} className="bg-[#BDBDBD]/5 rounded-lg p-0.5">
+        <h3 className="font-bold capitalize text-[#424242] text-sm mb-0.5 flex items-center gap-1">
           <div className="w-1 h-4 bg-[#000000] rounded-full"></div>
           {categoria}
         </h3>
         <div>
           {productos.length > 0 ? (
-            <ul className="space-y-1">
+            <ul className="space-y-0.5">
               {productos.map((product, index) => (
                 <li
                   key={index}

@@ -6,6 +6,20 @@ import { Spinner } from "./widget/Spinner";
 import { agruparPorCategoriaProductos, renderEstado } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
 import { formattedAmount, formatTimeForInput } from "../utils/utilsFunction";
+import {
+  User2,
+  Store,
+  MapPinHouse,
+  Banknote,
+  Smartphone,
+  BookText,
+  Calendar,
+  ShoppingBasket,
+  ChartNoAxesColumn,
+  HandCoins,
+  Clock,
+  CircleDollarSign,
+} from "lucide-react";
 
 export const OrderModal = () => {
   const { setIsOpen } = modalStore();
@@ -58,9 +72,9 @@ export const OrderModal = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
               {/* Fecha Creación Card */}
               <div className="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-100 hover:-translate-y-1 border border-gray-100 group">
-                <div className="flex items-center gap-2">
-                  <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
-                    📅
+                <div className="flex items-center gap-4">
+                  <span className="text-blue-600 group-hover:scale-110 transition-transform duration-300">
+                    <Calendar size={28} />
                   </span>
                   <div>
                     <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
@@ -76,16 +90,20 @@ export const OrderModal = () => {
 
               {/* Domicilio Card */}
               <div className="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 group">
-                <div className="flex items-center gap-2">
-                  <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
-                    🏠
+                <div className="flex items-center gap-4">
+                  <span className="text-blue-600 group-hover:scale-110 transition-transform duration-300">
+                    {order?.domicilio === null ? (
+                      <Store size={28} />
+                    ) : (
+                      <MapPinHouse size={28} />
+                    )}
                   </span>
                   <div>
                     <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
                       Domicilio
                     </p>
                     <p className="font-semibold text-gray-800 capitalize">
-                      {order?.domicilio}
+                      {order?.domicilio === null ? "busca" : order?.domicilio}
                     </p>
                   </div>
                 </div>
@@ -93,9 +111,9 @@ export const OrderModal = () => {
 
               {/* Valor Card */}
               <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-green-200 group">
-                <div className="flex items-center gap-2">
+                <div className="text-blue-600 flex items-center gap-4">
                   <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
-                    💰
+                    <CircleDollarSign size={28} />
                   </span>
                   <div>
                     <p className="text-xs text-green-700 font-medium uppercase tracking-wide">
@@ -110,9 +128,9 @@ export const OrderModal = () => {
 
               {/* Estado Card */}
               <div className="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 group">
-                <div className="flex items-center gap-2">
-                  <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
-                    📊
+                <div className="flex items-center gap-4">
+                  <span className="text-blue-600 group-hover:scale-110 transition-transform duration-300">
+                    <ChartNoAxesColumn size={28} />
                   </span>
                   <div>
                     <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
@@ -127,9 +145,9 @@ export const OrderModal = () => {
 
               {/* Pago Card */}
               <div className="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 group">
-                <div className="flex items-center gap-2">
-                  <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
-                    {order?.fecha_pago ? "✅" : "⏳"}
+                <div className="text-blue-600 flex items-center gap-4">
+                  <span className="group-hover:scale-110 transition-transform duration-300">
+                    <HandCoins size={28} />
                   </span>
                   <div className="flex-1">
                     <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
@@ -150,9 +168,13 @@ export const OrderModal = () => {
 
               {/* Método de Pago Card */}
               <div className="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 group">
-                <div className="flex items-center gap-2">
-                  <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
-                    {order?.metodo_pago === "efectivo" ? "💵" : "📲"}
+                <div className="flex items-center gap-4">
+                  <span className="text-blue-600 group-hover:scale-110 transition-transform duration-300">
+                    {order?.metodo_pago === "efectivo" ? (
+                      <Banknote size={28} />
+                    ) : (
+                      <Smartphone size={28} />
+                    )}
                   </span>
                   <div>
                     <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
@@ -170,9 +192,9 @@ export const OrderModal = () => {
               {/* Hora Entrega Card */}
               {order?.hora_entrega && (
                 <div className="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 group">
-                  <div className="flex items-center gap-2">
-                    <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
-                      ⏰
+                  <div className="flex items-center gap-4">
+                    <span className="text-blue-600 group-hover:scale-110 transition-transform duration-300">
+                      <Clock size={28} />
                     </span>
                     <div>
                       <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
@@ -185,13 +207,32 @@ export const OrderModal = () => {
                   </div>
                 </div>
               )}
+              {order?.apellido_cliente && (
+                <div className="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 group">
+                  <div className="flex items-center gap-4">
+                    <span className="text-blue-600 group-hover:scale-110 transition-transform duration-300">
+                      <User2 size={28} />
+                    </span>
+                    <div>
+                      <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
+                        Cliente
+                      </p>
+                      <p className="font-semibold text-gray-800 capitalize">
+                        {order.apellido_cliente}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Observación Section */}
             {order?.observacion && (
               <div className="w-full bg-blue-50 rounded-xl p-5 border-l-4 border-blue-500 shadow-md hover:shadow-lg transition-all duration-300 animate-fadeIn">
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl mt-1">📝</span>
+                <div className="flex items-start gap-4">
+                  <span className="text-blue-600 mt-1">
+                    <BookText size={28} />
+                  </span>
                   <div>
                     <p className="text-sm text-blue-700 font-semibold uppercase tracking-wide mb-1">
                       Observación
@@ -207,7 +248,9 @@ export const OrderModal = () => {
             {/* Productos Section */}
             <div className="w-full bg-gradient-to-br from-gray-100 to-gray-50 rounded-xl p-6 shadow-md border border-gray-300">
               <div className="flex items-center gap-3 mb-5">
-                <span className="text-3xl">🛒</span>
+                <span className="text-3xl">
+                  <ShoppingBasket size={28} />
+                </span>
                 <h2 className="font-bold text-xl text-gray-900">Productos</h2>
               </div>
 

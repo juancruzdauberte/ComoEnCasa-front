@@ -46,6 +46,7 @@ export async function updateOrder(
     observacion,
     estado,
     hora_entrega,
+    apellido_cliente,
   } = dataUpdated;
   try {
     const { data } = await api.put<Order>(`/orders/${id}`, {
@@ -56,6 +57,7 @@ export async function updateOrder(
       hora_entrega,
       observacion,
       estado,
+      apellido_cliente,
     });
     return data;
   } catch (error) {
