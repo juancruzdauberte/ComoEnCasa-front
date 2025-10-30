@@ -73,7 +73,7 @@ export type Producto = {
 
 export type Order = {
   id: number;
-  domicilio: string;
+  domicilio: string | null;
   fecha_pedido: string;
   hora_entrega: null | string;
   monto: number | null;

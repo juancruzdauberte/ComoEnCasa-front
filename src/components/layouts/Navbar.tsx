@@ -158,7 +158,7 @@ export const Navbar = () => {
                      shadow-lg hover:shadow-red-600/50 focus-ring gpu-accelerated"
           >
             {/* Icono */}
-            <div className="flex-shrink-0 transform group-hover:rotate-12 transition-gpu duration-fast">
+            <div className="flex-shrink-0 transform transition-gpu duration-fast">
               <IoIosLogOut size={24} />
             </div>
 
@@ -176,19 +176,6 @@ export const Navbar = () => {
                           transition-opacity duration-fast rounded-xl"
             ></div>
           </button>
-        </div>
-
-        {/* Indicador de estado - OPTIMIZADO */}
-        <div className="px-5 mt-4">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-            <span
-              className={`text-xs text-gray-500 whitespace-nowrap transition-gpu duration-200
-                        ${isHovered ? "opacity-100 w-auto" : "opacity-0 w-0"}`}
-            >
-              Sistema activo
-            </span>
-          </div>
         </div>
       </nav>
     </aside>

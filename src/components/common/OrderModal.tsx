@@ -254,12 +254,12 @@ export const OrderModal = () => {
                 <h2 className="font-bold text-xl text-gray-900">Productos</h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                 {Object.entries(productosAgrupados!).map(
                   ([categoria, productos]) => (
                     <div
                       key={categoria}
-                      className="bg-white rounded-lg p-2 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-gray-300 group"
+                      className="bg-white rounded-lg p-1.5 w-44 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-gray-300 group"
                     >
                       <h3 className="font-bold text-md text-gray-900 mb-3 ml-1 pb-2 border-b-2 border-gray-200 capitalize group-hover:text-gray-600 transition-colors duration-300">
                         {categoria}
@@ -273,7 +273,7 @@ export const OrderModal = () => {
                             <span className="font-medium group-hover/item:translate-x-1 ml-1 transition-transform duration-200">
                               {producto.nombre}
                             </span>
-                            <span className="bg-gray-100 text-gray-700 font-semibold px-2 py-1 rounded-full text-sm group-hover/item:scale-110 transition-transform duration-200">
+                            <span className="bg-gray-100 text-gray-700 font-semibold px-1.5 py-1 rounded-full text-sm group-hover/item:scale-110 transition-transform duration-200">
                               ×{producto.cantidad}
                             </span>
                           </li>

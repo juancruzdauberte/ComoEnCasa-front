@@ -34,7 +34,7 @@ export const FinanceMonthly = ({
               <div className="relative">
                 <select
                   className="w-full px-4 py-2.5 bg-white border-2 border-slate-300 rounded-xl 
-                           focus:border-blue-500 focus:bg-blue-50/30 focus:shadow-lg focus:scale-[1.02]
+                           focus:border-blue-500 focus:bg-slate-50/30 focus:shadow-lg focus:scale-[1.02]
                            hover:border-slate-400 hover:shadow-md appearance-none
                            transition-all duration-300 outline-none cursor-pointer font-medium text-sm
                            bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] 
@@ -62,9 +62,11 @@ export const FinanceMonthly = ({
                     </option>
                   ))}
                 </select>
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/0 to-blue-500/0 
+                <div
+                  className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/0 to-blue-500/0 
                               group-hover:from-blue-500/5 group-hover:to-transparent 
-                              transition-all duration-300 pointer-events-none"></div>
+                              transition-all duration-300 pointer-events-none"
+                ></div>
               </div>
             </div>
 
@@ -92,9 +94,11 @@ export const FinanceMonthly = ({
                     </option>
                   ))}
                 </select>
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/0 to-blue-500/0 
+                <div
+                  className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/0 to-blue-500/0 
                               group-hover:from-blue-500/5 group-hover:to-transparent 
-                              transition-all duration-300 pointer-events-none"></div>
+                              transition-all duration-300 pointer-events-none"
+                ></div>
               </div>
             </div>
           </div>

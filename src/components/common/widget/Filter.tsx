@@ -62,7 +62,7 @@ export const Filter = ({ filter, setFilter }: Props) => {
           onClick={() => setFilter("todos")}
           className="mt-2 px-4 py-2 bg-[#757575] hover:bg-[#424242] text-[#FFFFFF] rounded-lg
                    font-semibold transition-all duration-300 hover:shadow-lg
-                   transform hover:scale-105 active:scale-95"
+                   transform active:scale-95"
         >
           Limpiar filtros
         </button>

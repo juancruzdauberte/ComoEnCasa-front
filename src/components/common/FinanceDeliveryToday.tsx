@@ -14,7 +14,7 @@ export const FinanceDeliveryToday = ({
 }: Props) => {
   const filteredOrders = orders.filter(
     (o) =>
-      o.domicilio !== "busca" &&
+      o.domicilio !== null &&
       toLocalDateStringUTC3(o.fecha_pedido) ===
         toLocalDateStringUTC3(new Date().toISOString())
   );
@@ -32,7 +32,7 @@ export const FinanceDeliveryToday = ({
             { label: "A pagar 💲", value: amountToPay },
           ]}
         />
-        <p>
+        <p className="ml-2">
           Pedidos totales:{" "}
           <span className="font-semibold">{filteredOrders.length}</span>
         </p>

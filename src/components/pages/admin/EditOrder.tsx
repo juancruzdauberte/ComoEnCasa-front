@@ -391,10 +391,13 @@ export const EditOrder = () => {
                             </p>
                           </div>
                         ) : (
-                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                             {Object.entries(productosAgrupados).map(
                               ([categoria, productos]) => (
-                                <div key={categoria} className="space-y-3">
+                                <div
+                                  key={categoria}
+                                  className="space-y-3 bg-gray-300/20 p-2.5 rounded-xl w-[230px] h-fit"
+                                >
                                   <h5 className="font-bold text-slate-600 capitalize flex items-center gap-2">
                                     <div className="w-2 h-2 rounded-full bg-slate-600"></div>
                                     {categoria}
@@ -402,13 +405,13 @@ export const EditOrder = () => {
                                   {productos.map(({ producto, cantidad }) => (
                                     <div
                                       key={producto.id}
-                                      className="flex items-center w-[250px] gap-3 p-3 bg-white border-2 border-slate-200 rounded-xl hover:border-slate-300 hover:shadow-lg transition-all duration-200"
+                                      className="flex items-center gap-3 p-3 bg-white border-2 border-slate-200 rounded-xl hover:border-slate-300 hover:shadow-lg transition-all duration-200"
                                     >
                                       <span className="flex-1 font-medium capitalize text-slate-700">
                                         {producto.nombre}
                                       </span>
                                       <input
-                                        type="text"
+                                        type="number"
                                         min={1}
                                         value={cantidad}
                                         onChange={(e) =>

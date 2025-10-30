@@ -79,6 +79,10 @@ export const CreateOrder = () => {
             Los campos con <span className="text-red-500 font-semibold">*</span>{" "}
             son requeridos
           </p>
+          <p className="text-slate-600 flex items-center justify-center gap-2">
+            <span className="text-yellow-500 font-semibold">*</span> Si
+            domicilio está vacío, cliente es requerido
+          </p>
         </div>
 
         <form
@@ -126,6 +130,7 @@ export const CreateOrder = () => {
                   <div className="group">
                     <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2">
                       <User2Icon className="w-5 h-5" />
+                      <span className="text-yellow-500">*</span>
                       Cliente
                     </label>
                     <input

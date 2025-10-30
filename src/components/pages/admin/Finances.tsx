@@ -231,8 +231,8 @@ export const Finances = () => {
               {valueAccordion === "pedidos-mes" && (
                 <div className="animate-fade-in">
                   <FinanceMonthly
-                    actuallyMonth={actuallyMonth}
-                    actuallyYear={actuallyYear}
+                    actuallyMonth={month}
+                    actuallyYear={year}
                     amountMonthly={amountMonthly}
                     setMonth={setMonth}
                     setYear={setYear}

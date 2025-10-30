@@ -33,7 +33,7 @@ export const FinanceOrderToday = ({
             { label: "Monto total 💲", value: amountToday },
           ]}
         />
-        <p>
+        <p className="ml-2">
           Pedidos totales:{" "}
           <span className="font-semibold">{filteredOrders.length}</span>
         </p>

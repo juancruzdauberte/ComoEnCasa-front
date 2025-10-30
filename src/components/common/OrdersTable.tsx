@@ -137,10 +137,7 @@ const OrderTableRow = memo(function OrderTableRow({
           )}
 
           <div className="flex flex-col">
-            <span
-              className="text-gray-700 font-medium truncate max-w-xs"
-              title={order.domicilio}
-            >
+            <span className="text-gray-700 font-medium truncate max-w-xs">
               {order.domicilio === null ? "busca" : order.domicilio}
             </span>
 
