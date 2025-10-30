@@ -80,7 +80,11 @@ export const CreateOrder = () => {
             son requeridos
           </p>
           <p className="text-slate-600 flex items-center justify-center gap-2">
-            <span className="text-yellow-500 font-semibold">*</span> Si
+            <span className="text-blue-500 font-semibold">*</span> Sí cliente
+            retira por el local, dejar domicilio vacío
+          </p>
+          <p className="text-slate-600 flex items-center justify-center gap-2">
+            <span className="text-yellow-500 font-semibold">*</span> Sí
             domicilio está vacío, cliente es requerido
           </p>
         </div>
@@ -101,6 +105,7 @@ export const CreateOrder = () => {
                   <div className="group">
                     <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2">
                       <MapPin className="w-5 h-5" />
+                      <span className="text-blue-500">*</span>
                       Domicilio
                     </label>
                     <input
@@ -416,7 +421,10 @@ export const CreateOrder = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                           {Object.entries(productosAgrupados).map(
                             ([categoria, productos]) => (
-                              <div key={categoria} className="space-y-3">
+                              <div
+                                key={categoria}
+                                className="space-y-3 bg-gray-300/20 p-2.5 rounded-xl w-[230px] h-fit"
+                              >
                                 <h4 className="font-bold text-slate-600 capitalize flex items-center gap-2">
                                   <div className="w-2 h-2 rounded-full bg-slate-600"></div>
                                   {categoria}
@@ -424,7 +432,7 @@ export const CreateOrder = () => {
                                 {productos.map(({ producto }) => (
                                   <div
                                     key={producto.id}
-                                    className="flex items-center w-[250px] gap-3 p-3 bg-white border-2 border-slate-200 rounded-xl hover:border-slate-300 hover:shadow-lg transition-all duration-200"
+                                    className="flex items-center gap-3 p-3 bg-white border-2 border-slate-200 rounded-xl hover:border-slate-300 hover:shadow-lg transition-all duration-200"
                                   >
                                     <span className="flex-1 capitalize font-medium text-slate-700">
                                       {producto.nombre}

@@ -56,7 +56,7 @@ export const OrdersTable = memo(function OrdersTable({
         {
           duration: 3000,
           action: {
-            label: "Eliminar",
+            label: "✓ Confirmar",
             onClick: () => handleDelete(orderId),
           },
         }

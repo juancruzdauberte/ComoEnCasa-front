@@ -8,16 +8,14 @@ export const BtnPayOrder = ({ id }: { id: number }) => {
     <button
       onClick={(e) => {
         e.stopPropagation();
-        toast.warning(
-          `¿Estás seguro de que quieres marcar como pagado el pedido #${id}?`,
-          {
-            duration: 3000,
-            action: {
-              label: "Confirmar Pago",
-              onClick: () => payOrderMutation(id),
-            },
-          }
-        );
+        toast.warning(`Confirmar pago del pedido #${id}`, {
+          duration: 5000,
+          icon: "💳",
+          action: {
+            label: "✓ Confirmar",
+            onClick: () => payOrderMutation(id),
+          },
+        });
       }}
       type="button"
       className="p-1.5 rounded-lg bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700
