@@ -237,7 +237,7 @@ export const OrderModal = () => {
                     <p className="text-sm text-blue-700 font-semibold uppercase tracking-wide mb-1">
                       Observación
                     </p>
-                    <p className="text-gray-700 capitalize leading-relaxed">
+                    <p className="text-gray-700 leading-relaxed">
                       {order?.observacion}
                     </p>
                   </div>
@@ -259,7 +259,7 @@ export const OrderModal = () => {
                   ([categoria, productos]) => (
                     <div
                       key={categoria}
-                      className="bg-white rounded-lg p-1.5 w-44 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-gray-300 group"
+                      className="bg-white rounded-lg h-fit p-1.5 w-44 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-gray-300 group"
                     >
                       <h3 className="font-bold text-md text-gray-900 mb-3 ml-1 pb-2 border-b-2 border-gray-200 capitalize group-hover:text-gray-600 transition-colors duration-300">
                         {categoria}

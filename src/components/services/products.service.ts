@@ -44,7 +44,7 @@ export async function getProductById(id: number) {
 
 export async function createCategory(nombre: string) {
   try {
-    const { data } = await api.post(`/products/category`, { nombre });
+    const { data } = await api.post(`/products/categorys`, { nombre });
     return data;
   } catch (error) {
     console.error(error);
