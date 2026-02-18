@@ -173,7 +173,7 @@ export const EditOrder = () => {
                       value={field.state.value}
                       onChange={(e) =>
                         field.handleChange(
-                          e.target.value as "efectivo" | "transferencia" | ""
+                          e.target.value as "efectivo" | "transferencia" | "",
                         )
                       }
                       required
@@ -227,14 +227,16 @@ export const EditOrder = () => {
                           e.target.value as
                             | "preparando"
                             | "listo"
+                            | "en_reparto"
                             | "entregado"
-                            | "cancelado"
+                            | "cancelado",
                         )
                       }
                       className="w-full px-4 py-3 bg-slate-50/20 border-2 border-slate-200 rounded-xl focus:border-slate-500  transition-all duration-200 outline-none cursor-pointer capitalize"
                     >
                       <option value="preparando">🔄 Preparando</option>
                       <option value="listo">✅ Listo</option>
+                      <option value="en_reparto">🛵 En reparto</option>
                       <option value="entregado">📦 Entregado</option>
                       <option value="cancelado">❌ Cancelado</option>
                     </select>
@@ -309,13 +311,13 @@ export const EditOrder = () => {
                   const productosSeleccionados = field.state.value || [];
                   const productosAgrupados = agruparProductosPorCategoria(
                     productosSeleccionados,
-                    allProducts ?? []
+                    allProducts ?? [],
                   );
 
                   const agregarProducto = (producto_id: number) => {
                     if (
                       !productosSeleccionados.find(
-                        (p) => p.producto_id === producto_id
+                        (p) => p.producto_id === producto_id,
                       )
                     ) {
                       field.handleChange([
@@ -327,23 +329,23 @@ export const EditOrder = () => {
 
                   const cambiarCantidad = (
                     producto_id: number,
-                    nuevaCantidad: number
+                    nuevaCantidad: number,
                   ) => {
                     if (nuevaCantidad < 1) return;
                     field.handleChange(
                       productosSeleccionados.map((p) =>
                         p.producto_id === producto_id
                           ? { ...p, cantidad: nuevaCantidad }
-                          : p
-                      )
+                          : p,
+                      ),
                     );
                   };
 
                   const quitarProducto = (producto_id: number) => {
                     field.handleChange(
                       productosSeleccionados.filter(
-                        (p) => p.producto_id !== producto_id
-                      )
+                        (p) => p.producto_id !== producto_id,
+                      ),
                     );
                     removeProduct({
                       pedidoId: orderId,
@@ -417,7 +419,7 @@ export const EditOrder = () => {
                                         onChange={(e) =>
                                           cambiarCantidad(
                                             producto.id,
-                                            Number(e.target.value)
+                                            Number(e.target.value),
                                           )
                                         }
                                         className="w-14 p-1 text-center border-2 border-slate-200 rounded-lg focus:border-slate-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none"
@@ -434,7 +436,7 @@ export const EditOrder = () => {
                                     </div>
                                   ))}
                                 </div>
-                              )
+                              ),
                             )}
                           </div>
                         )}

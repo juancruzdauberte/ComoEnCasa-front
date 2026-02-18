@@ -16,22 +16,16 @@ api.interceptors.request.use(
     if (config.url?.includes("/auth/refresh")) return config;
 
     if (token && isTokenNearExpiry(token, 90)) {
-      console.log(
-        "[Interceptor] Token cerca de expirar. Intentando refrescar..."
-      );
-
       const { data } = await api.post<RefreshResponse>("/auth/refresh");
       token = data.accessToken;
       userStore.getState().setAccessToken(token!);
-      console.log("[Interceptor] Token refrescado exitosamente");
     }
 
     if (token) {
-      console.log("token actual", token);
       config.headers.Authorization = `Bearer ${token}`;
     }
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );

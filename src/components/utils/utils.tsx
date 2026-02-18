@@ -2,6 +2,7 @@ import type { JSX } from "react";
 import type { GetOrdersResponse, Producto } from "../types/types";
 import { formatTimeForInput } from "./utilsFunction";
 import { CheckCircle2, Clock, Package, XCircle } from "lucide-react";
+import { MdDeliveryDining } from "react-icons/md";
 
 export const renderEstado = (estado: string) => {
   const estados: Record<
@@ -14,28 +15,34 @@ export const renderEstado = (estado: string) => {
     }
   > = {
     cancelado: {
-      bg: "bg-gradient-to-r from-red-50 to-red-100",
-      border: "border-red-400/50",
+      bg: "bg-red-100",
+      border: "border-red-500",
       text: "text-red-700",
       icon: <XCircle size={14} />,
     },
     preparando: {
-      bg: "bg-gradient-to-r from-yellow-50 to-yellow-100",
-      border: "border-yellow-400/50",
+      bg: "bg-yellow-100",
+      border: "border-yellow-500",
       text: "text-yellow-700",
       icon: <Clock size={14} />,
     },
     listo: {
-      bg: "bg-gradient-to-r from-green-50 to-green-100",
-      border: "border-green-400/50",
+      bg: "bg-green-100",
+      border: "border-green-500",
       text: "text-green-700",
       icon: <CheckCircle2 size={14} />,
     },
     entregado: {
-      bg: "bg-gradient-to-r from-blue-50 to-blue-100",
-      border: "border-blue-400/50",
-      text: "text-blue-700",
+      bg: "bg-gray-100",
+      border: "border-gray-500",
+      text: "text-gray-700",
       icon: <Package size={14} />,
+    },
+    en_reparto: {
+      bg: "bg-blue-100",
+      border: "border-blue-500",
+      text: "text-blue-700",
+      icon: <MdDeliveryDining size={18} />,
     },
   };
 
@@ -53,7 +60,7 @@ export const renderEstado = (estado: string) => {
                     shadow-sm hover:shadow-md transition-all duration-300`}
     >
       {estadoConfig.icon}
-      {estado}
+      {estado === "en_reparto" ? "en reparto" : estado}
     </span>
   );
 };
@@ -90,29 +97,53 @@ export const agruparPorCategoriaProductos = (
 };
 
 export const renderUserOrders = (orders: GetOrdersResponse) => (
-  <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+  <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 p-4">
     {orders?.data
-      .filter((o) => o.estado === "preparando" || o.estado === "listo")
+      .filter(
+        (o) =>
+          o.estado === "preparando" ||
+          o.estado === "listo" ||
+          o.estado === "en_reparto",
+      )
+      .sort((a, b) => {
+        const priority: Record<string, number> = {
+          preparando: 1,
+          listo: 2,
+          en_reparto: 3,
+        };
+        return (priority[a.estado] || 99) - (priority[b.estado] || 99);
+      })
       .map((order, index) => (
         <div
           key={order.id}
           className="group border-2 border-[#BDBDBD]/30 shadow-lg rounded-2xl p-4 flex flex-col 
                  bg-gradient-to-br from-[#FFFFFF] to-[#BDBDBD]/5
                  hover:shadow-2xl hover:shadow-[#424242]/20 hover:border-[#757575]
-                 transition-all duration-300 hover:scale-105 relative overflow-hidden w-[300px] h-fit"
+                 transition-all duration-300 hover:scale-105 relative overflow-hidden w-full h-fit"
           style={{
             animation: `fadeInScale 0.4s ease-out ${index * 0.05}s both`,
           }}
         >
-          {/* Decoración superior */}
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#000000] via-[#424242] to-[#000000]"></div>
+          <div
+            className={
+              order.estado === "preparando"
+                ? "absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500"
+                : order.estado === "listo"
+                  ? "absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-green-400 via-emerald-500 to-teal-600"
+                  : order.estado === "en_reparto"
+                    ? "absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600"
+                    : order.estado === "entregado"
+                      ? "absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600"
+                      : "absolute top-0 left-0 w-full h-1.5 bg-gray-200"
+            }
+          ></div>
 
           {/* Header */}
           <header className="flex justify-between items-center mb-4 pb-3 border-b-2 border-[#BDBDBD]/30">
-            <span className="font-bold text-xl text-[#000000] flex items-center gap-2">
+            <span className="font-bold text-2xl text-gray-900 flex items-center gap-2">
               <div
-                className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#000000] to-[#424242] 
-                          flex items-center justify-center text-[#FFFFFF] text-sm"
+                className="w-10 h-10 rounded-lg bg-gray-900 
+                          flex items-center justify-center text-white text-lg font-bold"
               >
                 {order.id}
               </div>
@@ -152,7 +183,7 @@ export const renderUserOrders = (orders: GetOrdersResponse) => (
                 <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
                   Observación
                 </span>
-                <div className="text-[#424242] text-sm italic bg-[#BDBDBD]/10 p-2 rounded-lg">
+                <div className="text-gray-900 text-base font-medium bg-yellow-100 border-l-4 border-yellow-500 p-2 rounded-r-lg shadow-sm">
                   {order.observacion}
                 </div>
               </div>
@@ -235,7 +266,7 @@ export const renderProductos = (productos: Producto[]) => {
                   <span className="capitalize font-medium">
                     {product.nombre}
                   </span>
-                  <span className="ml-auto font-bold text-[#000000] bg-[#BDBDBD]/20 px-2 py-0.5 rounded">
+                  <span className="ml-auto font-black text-lg text-gray-900 bg-gray-200 px-3 py-0.5 rounded">
                     x{product.cantidad}
                   </span>
                 </li>

@@ -61,12 +61,7 @@ export const useUpdateOrderMutation = () => {
       data: CreateUpdateOrderResponse;
     }) => updateOrder(id, data),
     onSuccess: (updatedOrder, variables) => {
-      queryClient.setQueryData(["orders"], (oldOrders: Order[]) => {
-        if (!oldOrders) return oldOrders;
-        return oldOrders.map((order: Order) =>
-          order.id === variables.id ? { ...order, ...updatedOrder } : order
-        );
-      });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
 
       queryClient.setQueryData(["order", variables.id], (oldOrder: Order) => ({
         ...oldOrder,

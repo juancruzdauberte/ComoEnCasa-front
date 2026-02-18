@@ -18,24 +18,24 @@ export const userStore = create<UserStore>((set) => ({
   setLoading: (loading) => set({ loading }),
   setUser: (user) => {
     if (user) {
-      sessionStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(user));
     } else {
-      sessionStorage.removeItem("user");
+      localStorage.removeItem("user");
     }
 
     set({ user });
   },
   clearUser: () => {
-    sessionStorage.removeItem("user");
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     set({ user: null, accessToken: undefined });
   },
   setAccessToken: (accessToken: string | undefined) => {
     if (accessToken) {
       if (accessToken) {
-        sessionStorage.setItem("token", accessToken);
+        localStorage.setItem("token", accessToken);
       } else {
-        sessionStorage.removeItem("token");
+        localStorage.removeItem("token");
       }
       set({ accessToken });
     }

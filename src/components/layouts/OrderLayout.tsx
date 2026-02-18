@@ -63,6 +63,14 @@ export const OrderLayout = () => {
           } else {
             toast.info("Nuevo pedido recibido");
           }
+        } else if (data.action === "UPDATE_ORDER") {
+          queryClient.invalidateQueries({ queryKey: ["orders"] });
+          if (data.order) {
+            queryClient.invalidateQueries({
+              queryKey: ["order", data.order.id],
+            });
+            toast.info(`Pedido actualizado: #${data.order.id}`);
+          }
         }
       } catch (error) {
         console.error("Error parsing SSE data:", error);

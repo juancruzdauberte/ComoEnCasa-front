@@ -4,7 +4,7 @@ import { useUser } from "../hooks/useAuth";
 export const ProtectedRoutes = ({ role }: { role: string }) => {
   const { user, loading } = useUser();
 
-  if (loading) return <p>Cargnado..</p>;
+  if (loading) return <p>Cargando..</p>;
   if (!user) return <Navigate to="/login" replace />;
   if (user.rol !== role) return <Navigate to="/unhautorized" replace />;
 

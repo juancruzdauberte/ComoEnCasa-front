@@ -52,7 +52,7 @@ export type UpdateParamName = {
 export type CreateUpdateOrderResponse = {
   productos: { producto_id: number; cantidad: number }[];
   domicilio: string | null;
-  estado: "preparando" | "entregado" | "listo" | "cancelado";
+  estado: "preparando" | "entregado" | "listo" | "cancelado" | "en_reparto";
   hora_entrega: string | null;
   observacion: string | null;
   metodo_pago: "efectivo" | "transferencia" | "";
@@ -80,7 +80,7 @@ export type Order = {
   metodo_pago: "efectivo" | "transferencia";
   observacion: string;
   apellido_cliente: string;
-  estado: "preparando" | "entregado" | "listo" | "cancelado";
+  estado: "preparando" | "entregado" | "listo" | "cancelado" | "en_reparto";
   fecha_pago: Date | null;
   productos: Producto[];
 };

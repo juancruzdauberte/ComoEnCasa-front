@@ -6,8 +6,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { setLoading, setUser } = useUser();
   const { setToken } = useToken();
   useEffect(() => {
-    const savedUser = sessionStorage.getItem("user");
-    const savedToken = sessionStorage.getItem("token");
+    const savedUser = localStorage.getItem("user");
+    const savedToken = localStorage.getItem("token");
 
     if (savedToken && savedUser) {
       setUser(JSON.parse(savedUser));
