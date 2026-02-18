@@ -7,8 +7,12 @@ import { OrdersTable } from "../common/OrdersTable";
 import { Pagination } from "../common/widget/Pagination";
 import { orderStore } from "../store/orderStore";
 import { FileText } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { playNotificationSound } from "../utils/utilsFunction";
 
 export const OrderLayout = () => {
+  const queryClient = useQueryClient();
   const { user } = useUser();
   const { page, setPage, filter, setFilter, setLimit } = orderStore();
   const { data: orders, isLoading } = useOrders();
@@ -21,6 +25,59 @@ export const OrderLayout = () => {
   useEffect(() => {
     setLimit(user?.rol === "user" ? 100 : 10);
   }, [setLimit, user?.rol]);
+
+  useEffect(() => {
+    const apiUrl = `${import.meta.env.VITE_API_URL}/events`;
+
+    const eventSource = new EventSource(apiUrl, { withCredentials: true });
+
+    eventSource.onopen = () => {
+      // console.log("SSE Connection opened successfully");
+    };
+
+    eventSource.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+
+        if (data.action === "NEW_ORDER") {
+          playNotificationSound();
+
+          queryClient.invalidateQueries({ queryKey: ["orders"] });
+
+          if (data.order) {
+            queryClient.setQueryData(
+              ["orders", filter, page],
+              (oldData: any) => {
+                if (!oldData) return oldData;
+                return {
+                  ...oldData,
+                  data: [data.order, ...oldData.data],
+                  pagination: {
+                    ...oldData.pagination,
+                    totalItems: oldData.pagination.totalItems + 1,
+                  },
+                };
+              },
+            );
+            toast.info(`Nuevo pedido recibido: #${data.order.id}`);
+          } else {
+            toast.info("Nuevo pedido recibido");
+          }
+        }
+      } catch (error) {
+        console.error("Error parsing SSE data:", error);
+      }
+    };
+
+    eventSource.onerror = (error) => {
+      console.error("SSE Connection Error:", error);
+    };
+
+    return () => {
+      console.log("Closing SSE connection");
+      eventSource.close();
+    };
+  }, [queryClient]);
 
   const noOrders = orders?.data.length === 0;
 

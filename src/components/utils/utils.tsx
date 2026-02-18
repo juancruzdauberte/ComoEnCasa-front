@@ -60,7 +60,7 @@ export const renderEstado = (estado: string) => {
 
 export function agruparProductosPorCategoria(
   productosSeleccionados: { producto_id: number; cantidad: number }[],
-  allProducts: { id: number; nombre: string; categoria: string }[]
+  allProducts: { id: number; nombre: string; categoria: string }[],
 ) {
   const agrupados: Record<
     string,
@@ -79,7 +79,7 @@ export function agruparProductosPorCategoria(
 }
 
 export const agruparPorCategoriaProductos = (
-  productos: Producto[] | undefined
+  productos: Producto[] | undefined,
 ) => {
   return productos?.reduce<Record<string, Producto[]>>((acc, producto) => {
     const categoria = producto.categoria || "Sin categoría";
@@ -248,6 +248,6 @@ export const renderProductos = (productos: Producto[]) => {
           )}
         </div>
       </div>
-    )
+    ),
   );
 };
