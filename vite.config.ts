@@ -9,7 +9,7 @@ export default defineConfig({
     react(),
     legacy({
       // Adaptación para Fully Kiosk y Android TV box antiguos (Android 7 / Chrome 50+)
-      targets: ["Android >= 5", "Chrome >= 50", "Safari >= 10", "iOS >= 10"],
+      targets: ["defaults", "not IE 11", "Android >= 5", "Chrome >= 50"],
       additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
     }),
   ],
