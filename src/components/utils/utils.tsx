@@ -97,7 +97,7 @@ export const agruparPorCategoriaProductos = (
 };
 
 export const renderUserOrders = (orders: GetOrdersResponse) => (
-  <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 p-4">
+  <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-4">
     {orders?.data
       .filter(
         (o) =>
@@ -139,11 +139,11 @@ export const renderUserOrders = (orders: GetOrdersResponse) => (
           ></div>
 
           {/* Header */}
-          <header className="flex justify-between items-center mb-4 pb-3 border-b-2 border-[#BDBDBD]/30">
-            <span className="font-bold text-2xl text-gray-900 flex items-center gap-2">
+          <header className="flex justify-between items-center mb-3 pb-2 border-b-2 border-[#BDBDBD]/30">
+            <span className="font-bold text-xl text-gray-900 flex items-center gap-2">
               <div
-                className="w-10 h-10 rounded-lg bg-gray-900 
-                          flex items-center justify-center text-white text-lg font-bold"
+                className="w-8 h-8 rounded-lg bg-gray-900 
+                          flex items-center justify-center text-white text-base font-bold"
               >
                 {order.id}
               </div>
@@ -153,24 +153,24 @@ export const renderUserOrders = (orders: GetOrdersResponse) => (
           </header>
 
           {/* Datos principales */}
-          <div className="space-y-2.5 text-base">
+          <div className="space-y-2 text-sm">
             <div className="flex gap-3">
               <div>
-                <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
+                <span className="font-bold text-[#757575] text-[10px] uppercase block mb-0.5">
                   Domicilio
                 </span>
-                <div className="text-[#424242] line-clamp-2">
+                <div className="text-[#424242] line-clamp-2 leading-snug">
                   {order.domicilio === null ? "busca" : order.domicilio}
                 </div>
               </div>
               <div>
                 {order.hora_entrega && (
                   <div>
-                    <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
+                    <span className="font-bold text-[#757575] text-[10px] uppercase block mb-0.5">
                       Entrega
                     </span>
-                    <div className="flex items-center gap-2 text-[#424242] font-semibold">
-                      <Clock size={16} className="text-[#757575]" />
+                    <div className="flex items-center gap-1.5 text-[#424242] font-semibold">
+                      <Clock size={14} className="text-[#757575]" />
                       {formatTimeForInput(order.hora_entrega)}
                     </div>
                   </div>
@@ -180,10 +180,10 @@ export const renderUserOrders = (orders: GetOrdersResponse) => (
 
             {order.observacion && (
               <div>
-                <span className="font-bold text-[#757575] text-xs uppercase block mb-1">
+                <span className="font-bold text-[#757575] text-[10px] uppercase block mb-0.5">
                   Observación
                 </span>
-                <div className="text-gray-900 text-base font-medium bg-yellow-100 border-l-4 border-yellow-500 p-2 rounded-r-lg shadow-sm">
+                <div className="text-gray-900 text-sm font-medium bg-yellow-100 border-l-4 border-yellow-500 p-2 rounded-r-lg shadow-sm">
                   {order.observacion}
                 </div>
               </div>
@@ -191,9 +191,9 @@ export const renderUserOrders = (orders: GetOrdersResponse) => (
           </div>
 
           {order.productos && (
-            <div className="mt-3 pt-3 border-t-2 border-[#BDBDBD]/30">
-              <h4 className="font-bold text-[#000000] mb-1.5 flex items-center gap-2">
-                <Package size={16} className="text-[#757575]" />
+            <div className="mt-2 pt-2 border-t-2 border-[#BDBDBD]/30">
+              <h4 className="font-bold text-[#000000] mb-1 flex items-center gap-2 text-sm">
+                <Package size={14} className="text-[#757575]" />
                 Productos
               </h4>
               <div className="space-y-1 grid grid-cols-2 gap-1">
@@ -263,10 +263,10 @@ export const renderProductos = (productos: Producto[]) => {
                   className="flex items-center gap-2 text-[#424242] text-sm"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-[#757575]"></div>
-                  <span className="capitalize font-medium">
+                  <span className="capitalize font-medium leading-tight">
                     {product.nombre}
                   </span>
-                  <span className="ml-auto font-black text-lg text-gray-900 bg-gray-200 px-3 py-0.5 rounded">
+                  <span className="ml-auto font-black text-base text-gray-900 bg-gray-200 px-2 py-0.5 rounded">
                     x{product.cantidad}
                   </span>
                 </li>
