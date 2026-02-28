@@ -1,10 +1,18 @@
 import { defineConfig } from "vite";
 import path from "path";
 import react from "@vitejs/plugin-react-swc";
+import legacy from "@vitejs/plugin-legacy";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    legacy({
+      // Adaptación para Fully Kiosk y Android TV box antiguos (Android 7 / Chrome 50+)
+      targets: ["Android >= 5", "Chrome >= 50", "Safari >= 10", "iOS >= 10"],
+      additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
+    }),
+  ],
 
   resolve: {
     alias: {
