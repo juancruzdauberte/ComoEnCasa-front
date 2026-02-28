@@ -93,7 +93,7 @@ export const OrderLayout = () => {
     <section className="w-full relative">
       {/* Botón Volver a Admin (solo visible para admin en viewMode user) */}
       {viewMode === "user" && user?.rol === "admin" && (
-        <div className="absolute top-[-20px] left-2 z-50">
+        <div className="absolute top-[-40px] left-2 z-50">
           <button
             onClick={() => setViewMode("admin")}
             className="flex items-center gap-1.5 bg-black text-white px-3 py-1.5 rounded-lg 
