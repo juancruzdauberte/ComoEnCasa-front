@@ -1,17 +1,27 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logOut } from "../services/auth.service";
 import { useUser } from "../hooks/useAuth";
 import { IoIosLogOut } from "react-icons/io";
-import { Package, ShoppingCart, DollarSign } from "lucide-react";
+import { Package, ShoppingCart, DollarSign, UserCog } from "lucide-react";
 import { useState, useMemo } from "react";
+import { userStore } from "../store/userStore";
 
 export const Navbar = () => {
-  const { setUser } = useUser();
+  const { user, setUser, viewMode, setViewMode } = useUser();
+  const setAccessToken = userStore((state) => state.setAccessToken);
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     setUser(null);
+    setAccessToken(undefined);
     await logOut();
+    navigate("/login");
+  };
+
+  const handleSwitchViewData = () => {
+    const newMode = viewMode === "admin" ? "user" : "admin";
+    setViewMode(newMode);
   };
 
   // OPTIMIZACIÓN: Memoizar navItems para evitar re-renders
@@ -36,7 +46,7 @@ export const Navbar = () => {
         end: true,
       },
     ],
-    []
+    [],
   );
 
   return (
@@ -145,6 +155,35 @@ export const Navbar = () => {
             </li>
           ))}
         </ul>
+
+        {/* Switch Role Button */}
+        {user?.rol === "admin" && (
+          <div className="px-3 mb-3">
+            <button
+              onClick={handleSwitchViewData}
+              className="w-full flex items-center gap-4 px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white 
+                       rounded-xl transition-gpu duration-fast group relative overflow-hidden focus-ring gpu-accelerated"
+            >
+              <div className="flex-shrink-0 transform transition-gpu duration-fast group-hover:scale-110">
+                <UserCog size={24} />
+              </div>
+
+              <span
+                className={`font-semibold whitespace-nowrap transition-gpu duration-200
+                          ${isHovered ? "opacity-100 w-auto" : "opacity-0 w-0"}`}
+              >
+                {viewMode === "admin" ? "Vista Usuario" : "Vista Admin"}
+              </span>
+
+              <div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent 
+                            opacity-0 group-hover:opacity-100 
+                            transform -translate-x-full group-hover:translate-x-full 
+                            transition-transform duration-700 pointer-events-none"
+              ></div>
+            </button>
+          </div>
+        )}
 
         {/* Separador inferior */}
         <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mx-4 mb-4"></div>

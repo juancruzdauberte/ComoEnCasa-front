@@ -4,6 +4,8 @@ import type { User } from "../types/types";
 interface UserStore {
   accessToken: string | undefined;
   user: User | null;
+  viewMode: "admin" | "user";
+  setViewMode: (mode: "admin" | "user") => void;
   setUser: (user: User | null) => void;
   setAccessToken: (token: string | undefined) => void;
   clearUser: () => void;
@@ -13,6 +15,8 @@ interface UserStore {
 
 export const userStore = create<UserStore>((set) => ({
   user: null,
+  viewMode: "admin",
+  setViewMode: (mode) => set({ viewMode: mode }),
   accessToken: undefined,
   loading: true,
   setLoading: (loading) => set({ loading }),
