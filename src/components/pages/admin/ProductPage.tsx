@@ -86,7 +86,7 @@ export const ProductPage = () => {
               <Package size={40} className="text-[#FFFFFF]" />
             </div>
 
-            <h1 className="font-bold text-5xl md:text-6xl text-[#FFFFFF] drop-shadow-2xl">
+            <h1 className="font-bold text-xl md:text-5xl text-[#FFFFFF] drop-shadow-2xl">
               Productos y Categorías
             </h1>
 
@@ -122,7 +122,7 @@ export const ProductPage = () => {
                 <div className="p-2 bg-gradient-to-br from-[#000000] to-[#424242] rounded-lg">
                   <Plus size={24} className="text-[#FFFFFF]" />
                 </div>
-                <h2 className="font-bold text-2xl text-[#000000]">
+                <h2 className="font-bold text-lg md:text-2xl text-[#000000]">
                   Crear Producto
                 </h2>
               </div>
@@ -236,7 +236,7 @@ export const ProductPage = () => {
                 <div className="p-2 bg-gradient-to-br from-red-600 to-red-700 rounded-lg">
                   <Minus size={24} className="text-[#FFFFFF]" />
                 </div>
-                <h2 className="font-bold text-2xl text-[#000000]">
+                <h2 className="font-bold text-lg md:text-2xl text-[#000000]">
                   Eliminar Producto
                 </h2>
               </div>
@@ -362,7 +362,7 @@ export const ProductPage = () => {
                 <div className="p-2 bg-gradient-to-br from-[#000000] to-[#424242] rounded-lg">
                   <Plus size={24} className="text-[#FFFFFF]" />
                 </div>
-                <h2 className="font-bold text-2xl text-[#000000]">
+                <h2 className="font-bold text-lg md:text-2xl text-[#000000]">
                   Crear Categoría
                 </h2>
               </div>
@@ -437,7 +437,7 @@ export const ProductPage = () => {
                 <div className="p-2 bg-gradient-to-br from-red-600 to-red-700 rounded-lg">
                   <Minus size={24} className="text-[#FFFFFF]" />
                 </div>
-                <h2 className="font-bold text-2xl text-[#000000]">
+                <h2 className="font-bold text-lg md:text-2xl text-[#000000]">
                   Eliminar Categoría
                 </h2>
               </div>

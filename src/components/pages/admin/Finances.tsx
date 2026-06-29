@@ -93,7 +93,7 @@ export const Finances = () => {
             </div>
 
             {/* Title */}
-            <h1 className="font-bold text-5xl md:text-6xl text-[#FFFFFF] drop-shadow-2xl">
+            <h1 className="font-bold text-xl md:text-5xl text-[#FFFFFF] drop-shadow-2xl">
               Gestión Financiera
             </h1>
 
@@ -140,7 +140,7 @@ export const Finances = () => {
                            hover:bg-[#FFFFFF]/10 transition-all duration-300 group cursor-pointer"
                   style={{ animationDelay: `${0.4 + index * 0.1}s` }}
                 >
-                  <div className="text-3xl mb-2 group-hover:scale-110 transition-transform duration-300">
+                  <div className="text-2xl md:text-3xl mb-2 group-hover:scale-110 transition-transform duration-300">
                     {stat.icon}
                   </div>
                   <p className="text-[#BDBDBD] text-sm font-medium">

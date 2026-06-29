@@ -48,7 +48,7 @@ export const Navbar = () => {
   return (
     <>
       <aside
-        className={`hidden md:flex fixed left-0 top-0 h-screen bg-black shadow-2xl z-50 
+        className={`hidden md:block fixed left-0 top-0 h-screen bg-black shadow-2xl z-50 
                    transition-gpu duration-200
                    ${isHovered ? "w-64" : "w-20"}
                    gpu-accelerated`}

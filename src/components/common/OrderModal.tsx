@@ -53,7 +53,7 @@ export const OrderModal = () => {
 
         {/* Header Title con animación */}
         <div className="relative">
-          <h1 className="font-bold text-3xl bg-gradient-to-r from-gray-700 to-gray-500 bg-clip-text text-transparent animate-pulse-slow">
+          <h1 className="font-bold text-xl md:text-3xl bg-gradient-to-r from-gray-700 to-gray-500 bg-clip-text text-transparent animate-pulse-slow">
             Pedido #{order?.id}
           </h1>
           <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-black to-gray-400 rounded-full transform scale-x-0 animate-expandWidth"></div>

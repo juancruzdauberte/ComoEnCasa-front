@@ -89,7 +89,7 @@ export const EditOrder = () => {
           <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-4 md:p-8 animate-fade-in">
             <div className="flex items-center gap-3 mb-6">
               <ShoppingBag className="w-6 h-6 text-slate-600" />
-              <h3 className="text-2xl font-bold text-slate-900">
+              <h3 className="text-lg md:text-2xl font-bold text-slate-900">
                 Pedido #{orderId}
               </h3>
             </div>

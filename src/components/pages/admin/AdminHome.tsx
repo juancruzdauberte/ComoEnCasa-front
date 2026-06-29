@@ -16,7 +16,7 @@ export const AdminHome = () => {
         >
           <div className="mb-6 pb-4 border-b-2 border-[#BDBDBD]/30 flex justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-[#000000] flex items-center gap-3">
+              <h2 className="text-lg md:text-2xl font-bold text-[#000000] flex items-center gap-3">
                 <div className="w-1 h-8 bg-gradient-to-b from-[#000000] to-[#424242] rounded-full"></div>
                 Gestión de Pedidos
               </h2>
