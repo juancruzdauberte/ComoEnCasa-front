@@ -67,7 +67,7 @@ export const Finances = () => {
   return (
     <section className="min-h-screen bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF]">
       {/* Header Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#000000] via-[#424242] to-[#000000] pt-16 pb-24">
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#000000] via-[#424242] to-[#000000] pt-8 md:pt-16 pb-16 md:pb-24">
         <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
@@ -81,7 +81,7 @@ export const Finances = () => {
 
         <div className="absolute top-10 right-10 w-32 h-32 bg-[#BDBDBD]/10 rounded-full blur-3xl animate-pulse"></div>
 
-        <div className="relative container mx-auto px-6">
+        <div className="relative container mx-auto px-3 md:px-6">
           <div className="text-center space-y-6 animate-fade-in">
             {/* Icon */}
             <div
@@ -168,10 +168,10 @@ export const Finances = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-6 mt-1 pb-12">
-        <div className="flex gap-6">
+      <div className="container mx-auto px-3 md:px-6 mt-1 pb-12">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6">
           {/* Sidebar Navigation */}
-          <div className="w-1/5 animate-slide-in-left">
+          <div className="w-full md:w-1/5 animate-slide-in-left">
             <div
               className="bg-[#FFFFFF] rounded-2xl shadow-xl border-2 border-[#BDBDBD]/30 p-4
                           hover:shadow-2xl hover:shadow-[#424242]/10 transition-all duration-300"
@@ -194,7 +194,7 @@ export const Finances = () => {
             style={{ animationDelay: "0.2s" }}
           >
             <div
-              className="bg-[#FFFFFF] rounded-2xl shadow-xl border-2 border-[#BDBDBD]/30 p-8
+              className="bg-[#FFFFFF] rounded-2xl shadow-xl border-2 border-[#BDBDBD]/30 p-4 md:p-8
                           hover:shadow-2xl hover:shadow-[#424242]/10 transition-all duration-300 min-h-[400px] flex justify-center"
               id="finanzas"
             >
