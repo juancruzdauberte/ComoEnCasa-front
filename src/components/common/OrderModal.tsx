@@ -31,10 +31,10 @@ export const OrderModal = () => {
   return (
     <div
       id="tablaPedidos"
-      className="bg-gradient-to-br from-white via-slate-50 to-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[85vh] relative animate-fadeIn text-gray-800 border border-gray-100 backdrop-blur-sm flex flex-col overflow-hidden "
+      className="bg-gradient-to-br from-white via-slate-50 to-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] md:max-h-[85vh] relative animate-fadeIn text-gray-800 border border-gray-100 backdrop-blur-sm flex flex-col overflow-hidden"
     >
       {/* Header Fijo */}
-      <div className="flex-shrink-0 relative px-8 pt-8 pb-4 border-b border-gray-200 bg-gradient-to-br from-white via-slate-50 to-white">
+      <div className="flex-shrink-0 relative px-4 md:px-8 pt-4 md:pt-8 pb-4 border-b border-gray-200 bg-gradient-to-br from-white via-slate-50 to-white">
         {/* Edit Button with Hover Animation */}
         <button
           onClick={() => {
@@ -42,7 +42,7 @@ export const OrderModal = () => {
             setIsOpen(false);
             navigate(`/admin/order/${orderSelected}`);
           }}
-          className="absolute top-6 right-6 text-gray-600 transition-all duration-200 hover:text-blue-600 hover:scale-110 hover:rotate-12 p-2 rounded-lg hover:bg-blue-50 group z-10"
+          className="absolute top-3 md:top-6 right-3 md:right-6 text-gray-600 transition-all duration-200 hover:text-blue-600 hover:scale-110 hover:rotate-12 p-2 rounded-lg hover:bg-blue-50 group z-10"
           aria-label="Editar pedido"
         >
           <VscEdit
@@ -61,7 +61,7 @@ export const OrderModal = () => {
       </div>
 
       {/* Contenido con Scroll */}
-      <div className="flex-1 overflow-y-auto px-8 py-6 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
+      <div className="flex-1 overflow-y-auto px-4 md:px-8 py-4 md:py-6 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
         {isLoading ? (
           <div className="text-center text-gray-500 py-12">
             <Spinner size={40} text="Cargando..." />
@@ -246,7 +246,7 @@ export const OrderModal = () => {
             )}
 
             {/* Productos Section */}
-            <div className="w-full bg-gradient-to-br from-gray-100 to-gray-50 rounded-xl p-6 shadow-md border border-gray-300">
+            <div className="w-full bg-gradient-to-br from-gray-100 to-gray-50 rounded-xl p-3 md:p-6 shadow-md border border-gray-300">
               <div className="flex items-center gap-3 mb-5">
                 <span className="text-3xl">
                   <ShoppingBasket size={28} />
@@ -254,12 +254,12 @@ export const OrderModal = () => {
                 <h2 className="font-bold text-xl text-gray-900">Productos</h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
                 {Object.entries(productosAgrupados!).map(
                   ([categoria, productos]) => (
                     <div
                       key={categoria}
-                      className="bg-white rounded-lg h-fit p-1.5 w-44 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-gray-300 group"
+                      className="bg-white rounded-lg h-fit p-1.5 w-full shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-gray-300 group"
                     >
                       <h3 className="font-bold text-md text-gray-900 mb-3 ml-1 pb-2 border-b-2 border-gray-200 capitalize group-hover:text-gray-600 transition-colors duration-300">
                         {categoria}

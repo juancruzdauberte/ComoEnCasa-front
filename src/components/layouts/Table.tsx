@@ -31,7 +31,7 @@ export function Table<T>({
                 {headers.map((header, index) => (
                   <th
                     key={header.key}
-                    className="text-left p-4 text-[#FFFFFF] font-bold uppercase text-sm tracking-wider
+                    className="text-left p-2 md:p-4 text-[#FFFFFF] font-bold uppercase text-sm tracking-wider
                                border-b-2 border-[#757575] relative group"
                     style={{
                       animation: `slideDown 0.4s ease-out ${
@@ -58,7 +58,7 @@ export function Table<T>({
             <tbody className="bg-white divide-y divide-[#BDBDBD]/30">
               {data.length === 0 ? (
                 <tr>
-                  <td colSpan={headers.length} className="text-center p-16">
+                  <td colSpan={headers.length} className="text-center p-8 md:p-16">
                     <div className="flex flex-col items-center gap-4 animate-fade-in">
                       <div
                         className="w-24 h-24 rounded-full bg-gradient-to-br from-[#BDBDBD]/20 to-[#757575]/20 
@@ -102,7 +102,7 @@ export function Table<T>({
         {/* Footer decorativo (sin cambios) */}
         {data.length > 0 && (
           <div
-            className="bg-gradient-to-r from-[#BDBDBD]/10 to-transparent px-4 py-3 
+            className="bg-gradient-to-r from-[#BDBDBD]/10 to-transparent px-3 md:px-4 py-2 md:py-3 
                        border-t border-[#BDBDBD]/30"
           >
             <div className="flex items-center justify-between">

@@ -14,12 +14,12 @@ export const Modal = ({ children }: { children: ReactNode }) => {
 
   return (
     <section
-      className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm animate-fadeIn overflow-y-auto py-8"
+      className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm animate-fadeIn overflow-y-auto py-4 md:py-8"
       onClick={handleBackgroundClick}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative max-w-4xl w-full mx-4 animate-scale-in"
+        className="relative max-w-4xl w-full mx-2 md:mx-4 animate-scale-in"
       >
         {/* Botón de cerrar flotante - OPTIMIZADO */}
         <button

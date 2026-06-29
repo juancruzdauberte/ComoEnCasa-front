@@ -63,15 +63,15 @@ export const CreateOrder = () => {
     );
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF] py-12">
-      <div className="container mx-auto px-6 max-w-4xl">
+    <section className="min-h-screen bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF] py-6 md:py-12">
+      <div className="container mx-auto px-3 md:px-6 max-w-4xl">
         {/* Header animado */}
-        <div className="text-center mb-12 animate-slide-down">
+        <div className="text-center mb-6 md:mb-12 animate-slide-down">
           <div className="inline-flex items-center gap-3 mb-4">
             <div className="p-3 bg-black rounded-2xl shadow-lg">
               <ShoppingBag className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-black to-gray-500 bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-black to-gray-500 bg-clip-text text-transparent">
               Crear Pedido
             </h1>
           </div>
@@ -97,7 +97,7 @@ export const CreateOrder = () => {
           className="space-y-8"
         >
           {/* Card principal con glassmorphism */}
-          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 animate-fade-in">
+          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-4 md:p-8 animate-fade-in">
             {/* Información básica */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <form.Field name="domicilio">
@@ -112,9 +112,7 @@ export const CreateOrder = () => {
                       type="text"
                       value={field.state.value!}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                               focus:border-slate-500   
-                               transition-all duration-200 outline-none"
+                      className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:border-slate-500 transition-all duration-200 outline-none"
                       placeholder="Ingrese el domicilio de entrega"
                     />
                   </div>
@@ -142,9 +140,7 @@ export const CreateOrder = () => {
                       type="text"
                       value={field.state.value!}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
-                               focus:border-slate-500   
-                               transition-all duration-200 outline-none"
+                      className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:border-slate-500 transition-all duration-200 outline-none"
                       placeholder="Ingrese el apellido del cliente"
                     />
                     {field.state.meta.errors.length > 0 && (
@@ -187,7 +183,7 @@ export const CreateOrder = () => {
                           const soloNumeros = e.target.value.replace(/\D/g, "");
                           field.handleChange(Number(soloNumeros));
                         }}
-                        className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
+                        className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
                                  focus:border-slate-500 
                                  transition-all duration-200 outline-none "
                         placeholder="0"
@@ -227,7 +223,7 @@ export const CreateOrder = () => {
                             e.target.value as "efectivo" | "transferencia" | ""
                           )
                         }
-                        className="w-full max-w-sm px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
+                        className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
                                  focus:border-slate-500 focus:bg-white focus:shadow-lg focus:scale-[1.02]
                                  hover:border-slate-300 hover:shadow-md appearance-none
                                  transition-all duration-300 outline-none cursor-pointer font-medium
@@ -423,7 +419,7 @@ export const CreateOrder = () => {
                             ([categoria, productos]) => (
                               <div
                                 key={categoria}
-                                className="space-y-3 bg-gray-300/20 p-2.5 rounded-xl w-[230px] h-fit"
+                                className="space-y-3 bg-gray-300/20 p-2.5 rounded-xl w-full h-fit"
                               >
                                 <h4 className="font-bold text-slate-600 capitalize flex items-center gap-2">
                                   <div className="w-2 h-2 rounded-full bg-slate-600"></div>
@@ -479,10 +475,10 @@ export const CreateOrder = () => {
                 );
               }}
             </form.Field>
-            <div className="flex gap-6 mt-5">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 mt-5">
               <form.Field name="hora_entrega">
                 {(field) => (
-                  <div className="group w-1/3">
+                  <div className="group w-full md:w-1/3">
                     <label className="flex items-center gap-2 font-semibold text-slate-700 mb-2 group-hover:text-slate-900 transition-colors">
                       <Clock className="w-5 h-5 group-hover:scale-110 transition-transform" />
                       Hora de entrega
@@ -494,7 +490,7 @@ export const CreateOrder = () => {
                         onChange={(e) =>
                           field.handleChange(e.target.value || null)
                         }
-                        className="w-full max-w-[200px] px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
+                        className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl 
                                  focus:border-slate-500 focus:bg-white focus:shadow-lg focus:scale-[1.02]
                                  hover:border-slate-300 hover:shadow-md
                                  transition-all duration-300 outline-none cursor-pointer"

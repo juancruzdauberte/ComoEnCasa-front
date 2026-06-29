@@ -77,8 +77,8 @@ export const EditOrder = () => {
     );
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF] py-12">
-      <div className="container mx-auto px-6 max-w-5xl">
+    <section className="min-h-screen bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF] py-6 md:py-12">
+      <div className="container mx-auto px-3 md:px-6 max-w-5xl">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -86,7 +86,7 @@ export const EditOrder = () => {
           }}
           className="space-y-6"
         >
-          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 animate-fade-in">
+          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-4 md:p-8 animate-fade-in">
             <div className="flex items-center gap-3 mb-6">
               <ShoppingBag className="w-6 h-6 text-slate-600" />
               <h3 className="text-2xl font-bold text-slate-900">
@@ -393,12 +393,12 @@ export const EditOrder = () => {
                             </p>
                           </div>
                         ) : (
-                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                             {Object.entries(productosAgrupados).map(
                               ([categoria, productos]) => (
                                 <div
                                   key={categoria}
-                                  className="space-y-3 bg-gray-300/20 p-2.5 rounded-xl w-[230px] h-fit"
+                                  className="space-y-3 bg-gray-300/20 p-2.5 rounded-xl w-full h-fit"
                                 >
                                   <h5 className="font-bold text-slate-600 capitalize flex items-center gap-2">
                                     <div className="w-2 h-2 rounded-full bg-slate-600"></div>
