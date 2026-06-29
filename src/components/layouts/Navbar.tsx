@@ -51,13 +51,14 @@ export const Navbar = () => {
 
   return (
     <>
-      className={`hidden md:flex fixed left-0 top-0 h-screen bg-black shadow-2xl z-50 
-                 transition-gpu duration-200
-                 ${isHovered ? "w-64" : "w-20"}
-                 gpu-accelerated`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+      <aside
+        className={`hidden md:flex fixed left-0 top-0 h-screen bg-black shadow-2xl z-50 
+                   transition-gpu duration-200
+                   ${isHovered ? "w-64" : "w-20"}
+                   gpu-accelerated`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
       <nav className="flex flex-col h-full py-6">
         {/* Logo - OPTIMIZADO */}
         <Link
