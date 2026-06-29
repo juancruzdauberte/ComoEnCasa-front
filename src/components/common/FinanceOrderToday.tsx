@@ -20,7 +20,7 @@ export const FinanceOrderToday = ({
       toLocalDateStringUTC3(new Date().toISOString())
   );
   return (
-    <div className="flex gap-10">
+    <div className="flex flex-col gap-5 w-full">
       <div className="flex flex-col gap-5">
         <FinanceCard
           title="HOY"

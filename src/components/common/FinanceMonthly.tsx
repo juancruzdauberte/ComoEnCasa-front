@@ -24,7 +24,7 @@ export const FinanceMonthly = ({
       <FinanceCard
         title="MES"
         headerExtra={
-          <div className="flex gap-3 items-end">
+          <div className="flex gap-2 items-end w-full">
             {/* Selector de Mes */}
             <div className="group flex-1">
               <label className="flex items-center gap-2 font-semibold text-slate-700 text-sm mb-2 group-hover:text-slate-900 transition-colors">

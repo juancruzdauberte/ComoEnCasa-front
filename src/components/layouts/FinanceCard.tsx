@@ -20,7 +20,7 @@ export const FinanceCard = ({
 }: CardProps) => {
   return (
     <div
-      className="group relative flex flex-col border-2 border-gray-200/50 shadow-2xl rounded-3xl p-7 w-[400px] h-auto min-h-[280px]
+      className="group relative flex flex-col border-2 border-gray-200/50 shadow-2xl rounded-3xl p-4 md:p-7 w-full max-w-[400px] h-auto min-h-[240px] md:min-h-[280px]
                   bg-gradient-to-br from-white via-slate-50/30 to-blue-50/20
                   hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:border-gray-300/60
                   transition-all duration-700 overflow-hidden backdrop-blur-sm"
@@ -44,7 +44,7 @@ export const FinanceCard = ({
             </div>
           </div>
           <h2
-            className="text-3xl font-bold text-black bg-clip-text
+            className="text-xl md:text-3xl font-bold text-black bg-clip-text
                        transition-all duration-500"
           >
             {title}
@@ -108,7 +108,7 @@ export const FinanceCard = ({
 
             <div className="flex items-center gap-2">
               <span
-                className="font-bold text-xl bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent
+                className="font-bold text-base md:text-xl bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent
                             transition-all duration-300"
               >
                 ${item.value ? formattedAmount(Number(item.value)) : "0"}
