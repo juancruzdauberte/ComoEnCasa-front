@@ -13,7 +13,7 @@ export const AdminHome = () => {
     <section
       className={
         viewMode === "admin"
-          ? "mt-20 bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF]"
+          ? "mt-8 md:mt-20 bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF]"
           : ""
       }
     >
@@ -21,14 +21,14 @@ export const AdminHome = () => {
       <section
         className={
           viewMode === "admin"
-            ? "container mx-auto px-6 -mt-20 pb-12"
+            ? "container mx-auto px-3 md:px-6 -mt-8 md:-mt-20 pb-6 md:pb-12"
             : "w-full h-full p-2"
         }
       >
         <div
           className={
             viewMode === "admin"
-              ? "bg-[#FFFFFF] rounded-3xl shadow-2xl p-8 border-2 border-[#BDBDBD]/20 backdrop-blur-xl transform transition-all duration-500 hover:shadow-[#424242]/20 animate-scale-in"
+              ? "bg-[#FFFFFF] rounded-3xl shadow-2xl p-4 md:p-8 border-2 border-[#BDBDBD]/20 backdrop-blur-xl transform transition-all duration-500 hover:shadow-[#424242]/20 animate-scale-in"
               : "w-full h-full"
           }
           style={viewMode === "admin" ? { animationDelay: "0.8s" } : undefined}

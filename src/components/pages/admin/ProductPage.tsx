@@ -62,7 +62,7 @@ export const ProductPage = () => {
   return (
     <section className="min-h-screen bg-gradient-to-br from-[#FFFFFF] via-[#BDBDBD]/10 to-[#FFFFFF]">
       {/* Header */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#000000] via-[#424242] to-[#000000] pt-16 pb-24">
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#000000] via-[#424242] to-[#000000] pt-8 md:pt-16 pb-16 md:pb-24">
         <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
@@ -76,7 +76,7 @@ export const ProductPage = () => {
 
         <div className="absolute top-10 left-10 w-32 h-32 bg-[#BDBDBD]/10 rounded-full blur-3xl animate-pulse"></div>
 
-        <div className="relative container mx-auto px-6">
+        <div className="relative container mx-auto px-3 md:px-6">
           <div className="text-center space-y-6 animate-fade-in">
             <div
               className="inline-flex items-center justify-center w-20 h-20 rounded-2xl 
@@ -109,13 +109,13 @@ export const ProductPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-6 pb-12">
+      <div className="container mx-auto px-3 md:px-6 pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Columna Izquierda - Productos */}
           <div className="space-y-8 animate-slide-in-left">
             {/* Crear Producto */}
             <div
-              className="bg-[#FFFFFF] rounded-2xl shadow-xl border-2 border-[#BDBDBD]/30 p-8
+              className="bg-[#FFFFFF] rounded-2xl shadow-xl border-2 border-[#BDBDBD]/30 p-4 md:p-8
                           hover:shadow-2xl hover:shadow-[#424242]/10 transition-all duration-300"
             >
               <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-[#BDBDBD]/30">
@@ -229,7 +229,7 @@ export const ProductPage = () => {
 
             {/* Eliminar Producto */}
             <div
-              className="bg-[#FFFFFF] rounded-2xl shadow-xl border-2 border-[#BDBDBD]/30 p-8
+              className="bg-[#FFFFFF] rounded-2xl shadow-xl border-2 border-[#BDBDBD]/30 p-4 md:p-8
                           hover:shadow-2xl hover:shadow-[#424242]/10 transition-all duration-300"
             >
               <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-[#BDBDBD]/30">
@@ -355,7 +355,7 @@ export const ProductPage = () => {
           >
             {/* Crear Categoría */}
             <div
-              className="bg-[#FFFFFF] rounded-2xl shadow-xl border-2 border-[#BDBDBD]/30 p-8
+              className="bg-[#FFFFFF] rounded-2xl shadow-xl border-2 border-[#BDBDBD]/30 p-4 md:p-8
                           hover:shadow-2xl hover:shadow-[#424242]/10 transition-all duration-300"
             >
               <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-[#BDBDBD]/30">
@@ -430,7 +430,7 @@ export const ProductPage = () => {
 
             {/* Eliminar Categoría */}
             <div
-              className="bg-[#FFFFFF] rounded-2xl shadow-xl border-2 border-[#BDBDBD]/30 p-8
+              className="bg-[#FFFFFF] rounded-2xl shadow-xl border-2 border-[#BDBDBD]/30 p-4 md:p-8
                           hover:shadow-2xl hover:shadow-[#424242]/10 transition-all duration-300"
             >
               <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-[#BDBDBD]/30">
