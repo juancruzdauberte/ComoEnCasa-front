@@ -10,6 +10,8 @@ import { FileText, SlidersHorizontal } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { playNotificationSound } from "../utils/utilsFunction";
+import { OrderCardMobile } from "../common/OrderCardMobile";
+import { Spinner } from "../common/widget/Spinner";
 
 export const OrderLayout = () => {
   const queryClient = useQueryClient();
@@ -160,11 +162,29 @@ export const OrderLayout = () => {
 
           {/* Contenedor Principal de la Tabla */}
           <main className="flex-1 min-w-0">
-            <div className="space-y-4">
-              <OrdersTable
-                filteredTrips={orders?.data}
-                isFetching={isLoading}
-              />
+            <div className="space-y-3">
+              {/* Mobile: tarjetas */}
+              <div className="md:hidden space-y-2">
+                {isLoading ? (
+                  <div className="flex justify-center py-8">
+                    <Spinner text="Cargando pedidos..." size={25} />
+                  </div>
+                ) : orders?.data && orders.data.length > 0 ? (
+                  orders.data.map((order) => (
+                    <OrderCardMobile key={order.id} order={order} />
+                  ))
+                ) : (
+                  !isLoading && (
+                    <p className="text-center py-8 text-gray-500 font-medium">
+                      No se encontraron pedidos
+                    </p>
+                  )
+                )}
+              </div>
+              {/* Desktop: tabla */}
+              <div className="hidden md:block">
+                <OrdersTable filteredTrips={orders?.data} isFetching={isLoading} />
+              </div>
               {!noOrders && <Pagination setPage={setPage} page={page} />}
             </div>
           </main>
