@@ -6,17 +6,17 @@ import { useUser } from "../hooks/useAuth";
 import { OrdersTable } from "../common/OrdersTable";
 import { Pagination } from "../common/widget/Pagination";
 import { orderStore } from "../store/orderStore";
-import { FileText, UserCog, SlidersHorizontal } from "lucide-react";
+import { FileText, SlidersHorizontal } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { playNotificationSound } from "../utils/utilsFunction";
 
 export const OrderLayout = () => {
   const queryClient = useQueryClient();
-  const { user, viewMode, setViewMode } = useUser();
+  const { user } = useUser();
   const { page, setPage, filter, setFilter, setLimit } = orderStore();
   const { data: orders, isLoading } = useOrders();
-  const isUser = user?.rol === "user" || viewMode === "user";
+  const isUser = user?.rol === "user";
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
@@ -92,26 +92,7 @@ export const OrderLayout = () => {
 
   return (
     <section className="w-full relative">
-      {/* Botón Volver a Admin (solo visible para admin en viewMode user) */}
-      {viewMode === "user" && user?.rol === "admin" && (
-        <div className="absolute top-[-40px] left-2 z-50">
-          <button
-            onClick={() => setViewMode("admin")}
-            className="flex items-center gap-1.5 bg-black text-white px-3 py-1.5 rounded-lg 
-                     hover:bg-gray-800 transition-colors shadow-lg font-semibold text-sm"
-          >
-            <UserCog size={16} />
-            Admin
-          </button>
-        </div>
-      )}
-
-      {/* Margen superior si estamos en viewMode user para no solapar el botón con las tarjetas */}
-      <div
-        className={viewMode === "user" && user?.rol === "admin" ? "mt-16" : ""}
-      >
-        {!noOrders && isUser && renderUserOrders(orders!)}
-      </div>
+      {!noOrders && isUser && renderUserOrders(orders!)}
 
       {!isUser && (
         <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full">
@@ -191,42 +172,15 @@ export const OrderLayout = () => {
       )}
 
       {noOrders && isUser && (
-        <div
-          className={`flex flex-col items-center justify-center animate-fade-in ${
-            viewMode === "user" ? "min-h-[80vh]" : "py-16"
-          }`}
-        >
-          <div
-            className={`bg-gradient-to-br from-[#BDBDBD]/10 to-transparent rounded-3xl 
-                        border-2 border-[#BDBDBD]/30 text-center flex flex-col items-center justify-center ${
-                          viewMode === "user"
-                            ? "p-16 max-w-4xl w-full shadow-2xl"
-                            : "p-8 max-w-md"
-                        }`}
-          >
-            <div
-              className={`mx-auto mb-6 rounded-full bg-gradient-to-br from-[#BDBDBD]/20 to-[#757575]/20 
-                          flex items-center justify-center ${
-                            viewMode === "user" ? "w-32 h-32" : "w-20 h-20 mb-4"
-                          }`}
-            >
-              <FileText
-                size={viewMode === "user" ? 64 : 40}
-                className="text-[#757575]"
-              />
+        <div className="flex flex-col items-center justify-center animate-fade-in min-h-[80vh]">
+          <div className="bg-gradient-to-br from-[#BDBDBD]/10 to-transparent rounded-3xl border-2 border-[#BDBDBD]/30 text-center flex flex-col items-center justify-center p-16 max-w-4xl w-full shadow-2xl">
+            <div className="mx-auto mb-6 rounded-full bg-gradient-to-br from-[#BDBDBD]/20 to-[#757575]/20 flex items-center justify-center w-32 h-32">
+              <FileText size={64} className="text-[#757575]" />
             </div>
-            <p
-              className={`text-[#424242] font-bold ${
-                viewMode === "user" ? "text-4xl" : "text-lg font-semibold"
-              }`}
-            >
+            <p className="text-[#424242] font-bold text-4xl">
               Aún no hay pedidos para el día de hoy
             </p>
-            <p
-              className={`text-[#757575] ${
-                viewMode === "user" ? "text-2xl mt-4" : "text-sm mt-2"
-              }`}
-            >
+            <p className="text-[#757575] text-2xl mt-4">
               Los pedidos aparecerán aquí cuando estén disponibles
             </p>
           </div>

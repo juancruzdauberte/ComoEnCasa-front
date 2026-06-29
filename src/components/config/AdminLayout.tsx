@@ -1,18 +1,11 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "../layouts/Navbar";
-import { useUser } from "../hooks/useAuth";
 
 export const AdminLayout = () => {
-  const { viewMode } = useUser();
-
   return (
     <div className="flex min-h-screen bg-[#FFFFFF]">
-      {viewMode === "admin" && <Navbar />}
-      <main
-        className={`flex-1 transition-all duration-500 ${
-          viewMode === "admin" ? "md:ml-20" : "ml-0"
-        } pb-16 md:pb-0`}
-      >
+      <Navbar />
+      <main className="flex-1 transition-all duration-500 md:ml-20 pb-16 md:pb-0">
         <Outlet />
       </main>
     </div>

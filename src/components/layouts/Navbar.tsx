@@ -2,12 +2,12 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logOut } from "../services/auth.service";
 import { useUser } from "../hooks/useAuth";
 import { IoIosLogOut } from "react-icons/io";
-import { Package, ShoppingCart, DollarSign, UserCog } from "lucide-react";
+import { Package, ShoppingCart, DollarSign } from "lucide-react";
 import { useState, useMemo } from "react";
 import { userStore } from "../store/userStore";
 
 export const Navbar = () => {
-  const { user, setUser, viewMode, setViewMode } = useUser();
+  const { user, setUser } = useUser();
   const setAccessToken = userStore((state) => state.setAccessToken);
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
@@ -19,10 +19,6 @@ export const Navbar = () => {
     navigate("/login");
   };
 
-  const handleSwitchViewData = () => {
-    const newMode = viewMode === "admin" ? "user" : "admin";
-    setViewMode(newMode);
-  };
 
   // OPTIMIZACIÓN: Memoizar navItems para evitar re-renders
   const navItems = useMemo(
@@ -157,35 +153,6 @@ export const Navbar = () => {
           ))}
         </ul>
 
-        {/* Switch Role Button */}
-        {user?.rol === "admin" && (
-          <div className="px-3 mb-3">
-            <button
-              onClick={handleSwitchViewData}
-              className="w-full flex items-center gap-4 px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white 
-                       rounded-xl transition-gpu duration-fast group relative overflow-hidden focus-ring gpu-accelerated"
-            >
-              <div className="flex-shrink-0 transform transition-gpu duration-fast group-hover:scale-110">
-                <UserCog size={24} />
-              </div>
-
-              <span
-                className={`font-semibold whitespace-nowrap transition-gpu duration-200
-                          ${isHovered ? "opacity-100 w-auto" : "opacity-0 w-0"}`}
-              >
-                {viewMode === "admin" ? "Vista Usuario" : "Vista Admin"}
-              </span>
-
-              <div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent 
-                            opacity-0 group-hover:opacity-100 
-                            transform -translate-x-full group-hover:translate-x-full 
-                            transition-transform duration-700 pointer-events-none"
-              ></div>
-            </button>
-          </div>
-        )}
-
         {/* Separador inferior */}
         <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mx-4 mb-4"></div>
 
@@ -221,46 +188,32 @@ export const Navbar = () => {
     </aside>
 
       {/* Mobile Bottom Navigation */}
-      {viewMode === "admin" && (
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-black z-50 shadow-2xl border-t border-gray-800">
-          <div className="flex justify-around items-center h-full px-2">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.end}
-                className={({ isActive }) =>
-                  `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200
-                   ${isActive ? "bg-white text-black" : "text-gray-400 hover:text-white"}`
-                }
-              >
-                <div className="flex-shrink-0">{item.icon}</div>
-                <span className="text-[10px] font-semibold whitespace-nowrap">{item.label}</span>
-              </NavLink>
-            ))}
-
-            {user?.rol === "admin" && (
-              <button
-                onClick={handleSwitchViewData}
-                className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-gray-400 hover:text-white transition-all duration-200"
-              >
-                <UserCog size={22} />
-                <span className="text-[10px] font-semibold whitespace-nowrap">
-                  {viewMode === "admin" ? "Usuario" : "Admin"}
-                </span>
-              </button>
-            )}
-
-            <button
-              onClick={handleLogout}
-              className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-gray-400 hover:text-red-500 transition-all duration-200"
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-black z-50 shadow-2xl border-t border-gray-800">
+        <div className="flex justify-around items-center h-full px-2">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={({ isActive }) =>
+                `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200
+                 ${isActive ? "bg-white text-black" : "text-gray-400 hover:text-white"}`
+              }
             >
-              <IoIosLogOut size={22} />
-              <span className="text-[10px] font-semibold whitespace-nowrap">Salir</span>
-            </button>
-          </div>
-        </nav>
-      )}
+              <div className="flex-shrink-0">{item.icon}</div>
+              <span className="text-[10px] font-semibold whitespace-nowrap">{item.label}</span>
+            </NavLink>
+          ))}
+
+          <button
+            onClick={handleLogout}
+            className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-gray-400 hover:text-red-500 transition-all duration-200"
+          >
+            <IoIosLogOut size={22} />
+            <span className="text-[10px] font-semibold whitespace-nowrap">Salir</span>
+          </button>
+        </div>
+      </nav>
     </>
   );
 };
