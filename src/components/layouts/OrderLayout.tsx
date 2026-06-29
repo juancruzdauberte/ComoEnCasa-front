@@ -6,7 +6,7 @@ import { useUser } from "../hooks/useAuth";
 import { OrdersTable } from "../common/OrdersTable";
 import { Pagination } from "../common/widget/Pagination";
 import { orderStore } from "../store/orderStore";
-import { FileText, UserCog } from "lucide-react";
+import { FileText, UserCog, SlidersHorizontal } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { playNotificationSound } from "../utils/utilsFunction";
@@ -17,6 +17,7 @@ export const OrderLayout = () => {
   const { page, setPage, filter, setFilter, setLimit } = orderStore();
   const { data: orders, isLoading } = useOrders();
   const isUser = user?.rol === "user" || viewMode === "user";
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
     if (isUser) setFilter("hoy");
@@ -113,9 +114,22 @@ export const OrderLayout = () => {
       </div>
 
       {!isUser && (
-        <div className="flex gap-6 w-full">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full">
+          {/* Mobile filter toggle */}
+          <div className="md:hidden mb-1">
+            <button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-xl font-semibold text-sm transition-all duration-200"
+            >
+              <SlidersHorizontal size={16} />
+              {isFilterOpen ? "Ocultar filtros" : "Ver filtros"}
+              {filter && filter !== "todos" && (
+                <span className="bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">1</span>
+              )}
+            </button>
+          </div>
           {/* Sidebar de Filtros */}
-          <aside className="w-80 flex-shrink-0 space-y-4">
+          <aside className={`w-full md:w-80 md:flex-shrink-0 space-y-4 ${isFilterOpen ? "block" : "hidden"} md:block`}>
             <Filter filter={filter} setFilter={setFilter} />
 
             {/* Card de Estadísticas */}
