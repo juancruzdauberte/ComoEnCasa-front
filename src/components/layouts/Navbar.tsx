@@ -50,8 +50,8 @@ export const Navbar = () => {
   );
 
   return (
-    <aside
-      className={`fixed left-0 top-0 h-screen bg-black shadow-2xl z-50 
+    <>
+      className={`hidden md:flex fixed left-0 top-0 h-screen bg-black shadow-2xl z-50 
                  transition-gpu duration-200
                  ${isHovered ? "w-64" : "w-20"}
                  gpu-accelerated`}
@@ -218,5 +218,48 @@ export const Navbar = () => {
         </div>
       </nav>
     </aside>
+
+      {/* Mobile Bottom Navigation */}
+      {viewMode === "admin" && (
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-black z-50 shadow-2xl border-t border-gray-800">
+          <div className="flex justify-around items-center h-full px-2">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) =>
+                  `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200
+                   ${isActive ? "bg-white text-black" : "text-gray-400 hover:text-white"}`
+                }
+              >
+                <div className="flex-shrink-0">{item.icon}</div>
+                <span className="text-[10px] font-semibold whitespace-nowrap">{item.label}</span>
+              </NavLink>
+            ))}
+
+            {user?.rol === "admin" && (
+              <button
+                onClick={handleSwitchViewData}
+                className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-gray-400 hover:text-white transition-all duration-200"
+              >
+                <UserCog size={22} />
+                <span className="text-[10px] font-semibold whitespace-nowrap">
+                  {viewMode === "admin" ? "Usuario" : "Admin"}
+                </span>
+              </button>
+            )}
+
+            <button
+              onClick={handleLogout}
+              className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-gray-400 hover:text-red-500 transition-all duration-200"
+            >
+              <IoIosLogOut size={22} />
+              <span className="text-[10px] font-semibold whitespace-nowrap">Salir</span>
+            </button>
+          </div>
+        </nav>
+      )}
+    </>
   );
 };

@@ -10,8 +10,8 @@ export const AdminLayout = () => {
       {viewMode === "admin" && <Navbar />}
       <main
         className={`flex-1 transition-all duration-500 ${
-          viewMode === "admin" ? "ml-20" : "ml-0"
-        }`}
+          viewMode === "admin" ? "md:ml-20" : "ml-0"
+        } pb-16 md:pb-0`}
       >
         <Outlet />
       </main>
