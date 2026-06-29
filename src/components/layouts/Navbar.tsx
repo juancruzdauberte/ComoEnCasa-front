@@ -7,7 +7,7 @@ import { useState, useMemo } from "react";
 import { userStore } from "../store/userStore";
 
 export const Navbar = () => {
-  const { user, setUser } = useUser();
+  const { setUser } = useUser();
   const setAccessToken = userStore((state) => state.setAccessToken);
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
